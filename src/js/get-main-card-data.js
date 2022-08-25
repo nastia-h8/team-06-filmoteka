@@ -1,20 +1,19 @@
-import { fetchPopularFilms } from './fetch-trending-films'
-import { fetchGenres } from './fetch-genre-list'
+import { fetchPopularFilms } from './fetch-trending-films';
+import {getMovieData} from './get-movie-by-id'
 
 async function getCardData() {
-    // Получаем массив объектов с данными для 20 фильмов
-    const movieData = await fetchPopularFilms();
-    console.log(movieData)
-
-    // Получаем массив объекотв всех жанров:
-    const allGenres = await fetchGenres()
-    console.log(allGenres)
-
-    //Получаем массив из 20 массивв id жанров к фильму:
-    const movieGenresIds = movieData.map(data => data.genre_ids)
-    console.log(movieGenresIds)
-
-
-
+    const dataArr = new Array();
+    // Получаем массив id для 20 фильмов
+    const movieIds = await fetchPopularFilms();
+      
+    // Для каждго id запрашиваем данные о фильме с сервера
+    const cardData = await movieIds.map(async (id) => {
+        const response = await getMovieData(id);
+        dataArr.push(response);
+    })
+       
+    console.log('MOVIE DATA:', dataArr)
+    return dataArr;
 }
+
 getCardData()

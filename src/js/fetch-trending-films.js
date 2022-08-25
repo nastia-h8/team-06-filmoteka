@@ -7,11 +7,15 @@ export async function fetchPopularFilms() {
     const url = `${BASE_URL}/trending/movie/day?api_key=${API_KEY}`
     try {
         const response = await axios.get(url);
-        const data = response.data;
-        return data.results;
+        const data = response.data.results;
+        const ids = data.map(el => el.id);
+        console.log('MOVIE IDs:',ids)
+        return ids;
+        
     }
     catch (error) {
     console.log(error);
     }
 }
+
 
