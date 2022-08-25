@@ -7,7 +7,7 @@ async function getCardData() {
     const movieIds = await fetchPopularFilms();
       
     // Для каждго id запрашиваем данные о фильме с сервера
-    const cardData = await movieIds.map(async (id) => {
+    movieIds.map(async (id) => {
         const response = await getMovieData(id);
         dataArr.push(response);
     })

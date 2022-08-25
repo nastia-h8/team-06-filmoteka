@@ -8,10 +8,11 @@ export async function fetchPopularFilms() {
     try {
         const response = await axios.get(url);
         const data = response.data.results;
+
+        //Собираем массив из id трендовых фильмов
         const ids = data.map(el => el.id);
         console.log('MOVIE IDs:',ids)
-        return ids;
-        
+        return ids;   
     }
     catch (error) {
     console.log(error);
