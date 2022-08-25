@@ -1,3 +1,4 @@
+// BG PROP STARTS
 .header{
     padding-top: 40px;
     padding-bottom: 92px;
@@ -37,7 +38,7 @@ background-image: url('../images/bg-images/bg-mobile.jpg');
 }
 
 
-@media screen and (min-width:1200px) {
+@media screen and (min-width:1280px) {
     .header {
         max-width: 1600px;
         background-image: url('../images/bg-images/bg-desktop.jpg');
@@ -50,9 +51,7 @@ background-image: url('../images/bg-images/bg-mobile.jpg');
     }
 }
 
-.hidden{
-    display: none;
-}
+// GENERAL PROP AND MOBILE STARTS
 .header__container{
     display: flex;
     flex-direction: column;
@@ -141,7 +140,6 @@ background-image: url('../images/bg-images/bg-mobile.jpg');
     justify-content: space-between;
     margin-left: auto;
     margin-right: auto;
-    // margin-bottom: 54px;
 }
 
 .nav__list{
@@ -157,6 +155,7 @@ background-image: url('../images/bg-images/bg-mobile.jpg');
     margin-top: 54px;
 }
 
+// TABLET STARTS 
 @media screen and (min-width:768px) {
     .header__logo {
         font-weight: 500;
@@ -184,17 +183,24 @@ background-image: url('../images/bg-images/bg-mobile.jpg');
 
 }
 
+// DESKTOP STARTS 
 @media screen and (min-width:1280px){
     .header__logo {
             margin-right: 800px;
         }
 }
 
+
+// LIBRARY ELEMENTS
 .library-box{
     margin-top: 40px;
 }
 
+
 .library-btn{
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
     padding: 12px 36px;
     width: 120px;
 
