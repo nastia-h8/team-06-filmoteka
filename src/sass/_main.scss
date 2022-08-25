@@ -1,0 +1,56 @@
+.gallery-films__card {
+    width: 100%;
+    height: auto;
+}
+
+.gallery-films__hero {
+    font-weight: 500;
+    font-size: 12px;
+    line-height: 1.17;
+    text-transform: uppercase;
+    color: #000000;
+}
+
+
+// .gallery-films {
+//     display: flex;
+//         flex-wrap: wrap;
+//         margin: -8px;
+// }
+
+
+// .gallery-films__item {
+//     width: calc((100% - 3 * 16px) / 3);
+//     margin: 8px;
+// }
+
+.post-film {
+    display: flex;
+    align-items: center;
+}
+
+.post-film__description {
+    font-weight: 500;
+    font-size: 12px;
+    line-height: 1.17;
+    color: #FF6B08;
+}
+
+.post-film__rating {
+    width: 36px;
+    height: 18px;
+    background: #FF6B01;
+    border-radius: 5px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.post-film__rating-description {
+    font-weight: 500;
+    font-size: 12px;
+    line-height: 1.17;
+    color: #FFFFFF;
+}
+
