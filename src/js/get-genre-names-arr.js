@@ -33,7 +33,6 @@ async function getCardData() {
         genreNames.push(movieGenreNamsArr)
     })
 
-    console.log(await names) 
+    console.log(await genreNames) 
     return genreNames
 }
-getCardData()
