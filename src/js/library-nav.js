@@ -1,27 +1,27 @@
-const homeLink = document.querySelector('.nav__link.home-link');
-const libraryLink = document.querySelector('.nav__link.library-link');
 const searchFormBox = document.querySelector('.form-wrapper');
 const libraryBox = document.querySelector('.library-box');
 const watchedBtn = document.querySelector('#watched-btn');
 const queueBtn = document.querySelector('#queue-btn');
 
-libraryLink.addEventListener('click', onLibraryLinkClick);
-watchedBtn.addEventListener('click', onLibraryBtnsClick);
-queueBtn.addEventListener('click', onLibraryBtnsClick);
 
-
-function onLibraryLinkClick(e) {
-    e.preventDefault();
-    homeLink.classList.remove('nav__link--active');
-    libraryLink.classList.add('nav__link--active');
-    libraryLink.blur();
-
-    libraryBox.classList.remove('hidden');
-    searchFormBox.classList.add('hidden');
+if (watchedBtn) {
+    watchedBtn.addEventListener('click', onWatchedBtnClick);
 }
 
-function onLibraryBtnsClick(e) {
+if (queueBtn) {
+        queueBtn.addEventListener('click', onQueueBtnClick); 
+}
+
+
+function onWatchedBtnClick(e) {
     e.preventDefault();
-    watchedBtn.classList.toggle('accent-btn');
-    queueBtn.classList.toggle('accent-btn');
+    watchedBtn.classList.add('accent-btn');
+    queueBtn.classList.remove('accent-btn');
+}
+
+
+function onQueueBtnClick(e) {
+    e.preventDefault();
+    watchedBtn.classList.remove('accent-btn');
+    queueBtn.classList.add('accent-btn');
 }
