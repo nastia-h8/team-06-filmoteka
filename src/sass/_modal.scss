@@ -42,9 +42,12 @@
     overflow: hidden;
 }
 
-.film-info-wrap {
-    margin-top: 20px;
+@media screen and (max-width: 767.98px) {
+    .film-info-wrap {
+        margin-top: 20px;
+    }
 }
+
 
 .film-title {
     font-family: 'Roboto';
@@ -61,21 +64,20 @@
 }
 
 .film-indicator,
-.rating-divider {
-    width: 50%;
+.rating-divider {    
     font-family: 'Roboto';
     font-weight: 500;
     font-size: 12px;
     line-height: 1.33;
     color: #8C8C8C;
     margin: 0;
+    min-width: 90px;
     &:not(:last-child) {
         margin-bottom: 15px;
     }
 }
 
-.film-value {
-    width: 50%;
+.film-value {    
     font-weight: 500;
     font-size: 12px;
     line-height: 1.33;
@@ -88,8 +90,9 @@
 .rating-value {
     
     border-radius: 5px;
-    width: 36px;
-    height: 16px;
+    min-width: 36px;
+    min-height: 16px;
+    padding: 1px 5px;
 
     font-family: 'Roboto';
     font-weight: 500;
@@ -131,7 +134,7 @@
     margin-top: 20px;
     display: flex;
 
-    @media screen and (max-width: 1023.98px) {
+    @media screen and (max-width: 767.98px) {
         justify-content: space-between;
     }
 
@@ -184,13 +187,17 @@
 
    
     .film-info-wrap {
-        width: 264px;
+        // width: 264px;
     }
     
 
     .btn {
         width: 125px;
+        &-wached {
+            margin-right: 14px;
+        }
     }
+
 }
 
 @media screen and (min-width: 1024px) {
