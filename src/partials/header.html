@@ -11,37 +11,40 @@
         <button class="auth-btn" type="button">Log in</button>
         <ul class="nav__list">
           <li class="nav__item">
-            <a class="nav__link home-link nav__link--active" href="./index.html">Home</a>
+            <a class="nav__link nav__link--active home-link" href="./index.html"
+              >Home</a
+            >
           </li>
           <li class="nav__item">
-            <a class="nav__link library-link" href="./library.html">My library</a>
+            <a class="nav__link library-link" href="./library.html"
+              >My library</a
+            >
           </li>
         </ul>
       </nav>
     </div>
     <div class="form-wrapper">
-        <form class="movie-search" id="movie-search">
-            <input
-            id="search-input"
-                type="text"
-                class="search-input"
-                name="query"
-                autocomplete="off"
-                placeholder="Movie search"
-            />
-            <button type="submit" class="submit-btn">
-                <svg class="search-icon" width="12" height="12">
-                <use href="./images/sprite.svg#icon-search"></use>
-                </svg>
-            </button>
-        </form>
+      <form class="movie-search" id="movie-search">
+        <input
+          id="search-input"
+          type="text"
+          class="search-input"
+          name="query"
+          autocomplete="off"
+          placeholder="Movie search"
+        />
+        <button type="submit" class="submit-btn">
+          <svg class="search-icon" width="12" height="12">
+            <use href="./images/sprite.svg#icon-search"></use>
+          </svg>
+        </button>
+      </form>
     </div>
     <div class="library-box hidden">
-          <button type="button" class="library-btn accent-btn" id="watched-btn">
-            Watched
-          </button>
-          <button type="button" class="library-btn" id="queue-btn">Queue</button>
-        </div>
-      </div>
+      <button type="button" class="library-btn accent-btn" id="watched-btn">
+        Watched
+      </button>
+      <button type="button" class="library-btn" id="queue-btn">Queue</button>
+    </div>
   </div>
 </header>
