@@ -12,6 +12,7 @@ export default async function fechFilm(id) {
     filmDetails.genres.map(genre => genresArr.push(genre.name))
     const genres = genresArr.join(", ")
 
+    
 
     // return {
     //     poster: filmDetails.backdrop_path,
