@@ -1,0 +1,2 @@
+document.querySelector(".form-wrapper"),document.querySelector(".library-box");const e=document.querySelector("#watched-btn"),t=document.querySelector("#queue-btn");e&&e.addEventListener("click",(function(c){c.preventDefault(),e.classList.add("accent-btn"),t.classList.remove("accent-btn")})),t&&t.addEventListener("click",(function(c){c.preventDefault(),e.classList.remove("accent-btn"),t.classList.add("accent-btn")}));
+//# sourceMappingURL=index.c8dc1da9.js.map
