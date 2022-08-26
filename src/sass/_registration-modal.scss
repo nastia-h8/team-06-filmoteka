@@ -1,12 +1,25 @@
+.container__form.invis {
+  visibility: hidden;
+  opacity: 0;
+  top: 10%;
+}
 .container__form {
+  position: relative;
+  position: fixed;
+  z-index: 5;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
   padding: 20px;
   border-radius: 20px;
-  background-color: #eee;
+  background-color: #ffffff;
   width: 600px;
   margin: 0 auto;
-}
-.container__form.invis {
-  display: none;
+  opacity: 1;
+  -webkit-box-shadow: 0px 10px 13px -7px #000000,
+    5px 5px 14px 0px rgba(0, 0, 0, 0.81);
+  box-shadow: 0px 10px 13px -7px #000000, 5px 5px 14px 0px rgba(0, 0, 0, 0.81);
+  transition: all 500ms ease;
 }
 
 .h-100 {
@@ -16,7 +29,25 @@
   align-items: center;
   justify-content: space-between;
 }
+.close__icon {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  transition: color 250ms ease;
+
+  &:hover {
+    color: var(--accent-color);
+  }
+}
+// input[type='checkbox']:checked {
+//   filter: invert(100%) hue-rotate(18deg) brightness(1.7);
+// }
+.fa-solid {
+}
+.fa-circle-xmark {
+}
 .d-flex {
+  text-align: center;
 }
 .justify-content-center {
 }
@@ -95,9 +126,11 @@
 }
 .form-outline {
   position: relative;
+
+  width: 100%;
   &:focus-within .form-label {
-    padding: 5px;
-    border-radius: 5px;
+    padding: 0px 5px;
+
     font-size: 12px;
     transform: translate(10%, -60%);
     background-color: #ffffff;
@@ -117,7 +150,7 @@
   border-radius: 5px;
   padding: 5px;
   border: transparent;
-
+  width: 100%;
   outline: var(--tertiary-color) 2px solid;
   transition: outline 250ms ease;
 
@@ -125,9 +158,8 @@
     outline: var(--accent-color) 2px solid;
   }
   &:not(:placeholder-shown) + .form-label {
-    padding: 5px;
-    border-radius: 5px;
     font-size: 12px;
+    padding: 0px 5px;
     transform: translate(10%, -60%);
     background-color: #ffffff;
     color: var(--accent-color);
@@ -157,10 +189,12 @@
   }
 }
 .form-check-input {
+  accent-color: var(--accent-color);
 }
 .me-2 {
 }
 .form-check-label {
+  font-size: 15px;
 }
 .mx-4 {
 }
@@ -169,6 +203,17 @@
 .mb-lg-4 {
 }
 .btn {
+  padding: 10px 20px;
+  border-radius: 5px;
+  border: 1px var(--tertiary-color) solid;
+  background-color: #fff;
+  transition: color 250ms, background-color 250ms ease;
+  &:hover,
+  &:focus {
+    background-color: var(--accent-color);
+    color: #ffffff;
+    border: 1px solid white;
+  }
 }
 .btn-primary {
 }
