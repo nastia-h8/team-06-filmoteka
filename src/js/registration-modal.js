@@ -9,16 +9,15 @@ logInButtonRef.addEventListener('click', onLoginBtnClick);
 // ===============================================================
 function onLoginBtnClick() {
   modalWindow.classList.remove('invis');
-  rowRef.addEventListener('click', onCloseModalBtn, { once: true });
-  window.addEventListener('keydown', modalCloseOnEscPress, { once: true });
+  rowRef.addEventListener('click', onCloseModalBtn);
+  window.addEventListener('keydown', modalCloseOnEscPress);
 }
 // ===============================================================
 function onCloseModalBtn(event) {
   if (event.target.classList.contains('fa-solid')) {
     modalWindow.classList.add('invis');
   }
-  console.log('event.currentTarget', event.currentTarget);
-  console.log('event.target', event.target);
+  console.log('message');
 }
 // ===============================================================
 function modalCloseOnEscPress(event) {
