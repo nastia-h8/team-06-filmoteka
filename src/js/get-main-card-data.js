@@ -1,6 +1,6 @@
 import { fetchPopularFilms } from './fetch-trending-films'
 import { fetchGenres } from './fetch-genre-list'
-const names = new Array();
+const genreNames = new Array();
  
 async function getCardData() {
     // Получаем массив объектов с данными для 20 фильмов
@@ -18,8 +18,7 @@ async function getCardData() {
     function getNamesData(ids) {
         const nameArr = [];
         for (const id of ids) {
-            for (const genre of allGenres) {
-                
+            for (const genre of allGenres) {                
                 if (genre.id === id) {
                     const data = genre.name;
                     nameArr.push(data)
@@ -29,12 +28,12 @@ async function getCardData() {
         return nameArr;
     }
     
-    const genres = movieGenresIds.map(async ids => {
-        const movieGenreNamsArr = await getNamesData(ids)
-        names.push(movieGenreNamsArr)
+    movieGenresIds.map(async ids => {
+        const movieGenreNamsArr = getNamesData(ids)
+        genreNames.push(movieGenreNamsArr)
     })
 
     console.log(await names) 
-    return names
+    return genreNames
 }
 getCardData()
