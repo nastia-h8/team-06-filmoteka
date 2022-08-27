@@ -6,7 +6,6 @@ const gallery = document.querySelector('.gallery-films');
 
 async function renderCardsFilms() {
     const cardsFilms = await fetchPopularFilms();
-    console.log(cardsFilms);
 
     const list = await createCards(cardsFilms);
     
@@ -15,7 +14,6 @@ async function renderCardsFilms() {
 
 async function createCards(cardsFilms) {
     const cardsFilmsGenres = await getCardGenreNames(cardsFilms);
-    console.log(cardsFilmsGenres);
     
     let accFilms = cardsFilms.reduce((acc, item, index) => {
         let firstGenres = '';
@@ -36,8 +34,6 @@ async function createCards(cardsFilms) {
             image = '../images/no-poster-available.jpg';
         }
         image = `https://image.tmdb.org/t/p/original${item.backdrop_path}`;
-        console.log(image)
-        console.dir(item)
         return acc + `<li class="gallery-films__item">
                 <a class="gallery-films__link" href="">
                     <img class="gallery-films__card" src="${image}" alt="Картинка заглушка">
@@ -62,7 +58,7 @@ renderCardsFilms()
 
 function takeFilm(e) {
     e.preventDefault(e);
-    console.dir(e);
+    console.log(e.target.dataset);
 }
 
     gallery.addEventListener('click', takeFilm);
