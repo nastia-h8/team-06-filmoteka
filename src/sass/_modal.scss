@@ -130,7 +130,7 @@
     color: var(--primary-color);
 }
 
-.btn-wrap {
+.film-btn-wrap {
     margin-top: 20px;
     display: flex;
 
@@ -140,7 +140,7 @@
 
 }
 
-.btn {
+.film-btn {
     width: 110px;
     height: 44px;
     font-family: 'Roboto';
@@ -159,7 +159,7 @@
     &-queue {
         color: var(--primary-color);
         border: 1px solid #000000;
-        background: var(--primary-bg-color);
+        background-color: var(--primary-bg-color);
     }
 }
 
@@ -191,7 +191,7 @@
     }
     
 
-    .btn {
+    .film-btn {
         width: 125px;
         &-wached {
             margin-right: 14px;
@@ -219,7 +219,7 @@
         width: 391px;
     }
 
-    .btn-wached {
+    .film-btn-wached {
         margin-left: 8px;
         margin-right: 15px;
     }

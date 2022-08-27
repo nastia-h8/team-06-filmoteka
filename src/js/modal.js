@@ -63,9 +63,9 @@ async function makeMarkup(markupInfo) {
           </table>
           <h3 class="film-about">About</h3>
           <p class="film-text">${about}</p>
-          <div class="btn-wrap">
-            <button type="button" class="btn btn-wached">add to Watched</button>
-            <button type="button" class="btn btn-queue">add to queue</button>
+          <div class="film-btn-wrap">
+            <button type="button" class="film-btn film-btn-wached">add to Watched</button>
+            <button type="button" class="film-btn film-btn-queue">add to queue</button>
           </div>
         </div>`
     
@@ -75,3 +75,4 @@ async function makeMarkup(markupInfo) {
 }
 
 
+// fechFilm(762504)

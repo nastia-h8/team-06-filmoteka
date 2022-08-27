@@ -1,7 +1,7 @@
 
 // import './js/example';
 import './sass/index.scss';
-import fechFilm from './js/modal';
+import './js/modal';
 
 
 import './js/example';
