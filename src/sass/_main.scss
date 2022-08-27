@@ -1,7 +1,8 @@
 ///////////////////////////style home page////////////////////////////////
 .gallery-films__card {
+    object-fit: cover;
     width: 100%;
-    height: auto;
+    height: 402px;
 
     margin-bottom: 8px;
 }
@@ -61,6 +62,9 @@
 }
 
 @media screen and (min-width: 768px) {
+    .gallery-films__card {
+        height: 455px;
+    }
     .gallery-films {
         margin: -16px;
         display: flex;
@@ -73,6 +77,9 @@
 }
 
 @media screen and (min-width: 1280px) {
+    .gallery-films__card {
+        height: 574px;
+    }
     .post-film__rating {
             width: 40px;
             height: 20px;
