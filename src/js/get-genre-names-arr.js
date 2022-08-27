@@ -2,7 +2,7 @@ import { fetchPopularFilms } from './fetch-trending-films'
 import { fetchGenres } from './fetch-genre-list'
 const genreNames = new Array();
  
-async function getCardData() {
+export async function getCardGenreNames() {
     // Получаем массив объектов с данными для 20 фильмов
     const movieData = await fetchPopularFilms();
     // console.log(movieData)
