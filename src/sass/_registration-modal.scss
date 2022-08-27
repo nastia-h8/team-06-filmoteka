@@ -3,8 +3,8 @@
   pointer-events: none;
 }
 .container__form.invis .row {
-  // display: none;
   transform: translate(-50%, -200%);
+  z-index: -5;
 }
 .container__form {
   position: fixed;
@@ -42,6 +42,9 @@
   &:hover {
     color: var(--accent-color);
   }
+}
+.form {
+  text-align: center;
 }
 
 .d-flex {
