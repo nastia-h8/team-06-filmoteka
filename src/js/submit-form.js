@@ -27,7 +27,7 @@ async function onSearchMovieForm(e) {
         return;
     }
     try {
-        fetchFilmsBySearch(query, page);
+        createFilmsCollection();
 
     } catch (error) {
         Notiflix.Notify.failure("Ooops...Something goes wrong");
@@ -36,7 +36,23 @@ async function onSearchMovieForm(e) {
 
 
 
+async function createFilmsCollection(){
+    const object = await fetchFilmsBySearch(query, page);
+    console.log(object);
+
+    if (object.length === 0) {
+        alertNoFilmsFound();
+    }
+}
+
+
+
+
 
 function alertEmptySearch() {
     Notiflix.Notify.failure('This field cannot be empty!');
+}
+
+function alertNoFilmsFound() {
+    Notiflix.Notify.failure('No movies were found for this request, try something else.');
 }
