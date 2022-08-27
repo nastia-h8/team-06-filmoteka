@@ -42,5 +42,5 @@ export async function fechFilm(id) {
   }    
 }
 
-// fechFilm(762504)
+fechFilm(762505)
 
