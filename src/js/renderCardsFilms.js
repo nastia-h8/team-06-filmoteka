@@ -14,7 +14,7 @@ async function renderCardsFilms() {
 }
 
 async function createCards(cardsFilms) {
-    const cardsFilmsGenres = await getCardGenreNames();
+    const cardsFilmsGenres = await getCardGenreNames(cardsFilms);
     console.log(cardsFilmsGenres);
     
     let accFilms = cardsFilms.reduce((acc, item, index) => {
