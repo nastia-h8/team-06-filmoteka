@@ -2,7 +2,7 @@ import { fetchPopularFilms } from './fetch-trending-films'
 import { fetchGenres } from './fetch-genre-list'
 const genreNames = new Array();
  
-async function getCardData() {
+async function getSlicedCardData() {
     // Получаем массив объектов с данными для 20 фильмов
     const movieData = await fetchPopularFilms();
     // console.log(movieData)
@@ -32,7 +32,15 @@ async function getCardData() {
         const movieGenreNamsArr = getNamesData(ids)
         genreNames.push(movieGenreNamsArr)
     })
-    console.log(await genreNames)
-    return genreNames
-}
 
+    // Получаем обрезанный массив:
+        let nameArrSliced = [];
+        const genreNamesOther = genreNames.map((genreEl) => {
+            nameArrSliced = genreEl.slice(0, 2);
+                if (genreEl.length > 2) {
+                    nameArrSliced.push('other')
+            }
+            
+            return nameArrSliced;
+    })
+}

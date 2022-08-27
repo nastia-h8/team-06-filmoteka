@@ -14,6 +14,7 @@ import './js/get-genre-names-arr';
 import './js/fetch-trending-films';
 import './js/submit-form';
 import './js/fetch-films-by-search';
+import './js/get-sliced-genre-names';
 
 
 

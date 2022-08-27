@@ -1,8 +1,8 @@
 import { fetchFilmsBySearch } from './fetch-films-by-search';
 import Notiflix from 'notiflix';
 Notiflix.Notify.init({
-    width: '300px',
-    position: 'center-top',
+    width: '280px',
+    position: 'left-top',
     closeButton: false,
     useIcon: false,
 });
