@@ -4,7 +4,6 @@ const filmBackdrop = document.querySelector('[data-modal]')
 
 export async function makeFilmModalMarkup(markupInfo) {
     const { poster, title, vote, votes, popularity, originalTitle, genre, about } = markupInfo
-    console.log(posterUrl)
     
     const filmInfo = document.querySelector('.film-info-container')
     const filmBackdrop = document.querySelector('[data-modal]')

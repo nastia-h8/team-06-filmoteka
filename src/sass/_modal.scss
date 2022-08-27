@@ -4,8 +4,10 @@
     height: 100%;
     left: 0px;
     top: 0px;
+    opacity: 1;
     padding: 20px 0;
     background: rgba(0, 0, 0, 0.25);
+    transition: opacity 250ms linear;
     &.is-hidden {
         visibility: hidden;
         opacity: 0;

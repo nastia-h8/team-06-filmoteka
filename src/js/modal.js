@@ -9,7 +9,6 @@ export async function fechFilm(id) {
   try {
     const response = await axios.get(`${MAIN_URL}/movie/${id}?api_key=${KEY}`)
 
-    console.log(response)
 
     if (response.status !== 200) {
       throw new Error
@@ -20,7 +19,9 @@ export async function fechFilm(id) {
     filmDetails.genres.map(genre => genresArr.push(genre.name))
     const genres = genresArr.join(", ")
 
-    const posterUrl = filmDetails.poster_path ?  `https://image.tmdb.org/t/p/original${filmDetails.poster_path}` : './images/no-poster-available.jpg'
+    const posterUrl = filmDetails.poster_path ? `https://image.tmdb.org/t/p/original${filmDetails.poster_path}` : './images/no-poster.jpg'
+    
+    // const posterUrl = "./images/no-poster.jpg"
 
     const markupInfo = {
       poster: posterUrl,
@@ -41,5 +42,5 @@ export async function fechFilm(id) {
   }    
 }
 
-fechFilm(762505)
+fechFilm(762504)
 
