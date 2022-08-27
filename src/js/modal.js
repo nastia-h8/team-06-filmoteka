@@ -25,10 +25,10 @@ export async function fechFilm(id) {
         about: filmDetails.overview
     }
     
-    makeMarkup(markupInfo)
+    makeFilmModalMarkup(markupInfo)
 }
 
-export async function makeMarkup(markupInfo) {
+export async function makeFilmModalMarkup(markupInfo) {
     const { poster, title, vote, votes, popularity, originalTitle, genre, about } = markupInfo
     
     const filmInfo = document.querySelector('.film-info-container')
