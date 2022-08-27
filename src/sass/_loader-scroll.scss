@@ -23,8 +23,8 @@
         &:focus{
                 background-color: rgba(15, 20, 24, 0.9);
         }
-        &:hover .arrow-icon {
-            fill: rgba(255, 255, 255, 1);
+        &:hover .arrow-btn__icon {
+            fill: rgb(255, 255, 255);
         }
                 @media screen and (max-width:480px) {
                     // .arrow-btn {
