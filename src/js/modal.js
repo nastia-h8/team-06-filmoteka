@@ -1,6 +1,6 @@
 import axios from "axios"
 
-export default async function fechFilm(id) {
+export async function fechFilm(id) {
     const MAIN_URL = 'https://api.themoviedb.org/3'
     const KEY = '9c40587b7d16ffbdc73a57b7c7629b49'
 
@@ -28,7 +28,7 @@ export default async function fechFilm(id) {
     makeMarkup(markupInfo)
 }
 
-async function makeMarkup(markupInfo) {
+export async function makeMarkup(markupInfo) {
     const { poster, title, vote, votes, popularity, originalTitle, genre, about } = markupInfo
     
     const filmInfo = document.querySelector('.film-info-container')
@@ -75,4 +75,5 @@ async function makeMarkup(markupInfo) {
 }
 
 
-// fechFilm(762504)
+fechFilm(762504)
+
