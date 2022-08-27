@@ -31,11 +31,18 @@
     right: 8px;
     border: none;
     background-color: var(--primary-bg-color);
+    cursor: pointer;
+    
 }
 
 .close-btn-icon {
   width: 18px;
   height: 18px;
+  transition: fill 250ms ease;
+    &:hover,
+    &:focus {
+        fill: var(--accent-color);
+    }
 }
 
 .img-wrap {
