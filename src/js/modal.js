@@ -1,4 +1,7 @@
 import axios from "axios"
+const filmBackdrop = document.querySelector('[data-modal]')
+const closeFilmModalBtn = document.querySelector(".close-modal-btn")
+
 
 export async function fechFilm(id) {
     const MAIN_URL = 'https://api.themoviedb.org/3'
@@ -6,13 +9,10 @@ export async function fechFilm(id) {
 
     const response = await axios.get(`${MAIN_URL}/movie/${id}?api_key=${KEY}`)
     const filmDetails = await response.data
-    console.log(filmDetails)
 
     let genresArr = []
     filmDetails.genres.map(genre => genresArr.push(genre.name))
     const genres = genresArr.join(", ")
-
-    console.log(filmDetails.backdrop_path)
 
     const markupInfo = {
         poster: `https://image.tmdb.org/t/p/original${filmDetails.poster_path}`,
@@ -32,7 +32,6 @@ export async function makeFilmModalMarkup(markupInfo) {
     const { poster, title, vote, votes, popularity, originalTitle, genre, about } = markupInfo
     
     const filmInfo = document.querySelector('.film-info-container')
-    const filmBackdrop = document.querySelector('[data-modal]')
 
     const markup = `<div class="img-wrap">
           <img src="${poster || './images/no-poster-available.jpg'}" alt="${title}" />
@@ -69,11 +68,47 @@ export async function makeFilmModalMarkup(markupInfo) {
           </div>
         </div>`
     
-    filmBackdrop.classList.remove('is-hidden')
-    filmInfo.innerHTML = markup
+  filmBackdrop.classList.remove('is-hidden')
+  filmInfo.innerHTML = markup
+  
+  addCloseModalListeners()
+  modalScrollForbiddance()
 
 }
 
+
+function modalScrollForbiddance() {
+  if (!filmBackdrop.classList.contains('is-hidden')) {
+    document.body.style.overflow = 'hidden'
+    filmBackdrop.style.overflow = 'scroll'
+  }
+}
+
+
+function addCloseModalListeners() {  
+  closeFilmModalBtn.addEventListener('click', closeFilmModal)
+  filmBackdrop.addEventListener('click', onBackdropClick)
+  window.addEventListener('keydown', onEscDown)
+}
+
+function onBackdropClick(e) {
+  if (e.target === filmBackdrop) {
+    closeFilmModal()    
+  }
+}
+
+function onEscDown(e) {
+  if (e.code === 'Escape') {
+    closeFilmModal()    
+  }
+}
+
+function closeFilmModal() {
+  filmBackdrop.classList.add('is-hidden')
+  closeFilmModalBtn.removeEventListener('click', closeFilmModal)
+  filmBackdrop.removeEventListener('click', onBackdropClick)
+  window.removeEventListener('keydown', onEscDown)
+}
 
 fechFilm(762504)
 

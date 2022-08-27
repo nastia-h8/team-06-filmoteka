@@ -1,6 +1,7 @@
 .backdrop {
     position: absolute;
     width: 100%;
+    height: 100%;
     left: 0px;
     top: 0px;
     padding: 20px 0;
@@ -33,8 +34,8 @@
 }
 
 .close-btn-icon {
-  width: 14px;
-  height: 14px;
+  width: 18px;
+  height: 18px;
 }
 
 .img-wrap {
@@ -164,10 +165,7 @@
 }
 
 @media screen and (min-width: 768px) {
-    .backdrop {
-        height: 100%;
-    }
-    
+   
     .modal-window {
         padding: 40px 36px;
         width: 704px;
