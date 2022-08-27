@@ -1,22 +1,26 @@
 import { fetchPopularFilms } from './fetch-trending-films'
 import { getCardGenreNames } from './get-genre-names-arr'
 
+const gallery = document.querySelector('.gallery-films');
+
+
 async function renderCardsFilms() {
     const cardsFilms = await fetchPopularFilms();
     console.log(cardsFilms);
 
     const list = await createCards(cardsFilms);
-    const gallery = document.querySelector('.gallery-films');
+    
     gallery.insertAdjacentHTML('beforeend', list);
 }
 
 async function createCards(cardsFilms) {
-    const cardsFilmsGenres = await getCardGenreNames();
+    const cardsFilmsGenres = await getCardGenreNames(cardsFilms);
     console.log(cardsFilmsGenres);
     
     let accFilms = cardsFilms.reduce((acc, item, index) => {
         let firstGenres = '';
         let genresArr = cardsFilmsGenres[index];
+        const data = item.release_date.slice(0, 4);
         
         
         if (genresArr.length <= 3) {
@@ -43,7 +47,7 @@ async function createCards(cardsFilms) {
                             <p class="library-film__description">${firstGenres}</p>
                         </li>
                         <li class="library-film__item">
-                            <p class="library-film__description">2022</p>
+                            <p class="library-film__description">${data}</p>
                         </li>
                     </ul>
                 </a>
@@ -56,4 +60,9 @@ async function createCards(cardsFilms) {
     
 renderCardsFilms()
 
-    
+function takeFilm(e) {
+    e.preventDefault(e);
+    console.dir(e);
+}
+
+    gallery.addEventListener('click', takeFilm);
