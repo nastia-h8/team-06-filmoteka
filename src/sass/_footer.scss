@@ -8,9 +8,58 @@
     padding-top: 30px;
 }
 
-.signup-form__icon {
-    margin-left: 5px;
-    margin-right: 5px;
+.team-modal-open{
+    border-style: none;
+    background-color: #f7f7f7;
+    text-decoration: underline;
+    padding: 0;
+    cursor: pointer;
+    color: var(--tertiary-color);
+}
+
+.heart{
+    animation: heartbeat 1s infinite;
+    background-color: var(--accent-color);
+    display: inline-block;
+    height: 12px;
+    margin: 0 12px;
+    top: 0;
+    transform: rotate(-45deg);
+    // left: 45%;
+    // top: 45%;
+    width: 12px;
+    margin-left: 10px;
+    margin-right: 10px;
+}
+
+.heart::before,
+.heart::after {
+    content: '';
+    background-color: var(--accent-color);
+    border-radius: 50%;
+    height: 12px;
+    position: absolute;
+    width: 12px;
+}
+.heart::before{
+    top: -6px;
+    left: 0;
+}
+.heart::after{
+    left: 6px;
+    top: 0;
+}
+
+@keyframes heartbeat {
+    0% {
+        transform: scale(0.8) rotate(-45deg);
+    }
+    20% {
+        transform: scale(1) rotate(-45deg);
+    }
+    40% {
+        transform: scale(1.25) rotate(-45deg);
+    }
 }
 
 .footer__container {
@@ -37,13 +86,14 @@
 
     .footer__first-block {
         margin-bottom: 0;
-    }
-
-    .footer__first-block,
-    .footer__second-block {
         margin-right: 5px;
-
     }
+
+    // .footer__first-block,
+    // .footer__second-block {
+        
+
+    // }
 
     .footer__container {
         flex-direction: row;
