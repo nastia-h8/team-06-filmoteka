@@ -15,7 +15,7 @@ async function renderCardsFilms() {
     
 }
 
-async function createCards(cardsFilms) {
+export async function createCards(cardsFilms) {
     const cardsFilmsGenres = await getCardGenreNames(cardsFilms);
     
     let accFilms = cardsFilms.reduce((acc, item, index) => {
