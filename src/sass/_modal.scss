@@ -1,9 +1,8 @@
 // прибрала скроллбар
 
 ::-webkit-scrollbar {
-    position: relative;
-    // width: 0px;
-    // background: rgba(255, 255, 255, 0.0);
+    width: 0px;
+    background: rgba(255, 255, 255, 0.0);
 }
 
 .backdrop {
