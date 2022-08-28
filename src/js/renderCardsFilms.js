@@ -20,7 +20,7 @@ async function renderCardsFilms() {
     gallery.addEventListener('click', takeFilm);
 }
 
-async function createCards(cardsFilms) {
+export async function createCards(cardsFilms) {
     const cardsFilmsGenres = await getCardGenreNames(cardsFilms);
     
     let accFilms = cardsFilms.reduce((acc, item, index) => {
