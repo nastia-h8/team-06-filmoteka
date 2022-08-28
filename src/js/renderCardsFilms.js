@@ -1,15 +1,18 @@
 import { fetchPopularFilms } from './fetch-trending-films'
 import { getCardGenreNames } from './get-genre-names-arr'
+// import { createCardsLibrary } from './createCardsLibrary'
 import { fechFilm } from './modal'
 
 const gallery = document.querySelector('.gallery-films');
 
 
 
-async function renderCardsFilms(page) {
+export async function renderCardsFilms(page) {
     const cardsFilms = await fetchPopularFilms(page);
 
     const list = await createCards(cardsFilms.results);
+    // const list = await createCardsLibrary(cardsFilms.results);
+    
     
     gallery.insertAdjacentHTML('beforeend', list);
 
