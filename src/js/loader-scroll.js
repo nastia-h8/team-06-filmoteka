@@ -35,7 +35,10 @@ window.onload = function () {
 }
         
 
+// if (!filmBackdrop.classList.contains('is-hidden')) {
 
+//     backToTopButton.style.display = 'none';
+//   }
 
 
 
