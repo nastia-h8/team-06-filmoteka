@@ -1,10 +1,13 @@
 .backdrop {
     position: absolute;
     width: 100%;
+    height: 100%;
     left: 0px;
     top: 0px;
+    opacity: 1;
     padding: 20px 0;
     background: rgba(0, 0, 0, 0.25);
+    transition: opacity 250ms linear;
     &.is-hidden {
         visibility: hidden;
         opacity: 0;
@@ -30,11 +33,17 @@
     right: 8px;
     border: none;
     background-color: var(--primary-bg-color);
+    cursor: pointer;
 }
 
 .close-btn-icon {
-  width: 14px;
-  height: 14px;
+    width: 18px;
+    height: 18px;
+    transition: fill 250ms ease;  
+    &:hover,
+    &:focus {
+        fill: var(--accent-color);
+    }
 }
 
 .img-wrap {
@@ -163,11 +172,20 @@
     }
 }
 
-@media screen and (min-width: 768px) {
-    .backdrop {
-        height: 100%;
+.film-btn-wached,
+.film-btn-queue {
+    box-shadow: none;
+    transition: box-shadow 250ms linear;
+    &:hover,
+    &:focus {
+        box-shadow: 0px 3px 1px rgba(0, 0, 0, 0.1), 0px 1px 2px rgba(0, 0, 0, 0.08),
+                0px 2px 2px rgba(0, 0, 0, 0.12);
     }
-    
+}
+
+
+@media screen and (min-width: 768px) {
+   
     .modal-window {
         padding: 40px 36px;
         width: 704px;
