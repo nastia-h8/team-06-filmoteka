@@ -8,17 +8,32 @@
         </svg>
         <span class="header__logo--hidden">Filmoteka</span>
       </a>
-      <nav class="nav">
-        <button class="auth-btn" type="button">Log in</button>
-        <ul class="nav__list">
-          <li class="nav__item">
-            <a class="nav__link" href="./index.html">Home</a>
-          </li>
-          <li class="nav__item">
-            <a class="nav__link nav__link--active" href="./library.html">My library</a>
-          </li>
-        </ul>
-      </nav>
+        <nav class="nav">
+          <ul class="auth-nav__list">
+            <li class="auth-nav__item">
+              <button class="auth-btn login__btn" type="button">Log in</button>
+            </li>
+            <li class="auth-nav__item">
+              <button class="auth-btn logout__btn" type="button">
+                Log out
+              </button>
+            </li>
+          </ul>
+          <ul class="nav__list">
+            <li class="nav__item">
+              <a
+                class="nav__link home-link"
+                href="./index.html"
+                >Home</a
+              >
+            </li>
+            <li class="nav__item">
+              <a class="nav__link library-link nav__link--active" href="./library.html"
+                >My library</a
+              >
+            </li>
+          </ul>
+        </nav>
     </div>
     <div class="library-box">
           <button type="button" class="library-btn accent-btn" id="watched-btn">
