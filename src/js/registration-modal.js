@@ -35,13 +35,15 @@ const closeModalBtnRef = document.querySelector('.fa-solid');
 const checkBoxRef = document.querySelector('.form-check-input');
 const formButtonRef = document.querySelector('.btn-primary');
 const formRef = document.querySelector('.form');
-const firstPassInputRef = document.querySelector('#firstPass');
+let firstPassInputRef = document.querySelector('#firstPass');
 const repeatPassInputRef = document.querySelector('#repeatedPass');
 const userNameInputRef = document.querySelector('#userName');
-const userEmailInputRef = document.querySelector('#userEmail');
+let userEmailInputRef = document.querySelector('#userEmail');
 const loginLinkRef = document.querySelector('.login__link');
 // ===============================================================
 formButtonRef.disabled = true;
+// ===============================================================
+let logOutButtonRef;
 // ===============================================================
 logInButtonRef.addEventListener('click', onLoginBtnClick);
 checkBoxRef.addEventListener('change', onToggle);
@@ -58,6 +60,8 @@ function onFormSubmit(e) {
   e.preventDefault();
   if (firstPassInputRef.value !== repeatPassInputRef.value) {
     Notiflix.Notify.failure('Passwords do not match each others');
+  } else if (firstPassInputRef.value.length < 6) {
+    Notiflix.Notify.failure('Password should be at least 6 characters');
   } else {
     const userName = userNameInputRef.value;
     const userEmail = userEmailInputRef.value;
@@ -105,6 +109,9 @@ async function createAccount(auth, email, password) {
     console.log(userCredentials.user);
   } catch (error) {
     console.log(error);
+    Notiflix.Notify.warning(
+      'User already created, please procced to Log In page'
+    );
   }
 }
 
@@ -147,8 +154,8 @@ function onLoginLinkClick(e) {
 	</div>`;
   modalWindow.innerHTML = '';
   modalWindow.insertAdjacentHTML('afterbegin', loginMarkUp);
-  const userEmailInputRef = document.querySelector('#userEmail');
-  const firstPassInputRef = document.querySelector('#firstPass');
+  userEmailInputRef = document.querySelector('#userEmail');
+  firstPassInputRef = document.querySelector('#firstPass');
   const formLoginRef = document.querySelector('.form__login');
   formRef.removeEventListener('submit', onFormSubmit);
   formLoginRef.addEventListener('submit', onLoginPageSubmit);
@@ -158,43 +165,61 @@ function onLoginLinkClick(e) {
 function onLoginPageSubmit(e) {
   e.preventDefault();
   const userEmail = userEmailInputRef.value;
-  console.log('userEmail: ', userEmail);
+
   const userPassword = firstPassInputRef.value;
-  console.log('userPassword: ', userPassword);
-  // loginIntoAccount(auth, userEmail, userPassword);
-  // formRef.reset();
-  // modalWindow.classList.add('invis');
+
+  loginIntoAccount(auth, userEmail, userPassword);
+  formRef.reset();
+  modalWindow.classList.add('invis');
 }
 
 // ===============================================================
-// async function loginIntoAccount(auth, email, password) {
-//   console.log(email);
-//   // signOut(auth)
-//   //   .then(() => {
-//   //     Notiflix.Notify.success('Sign-out successful.');
-//   //   })
-//   //   .catch(error => {
-//   //     Notiflix.Notify.warning('Sign-out unsuccessful.');
-//   //   });
+async function loginIntoAccount(auth, email, password) {
+  console.log(email);
+  try {
+    const userCredentials = await signInWithEmailAndPassword(
+      auth,
+      email,
+      password
+    );
+    Notiflix.Notify.success('User loged In');
+    const headerNavContainer = document.querySelector('.nav');
+    headerNavContainer.insertAdjacentHTML(
+      'afterbegin',
+      `<button class="auth-btn logout__button" type="button">Log out</button>`
+    );
+    logOutButtonRef = document.querySelector('.logout__button');
+    logOutButtonRef.addEventListener('click', logOutHandler);
+  } catch (error) {
+    console.log(error);
+    Notiflix.Notify.warning(
+      'User is not found. Or user data do not match ours records'
+    );
+  }
+}
 
-//   // try {
-//   //   const userCredentials = await signInWithEmailAndPassword(
-//   //     auth,
-//   //     email,
-//   //     password
-//   //   );
-//   //   Notiflix.Notify.success('User loged In');
-//   //   console.log(userCredentials.user);
-//   // } catch (error) {
-//   //   console.log(error);
-//   // }
+// ===============================================================
+// onAuthStateChanged((auth, user) => {
+//   console.log(user);
+//   if (user) {
+//     const headerNavContainer = document.querySelector('.nav');
+//     headerNavContainer.insertAdjacentHTML(
+//       'afterbegin',
+//       `<button class="auth-btn louout__button" type="button">Log out</button>`
+//     );
+//   } else {
+//   }
+// });
 
-//   // onAuthStateChanged(auth, user => {
-//   //   console.log(user);
-//   //   if (user) {
-//   //     Notiflix.Notify.success('User loged In');
-//   //   } else {
-//   //     Notiflix.Notify.warning('User does not exist');
-//   //   }
-//   // });
-// }
+// ===============================================================
+function logOutHandler() {
+  signOut(auth)
+    .then(() => {
+      Notiflix.Notify.success('Sign-out successful.');
+      logOutButtonRef.outerHTML = '';
+    })
+    .catch(error => {
+      Notiflix.Notify.warning('Sign-out unsuccessful.');
+    });
+}
+// ===============================================================
