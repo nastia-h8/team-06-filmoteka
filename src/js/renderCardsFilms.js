@@ -11,6 +11,8 @@ async function renderCardsFilms() {
     const list = await createCards(cardsFilms);
     
     gallery.insertAdjacentHTML('beforeend', list);
+    
+    gallery.addEventListener('click', takeFilm);
 
     
 }
@@ -32,10 +34,12 @@ export async function createCards(cardsFilms) {
             firstGenres = firstGenres.join(", ");
         }    
         let image = '';
+        console.log(item.poster_path === null);
         if (item.poster_path === null) {
-            image = '/src/images/no-poster.jpg';
+            image = 'https://screench.com/upload/no-poster.jpeg';
+        } else {
+            image = `https://image.tmdb.org/t/p/original${item.poster_path}`;
         }
-        image = `https://image.tmdb.org/t/p/original${item.poster_path}`;
         return acc + `<li class="gallery-films__item">
                 <a class="gallery-films__link" bata-id="${item.id}" href="">
                     <img class="gallery-films__card" src="${image}" alt="Картинка заглушка">
@@ -62,4 +66,4 @@ async function takeFilm(e) {
         fechFilm(e.target.parentElement.attributes[1].value)
     }
 }
-    gallery.addEventListener('click', takeFilm);
+    
