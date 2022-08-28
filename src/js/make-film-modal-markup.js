@@ -57,6 +57,6 @@ export async function makeFilmModalMarkup(markupInfo) {
 function modalScrollForbiddance() {
   if (!filmBackdrop.classList.contains('is-hidden')) {
     document.body.style.overflow = 'hidden'
-    filmBackdrop.style.overflow = 'scroll'
+    filmBackdrop.style.overflow = 'auto'
   }
 }
