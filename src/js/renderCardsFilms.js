@@ -12,12 +12,7 @@ async function renderCardsFilms() {
     
     gallery.insertAdjacentHTML('beforeend', list);
 
-    async function takeFilm(e) {
-    e.preventDefault(e);
-        const id = Number(e.target.parentElement.attributes[1].value);
-        fechFilm(id);
-    }
-    gallery.addEventListener('click', takeFilm);
+    
 }
 
 export async function createCards(cardsFilms) {
@@ -37,21 +32,17 @@ export async function createCards(cardsFilms) {
             firstGenres = firstGenres.join(", ");
         }    
         let image = '';
-        if (item.backdrop_path === null) {
-            image = '../images/no-poster-available.jpg';
+        if (item.poster_path === null) {
+            image = '/src/images/no-poster.jpg';
         }
-        image = `https://image.tmdb.org/t/p/original${item.backdrop_path}`;
+        image = `https://image.tmdb.org/t/p/original${item.poster_path}`;
         return acc + `<li class="gallery-films__item">
                 <a class="gallery-films__link" bata-id="${item.id}" href="">
                     <img class="gallery-films__card" src="${image}" alt="Картинка заглушка">
                     <h3 class="gallery-films__hero">${item.title}</h3>
                     <ul class="library-film">
-                        <li class="library-film__item">
-                            <p class="library-film__description">${firstGenres}</p>
-                        </li>
-                        <li class="library-film__item">
-                            <p class="library-film__description">${data}</p>
-                        </li>
+                        <li class="library-film__item">${firstGenres}</li>
+                        <li class="library-film__item">${data}</li>
                     </ul>
                 </a>
             </li>
@@ -63,3 +54,12 @@ export async function createCards(cardsFilms) {
     
 renderCardsFilms()
 
+async function takeFilm(e) {
+    e.preventDefault(e);
+    if (e.target.localName === "li") {
+        fechFilm(e.target.parentNode.parentElement.attributes[1].value);
+    } else {
+        fechFilm(e.target.parentElement.attributes[1].value)
+    }
+}
+    gallery.addEventListener('click', takeFilm);
