@@ -5,9 +5,12 @@ import Notiflix from 'notiflix';
 
 Notiflix.Notify.init({
     width: '280px',
-    position:'top-center',
+    position:'center-top',
     closeButton: false,
     useIcon: false,
+    fontFamily: 'Roboto',
+    clickToClose: 'true',
+    fontSize: '12px',
 });
 
 const gallery = document.querySelector('.gallery-films');
@@ -24,7 +27,6 @@ async function onSearchMovieForm(e) {
     e.preventDefault();
     query = e.currentTarget.query.value.trim();
     page = 1;
-    gallery.innerHTML = '';
 
         if (query === '') {
         alertEmptySearch();
@@ -38,16 +40,17 @@ async function onSearchMovieForm(e) {
     }
 }
 
-// Створення 
-async function createFilmsCollection(){
+// Створення колекції
+async function createFilmsCollection() {
     const filmObj = await fetchFilmsBySearch(query, page);
     const list = await createCards(filmObj);
     console.log('films', filmObj)
 
     if (filmObj.length === 0) {
         alertNoFilmsFound();
+        return;
     }
-
+    gallery.innerHTML = '';
     gallery.insertAdjacentHTML('beforeend', list);
 
     async function takeFilm(e) {

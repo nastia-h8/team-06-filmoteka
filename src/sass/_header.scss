@@ -9,10 +9,8 @@
     margin-right: auto;
     padding-top: 40px;
     padding-bottom: 92px;
-
     background-size: cover;
     background-position: center;
-    opacity: 0.9;
 
 
     background-image: url('../images/bg-images/bg-mobile.jpg');
@@ -70,6 +68,11 @@
     margin-right: 10px;
     display: flex;
     align-items: center;
+    &:hover,
+    &:focus {
+            text-decoration: none;
+        }
+
 }
 
 .nav__link {
@@ -78,10 +81,12 @@
     text-transform: uppercase;
     line-height: 1.167;
     color: var(--secondary-color);
+    transition: color 250ms linear;
 
     &:hover,
     &:focus {
         color: var(--accent-color);
+        text-decoration: none;
     }
 }
 
@@ -110,10 +115,17 @@
     }
 }
 
+.auth-nav__list{
+    display: flex;
+    margin-right: 20px;
+}
+
+.auth-nav__item:not(:last-child) {
+    margin-right: 10px;
+}
+
 .auth-btn {
     padding: 0;
-    margin-right: 40px;
-    min-width: 50px;
     font-weight: 500;
     font-size: 12px;
     text-transform: uppercase;
@@ -122,6 +134,7 @@
     cursor: pointer;
     color: var(--secondary-color);
     background-color: transparent;
+    transition: color 250ms linear;
 
     &:hover,
     &:focus {
@@ -129,9 +142,6 @@
     }
 }
 
-.nav__link--active {
-    border-bottom: 3px solid #FF001B;
-}
 
 .submit-btn {
     border: none;
@@ -142,14 +152,16 @@
 .nav {
     display: flex;
     align-items: baseline;
+    justify-content: center;
 }
 
 .nav-container {
     display: flex;
     align-items: center;
-    justify-content: space-between;
+    justify-content: center;
     margin-left: auto;
     margin-right: auto;
+    width: 100%;
 }
 
 .nav__list {
@@ -158,7 +170,11 @@
 }
 
 .nav__item:not(:last-child) {
-    margin-right: 20px;
+    margin-right: 10px;
+}
+
+.nav__link--active {
+    border-bottom: 3px solid #FF001B;
 }
 
 .form-wrapper {
@@ -172,14 +188,18 @@
         font-size: 30px;
         line-height: 1.167;
         color: var(--secondary-color);
-        margin-right: 300px;
+        margin-right: auto;
     }
 
     .logo-icon {
         margin-right: 8px;
     }
 
-    .auth-btn {
+    .auth-nav__list{
+        margin-right: 40px;
+    }
+
+    .auth-nav__item:not(:last-child){
         margin-right: 40px;
     }
 
@@ -196,7 +216,7 @@
 // DESKTOP STARTS 
 @media screen and (min-width:1280px) {
     .header__logo {
-        margin-right: 800px;
+        margin-right: auto;
     }
 }
 
@@ -224,6 +244,7 @@
     cursor: pointer;
     color: var(--secondary-color);
     background-color: transparent;
+    transition: background-color 250ms linear;
 
     &:hover,
     &:focus {
