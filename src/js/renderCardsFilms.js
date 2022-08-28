@@ -19,7 +19,6 @@ async function renderCardsFilms() {
         const id = Number(e.target.parentElement.attributes[1].value);
         fechFilm(id);
     }
-    
     gallery.addEventListener('click', takeFilm);
 }
 
