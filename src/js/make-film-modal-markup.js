@@ -1,17 +1,16 @@
-import { addCloseModalListeners } from './close-film-modal'
+import { addModalListeners } from './close-film-modal'
 
 const filmBackdrop = document.querySelector('[data-modal]')
 
+
+
 export async function makeFilmModalMarkup(markupInfo) {
-    const { poster, title, vote, votes, popularity, originalTitle, genre, about } = markupInfo
+  const { poster, title, vote, votes, popularity, originalTitle, genre, about } = markupInfo
     
-    const filmInfo = document.querySelector('.film-info-container')
-    const filmBackdrop = document.querySelector('[data-modal]')
-    
+  const filmInfo = document.querySelector('.film-info-container')
+  const filmBackdrop = document.querySelector('[data-modal]')
 
-
-
-    const markup = `<div class="img-wrap">
+  const markup = `<div class="img-wrap">
           <img src="${poster}" alt="${title}" />
         </div>
         <div class="film-info-wrap">
@@ -49,7 +48,7 @@ export async function makeFilmModalMarkup(markupInfo) {
   filmBackdrop.classList.remove('is-hidden')
   filmInfo.innerHTML = markup
   
-  addCloseModalListeners()
+  addModalListeners()
   modalScrollForbiddance()
 
 }
@@ -57,6 +56,7 @@ export async function makeFilmModalMarkup(markupInfo) {
 function modalScrollForbiddance() {
   if (!filmBackdrop.classList.contains('is-hidden')) {
     document.body.style.overflow = 'hidden'
-    filmBackdrop.style.overflow = 'scroll'
+    filmBackdrop.style.overflow = 'auto'
   }
 }
+
