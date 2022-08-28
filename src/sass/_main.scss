@@ -1,4 +1,9 @@
 ///////////////////////////style home page////////////////////////////////
+.container-main {
+    padding-top: 20px;
+    padding-bottom: 40px;
+}
+
 .gallery-films__card {
     object-fit: cover;
     width: 100%;
@@ -62,6 +67,11 @@
 }
 
 @media screen and (min-width: 768px) {
+    .container-main {
+        padding-top: 60px;
+        padding-bottom: 60px;
+    }
+
     .gallery-films__card {
         height: 455px;
     }
