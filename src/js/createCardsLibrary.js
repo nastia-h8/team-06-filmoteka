@@ -1,24 +1,4 @@
-import { fetchPopularFilms } from './fetch-trending-films'
-import { getCardGenreNames } from './get-genre-names-arr'
-import { fechFilm } from './modal'
-
-const gallery = document.querySelector('.gallery-films');
-
-
-
-async function renderCardsFilms(page) {
-    const cardsFilms = await fetchPopularFilms(page);
-
-    const list = await createCards(cardsFilms);
-    
-    gallery.insertAdjacentHTML('beforeend', list);
-
-    gallery.addEventListener('click', takeFilm);
-
-    
-}
-
-export async function createCards(cardsFilms) {
+export async function createCardsLibrary(cardsFilms) {
     const cardsFilmsGenres = await getCardGenreNames(cardsFilms);
     
     let accFilms = cardsFilms.reduce((acc, item, index) => {
@@ -51,21 +31,3 @@ export async function createCards(cardsFilms) {
     
     return accFilms
 }
-  
-if (gallery === null) {
-    return
-}
-renderCardsFilms(1);
-
-
-
-async function takeFilm(e) {
-    e.preventDefault(e);
-    if (e.target.localName === "li") {
-        fechFilm(e.target.parentNode.parentElement.attributes[1].value);
-    } else {
-        fechFilm(e.target.parentElement.attributes[1].value)
-    }
-}
-
-    
