@@ -22,7 +22,7 @@ export function onEscDown(e) {
 
 export function closeFilmModal() {
   filmBackdrop.classList.add('is-hidden')
-  document.body.style.overflow = 'scroll'
+  document.body.style.overflow = 'auto'
   closeFilmModalBtn.removeEventListener('click', closeFilmModal)
   filmBackdrop.removeEventListener('click', onBackdropClick)
   window.removeEventListener('keydown', onEscDown)
