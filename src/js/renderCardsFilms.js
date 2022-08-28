@@ -1,21 +1,22 @@
 import { fetchPopularFilms } from './fetch-trending-films'
 import { getCardGenreNames } from './get-genre-names-arr'
+import { fechFilm } from './modal'
 
 const gallery = document.querySelector('.gallery-films');
 
 
 async function renderCardsFilms() {
     const cardsFilms = await fetchPopularFilms();
-    console.log(cardsFilms);
 
     const list = await createCards(cardsFilms);
     
     gallery.insertAdjacentHTML('beforeend', list);
+
+    
 }
 
-async function createCards(cardsFilms) {
+export async function createCards(cardsFilms) {
     const cardsFilmsGenres = await getCardGenreNames(cardsFilms);
-    console.log(cardsFilmsGenres);
     
     let accFilms = cardsFilms.reduce((acc, item, index) => {
         let firstGenres = '';
@@ -31,24 +32,17 @@ async function createCards(cardsFilms) {
             firstGenres = firstGenres.join(", ");
         }    
         let image = '';
-        console.dir(item)
-        if (item.backdrop_path === null) {
-            image = '../images/no-poster-available.jpg';
+        if (item.poster_path === null) {
+            image = '/src/images/no-poster.jpg';
         }
-        image = `https://image.tmdb.org/t/p/original${item.backdrop_path}`;
-        console.log(image)
-        console.dir(item)
+        image = `https://image.tmdb.org/t/p/original${item.poster_path}`;
         return acc + `<li class="gallery-films__item">
-                <a class="gallery-films__link" href="">
+                <a class="gallery-films__link" bata-id="${item.id}" href="">
                     <img class="gallery-films__card" src="${image}" alt="Картинка заглушка">
                     <h3 class="gallery-films__hero">${item.title}</h3>
                     <ul class="library-film">
-                        <li class="library-film__item">
-                            <p class="library-film__description">${firstGenres}</p>
-                        </li>
-                        <li class="library-film__item">
-                            <p class="library-film__description">${data}</p>
-                        </li>
+                        <li class="library-film__item">${firstGenres}</li>
+                        <li class="library-film__item">${data}</li>
                     </ul>
                 </a>
             </li>
@@ -60,9 +54,12 @@ async function createCards(cardsFilms) {
     
 renderCardsFilms()
 
-function takeFilm(e) {
+async function takeFilm(e) {
     e.preventDefault(e);
-    console.dir(e);
+    if (e.target.localName === "li") {
+        fechFilm(e.target.parentNode.parentElement.attributes[1].value);
+    } else {
+        fechFilm(e.target.parentElement.attributes[1].value)
+    }
 }
-
     gallery.addEventListener('click', takeFilm);
