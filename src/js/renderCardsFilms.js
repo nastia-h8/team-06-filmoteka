@@ -3,7 +3,6 @@ import { getCardGenreNames } from './get-genre-names-arr'
 import { fechFilm } from './modal'
 
 const gallery = document.querySelector('.gallery-films');
-const list = document.querySelector('.gallery-films__link')
 
 
 async function renderCardsFilms() {
@@ -15,7 +14,6 @@ async function renderCardsFilms() {
 
     async function takeFilm(e) {
     e.preventDefault(e);
-        console.log(Number(e.target.parentElement.attributes[1].value));
         const id = Number(e.target.parentElement.attributes[1].value);
         fechFilm(id);
     }
@@ -39,7 +37,6 @@ async function createCards(cardsFilms) {
             firstGenres = firstGenres.join(", ");
         }    
         let image = '';
-        console.dir(item)
         if (item.backdrop_path === null) {
             image = '../images/no-poster-available.jpg';
         }
