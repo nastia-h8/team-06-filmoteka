@@ -8,7 +8,7 @@ export async function fetchPopularFilms(page) {
     try {
         const response = await axios.get(url);
         const data = response.data;
-        return data.results;
+        return data;
     }
     catch (error) {
     console.log(error);
