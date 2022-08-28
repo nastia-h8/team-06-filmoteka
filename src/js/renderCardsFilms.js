@@ -35,7 +35,7 @@ export async function createCards(cardsFilms) {
             firstGenres = firstGenres.join(", ");
         }    
         
-        const posterUrl = item.poster_path ? `https://image.tmdb.org/t/p/original${item.poster_path}` : '../images/no-poster.jpg'
+        const posterUrl = item.poster_path ? `https://image.tmdb.org/t/p/original${item.poster_path}` : 'https://screench.com/upload/no-poster.jpeg'
         return acc + `<li class="gallery-films__item">
                 <a class="gallery-films__link" bata-id="${item.id}" href="">
                     <img class="gallery-films__card" src="${posterUrl}" alt="Картинка заглушка">
