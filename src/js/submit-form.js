@@ -1,9 +1,8 @@
 import { fetchFilmsBySearch } from './fetch-films-by-search';
 import { createCards } from './renderCardsFilms';
 import { fechFilm } from './modal'
-
-
 import Notiflix from 'notiflix';
+
 Notiflix.Notify.init({
     width: '280px',
     position:'top-center',
@@ -61,12 +60,11 @@ async function createFilmsCollection(){
 }
 
 
-
 //Виклик повідомлень 
 function alertEmptySearch() {
     Notiflix.Notify.failure('This field cannot be empty!');
 }
 
 function alertNoFilmsFound() {
-    Notiflix.Notify.failure('No movies were found for this request, try something else.');
+    Notiflix.Notify.failure('Search result not successful, try something else.');
 }
