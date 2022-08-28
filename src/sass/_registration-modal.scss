@@ -1,3 +1,9 @@
+a {
+  cursor: pointer;
+  &:hover {
+    text-decoration: underline;
+  }
+}
 .container__form.invis {
   opacity: 0;
   pointer-events: none;
@@ -147,6 +153,7 @@
   border: 1px var(--tertiary-color) solid;
   background-color: #fff;
   transition: color 250ms, background-color 250ms ease;
+  margin-bottom: 10px;
   &:hover,
   &:focus {
     background-color: var(--accent-color);
@@ -163,6 +170,10 @@
 .img-fluid {
   display: block;
   width: 100%;
+}
+
+.login__link {
+  color: blue;
 }
 // ================================================
 @media (max-width: 768px) {
