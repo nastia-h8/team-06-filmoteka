@@ -9,7 +9,7 @@ const gallery = document.querySelector('.gallery-films');
 async function renderCardsFilms(page) {
     const cardsFilms = await fetchPopularFilms(page);
 
-    const list = await createCards(cardsFilms);
+    const list = await createCards(cardsFilms.results);
     
     gallery.insertAdjacentHTML('beforeend', list);
 
