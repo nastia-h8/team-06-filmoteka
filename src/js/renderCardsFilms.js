@@ -11,7 +11,7 @@ async function renderCardsFilms() {
     const list = await createCards(cardsFilms);
     
     gallery.insertAdjacentHTML('beforeend', list);
-    
+
     gallery.addEventListener('click', takeFilm);
 
     
@@ -33,16 +33,11 @@ export async function createCards(cardsFilms) {
             firstGenres[2] = 'other';
             firstGenres = firstGenres.join(", ");
         }    
-        let image = '';
-        console.log(item.poster_path === null);
-        if (item.poster_path === null) {
-            image = 'https://screench.com/upload/no-poster.jpeg';
-        } else {
-            image = `https://image.tmdb.org/t/p/original${item.poster_path}`;
-        }
+        
+        const posterUrl = item.poster_path ? `https://image.tmdb.org/t/p/original${item.poster_path}` : '../images/no-poster.jpg'
         return acc + `<li class="gallery-films__item">
                 <a class="gallery-films__link" bata-id="${item.id}" href="">
-                    <img class="gallery-films__card" src="${image}" alt="Картинка заглушка">
+                    <img class="gallery-films__card" src="${posterUrl}" alt="Картинка заглушка">
                     <h3 class="gallery-films__hero">${item.title}</h3>
                     <ul class="library-film">
                         <li class="library-film__item">${firstGenres}</li>
