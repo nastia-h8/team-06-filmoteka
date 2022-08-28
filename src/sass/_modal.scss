@@ -1,5 +1,5 @@
 .backdrop {
-    position: absolute;
+    position: fixed;
     width: 100%;
     height: 100%;
     left: 0px;
@@ -80,7 +80,7 @@
     line-height: 1.33;
     color: #8C8C8C;
     margin: 0;
-    min-width: 90px;
+    width: 90px;
     &:not(:last-child) {
         margin-bottom: 15px;
     }
@@ -218,7 +218,7 @@
 
 }
 
-@media screen and (min-width: 1024px) {
+@media screen and (min-width: 1280px) {
     .modal-window {
         width: 806px;
         padding: 40px 12px;
