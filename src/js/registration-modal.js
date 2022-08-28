@@ -26,6 +26,8 @@ const firebaseConfig = initializeApp({
 // ===============================================================
 const auth = getAuth(firebaseConfig);
 // ===============================================================
+const user = auth.currentUser;
+// ===============================================================
 
 const logInButtonRef = document.querySelector('.auth-btn');
 const modalWindow = document.querySelector('.container__form');
@@ -40,7 +42,9 @@ const repeatPassInputRef = document.querySelector('#repeatedPass');
 const userNameInputRef = document.querySelector('#userName');
 let userEmailInputRef = document.querySelector('#userEmail');
 const loginLinkRef = document.querySelector('.login__link');
+const libraryLinkRef = document.querySelector('.library-link');
 // ===============================================================
+libraryLinkRef.addEventListener('click', onLibraryLinkClick);
 formButtonRef.disabled = true;
 // ===============================================================
 let logOutButtonRef;
@@ -190,6 +194,7 @@ async function loginIntoAccount(auth, email, password) {
     );
     logOutButtonRef = document.querySelector('.logout__button');
     logOutButtonRef.addEventListener('click', logOutHandler);
+    libraryLinkRef.removeEventListener('click', onLibraryLinkClick);
   } catch (error) {
     console.log(error);
     Notiflix.Notify.warning(
@@ -199,6 +204,7 @@ async function loginIntoAccount(auth, email, password) {
 }
 
 // ===============================================================
+
 // onAuthStateChanged((auth, user) => {
 //   console.log(user);
 //   if (user) {
@@ -223,3 +229,16 @@ function logOutHandler() {
     });
 }
 // ===============================================================
+function onLibraryLinkClick(e) {
+  e.preventDefault();
+  Notiflix.Notify.warning('To use "Mi Library" page. First You need to login');
+}
+// ===============================================================
+if (user) {
+  // User is signed in, see docs for a list of available properties
+  // https://firebase.google.com/docs/reference/js/firebase.User
+  // ...
+  Notiflix.Notify.success('You are in');
+} else {
+  // No user is signed in.
+}

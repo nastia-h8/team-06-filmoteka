@@ -175,6 +175,9 @@ a {
 .login__link {
   color: blue;
 }
+.accent {
+  color: var(--accent-color);
+}
 // ================================================
 @media (max-width: 768px) {
   .row {
