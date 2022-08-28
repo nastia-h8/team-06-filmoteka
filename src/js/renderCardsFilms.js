@@ -1,7 +1,9 @@
 import { fetchPopularFilms } from './fetch-trending-films'
 import { getCardGenreNames } from './get-genre-names-arr'
+import { fechFilm } from './modal'
 
 const gallery = document.querySelector('.gallery-films');
+const list = document.querySelector('.gallery-films__link')
 
 
 async function renderCardsFilms() {
@@ -10,6 +12,15 @@ async function renderCardsFilms() {
     const list = await createCards(cardsFilms);
     
     gallery.insertAdjacentHTML('beforeend', list);
+
+    async function takeFilm(e) {
+    e.preventDefault(e);
+        console.log(Number(e.target.parentElement.attributes[1].value));
+        const id = Number(e.target.parentElement.attributes[1].value);
+        fechFilm(id);
+    }
+    
+    gallery.addEventListener('click', takeFilm);
 }
 
 async function createCards(cardsFilms) {
@@ -35,7 +46,7 @@ async function createCards(cardsFilms) {
         }
         image = `https://image.tmdb.org/t/p/original${item.backdrop_path}`;
         return acc + `<li class="gallery-films__item">
-                <a class="gallery-films__link" href="">
+                <a class="gallery-films__link" bata-id="${item.id}" href="">
                     <img class="gallery-films__card" src="${image}" alt="Картинка заглушка">
                     <h3 class="gallery-films__hero">${item.title}</h3>
                     <ul class="library-film">
@@ -56,9 +67,3 @@ async function createCards(cardsFilms) {
     
 renderCardsFilms()
 
-function takeFilm(e) {
-    e.preventDefault(e);
-    console.log(e.target.dataset);
-}
-
-    gallery.addEventListener('click', takeFilm);
