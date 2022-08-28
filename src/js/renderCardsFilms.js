@@ -7,7 +7,7 @@ const gallery = document.querySelector('.gallery-films');
 
 
 async function renderCardsFilms() {
-    const cardsFilms = await fetchPopularFilms();
+    const cardsFilms = await fetchPopularFilms(1);
 
     const list = await createCards(cardsFilms);
     
