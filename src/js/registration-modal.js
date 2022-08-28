@@ -1,11 +1,5 @@
 import Notiflix from 'notiflix';
 import { initializeApp } from 'firebase/app';
-// import {
-//   getAuth,
-//   onAuthStateChanged,
-//   signInWithEmailAndPassword,
-//   createUserWithEmailAndPassword,
-// } from 'firebase/auth';
 import {
   getAuth,
   createUserWithEmailAndPassword,
@@ -30,6 +24,7 @@ const user = auth.currentUser;
 // ===============================================================
 
 const logInButtonRef = document.querySelector('.auth-btn');
+const logOutButtonRef = document.querySelector('.logout__btn');
 const modalWindow = document.querySelector('.container__form');
 const rowRef = document.querySelector('.row');
 const backDropRef = document.querySelector('.backdrop');
@@ -47,7 +42,16 @@ const libraryLinkRef = document.querySelector('.library-link');
 libraryLinkRef.addEventListener('click', onLibraryLinkClick);
 formButtonRef.disabled = true;
 // ===============================================================
-let logOutButtonRef;
+function checkLocalStorage() {
+  if (localStorage.getItem('userData')) {
+    const restoredUserData = JSON.parse(localStorage.getItem('userData'));
+    const { userEmail, userPassword } = restoredUserData;
+    loginIntoAccount(auth, userEmail, userPassword);
+  }
+}
+checkLocalStorage();
+// ===============================================================
+
 // ===============================================================
 logInButtonRef.addEventListener('click', onLoginBtnClick);
 checkBoxRef.addEventListener('change', onToggle);
@@ -66,6 +70,8 @@ function onFormSubmit(e) {
     Notiflix.Notify.failure('Passwords do not match each others');
   } else if (firstPassInputRef.value.length < 6) {
     Notiflix.Notify.failure('Password should be at least 6 characters');
+  } else if (userEmailInputRef.value.length === 0) {
+    Notiflix.Notify.failure('Please enter Your email address');
   } else {
     const userName = userNameInputRef.value;
     const userEmail = userEmailInputRef.value;
@@ -147,8 +153,8 @@ function onLoginLinkClick(e) {
 						</div>
 						</div>
 						<button type="submit" class="btn btn-primary btn-lg">Log In</button>
+						<p class="signup"><span class="accent">Changed Yor mind?</br></span> Procced to <a class="login__link">Sign Up Page</a> </p>
 						</form>
-						
 						</div>
 						<div class="img__container">
 						
@@ -161,6 +167,8 @@ function onLoginLinkClick(e) {
   userEmailInputRef = document.querySelector('#userEmail');
   firstPassInputRef = document.querySelector('#firstPass');
   const formLoginRef = document.querySelector('.form__login');
+  const signUpPageRef = document.querySelector('.signup');
+  signUpPageRef.addEventListener('click', backToSignUpPage);
   formRef.removeEventListener('submit', onFormSubmit);
   formLoginRef.addEventListener('submit', onLoginPageSubmit);
 }
@@ -169,8 +177,12 @@ function onLoginLinkClick(e) {
 function onLoginPageSubmit(e) {
   e.preventDefault();
   const userEmail = userEmailInputRef.value;
-
   const userPassword = firstPassInputRef.value;
+
+  const user = localStorage.setItem(
+    'userData',
+    JSON.stringify({ userEmail, userPassword })
+  );
 
   loginIntoAccount(auth, userEmail, userPassword);
   formRef.reset();
@@ -179,20 +191,12 @@ function onLoginPageSubmit(e) {
 
 // ===============================================================
 async function loginIntoAccount(auth, email, password) {
-  console.log(email);
   try {
     const userCredentials = await signInWithEmailAndPassword(
       auth,
       email,
       password
     );
-    Notiflix.Notify.success('User loged In');
-    const headerNavContainer = document.querySelector('.nav');
-    headerNavContainer.insertAdjacentHTML(
-      'afterbegin',
-      `<button class="auth-btn logout__button" type="button">Log out</button>`
-    );
-    logOutButtonRef = document.querySelector('.logout__button');
     logOutButtonRef.addEventListener('click', logOutHandler);
     libraryLinkRef.removeEventListener('click', onLibraryLinkClick);
   } catch (error) {
@@ -222,7 +226,8 @@ function logOutHandler() {
   signOut(auth)
     .then(() => {
       Notiflix.Notify.success('Sign-out successful.');
-      logOutButtonRef.outerHTML = '';
+      libraryLinkRef.addEventListener('click', onLibraryLinkClick);
+      localStorage.removeItem('userData');
     })
     .catch(error => {
       Notiflix.Notify.warning('Sign-out unsuccessful.');
@@ -234,11 +239,71 @@ function onLibraryLinkClick(e) {
   Notiflix.Notify.warning('To use "Mi Library" page. First You need to login');
 }
 // ===============================================================
-if (user) {
-  // User is signed in, see docs for a list of available properties
-  // https://firebase.google.com/docs/reference/js/firebase.User
-  // ...
-  Notiflix.Notify.success('You are in');
-} else {
-  // No user is signed in.
+function backToSignUpPage(e) {
+  e.preventDefault();
+  const signUpMarkUp = `	<div class="row">
+		<div class="col-md-10 col-lg-6 col-xl-5 order-2 order-lg-1">
+
+			<p class="text-center">Sign up</p>
+			<div class="close__icon">
+				<i class="fa-solid fa-circle-xmark"></i>
+			</div>
+			<form class="mx-1 mx-md-4 form">
+
+				<div class="form__input">
+					<i class="fas fa-user fa-lg me-3 fa-fw"></i>
+					<div class="form-outline flex-fill mb-0">
+						<input type="text" id="userName" class="form-control" placeholder=" " />
+						<label class="form-label" for="userName">Your Name</label>
+					</div>
+				</div>
+
+				<div class="form__input">
+					<i class="fas fa-envelope fa-lg me-3 fa-fw"></i>
+					<div class="form-outline flex-fill mb-0">
+						<input type="email" id="userEmail" class="form-control" placeholder=" " />
+						<label class="form-label" for="userEmail">Your Email</label>
+					</div>
+				</div>
+
+				<div class="form__input">
+					<i class="fas fa-lock fa-lg me-3 fa-fw"></i>
+					<div class="form-outline flex-fill mb-0">
+						<input type="password" id="firstPass" class="form-control" placeholder=" " />
+						<label class="form-label" for="firstPass">Password</label>
+					</div>
+				</div>
+
+				<div class="form__input">
+					<i class="fas fa-key fa-lg me-3 fa-fw"></i>
+					<div class="form-outline flex-fill mb-0">
+						<input type="password" id="repeatedPass" class="form-control" placeholder=" " />
+						<label class="form-label" for="repeatedPass">Repeat your password</label>
+					</div>
+				</div>
+
+				<div class="form-check d-flex justify-content-center mb-5">
+					<input class="form-check-input me-2" type="checkbox" value="" id="form2Example3c" />
+					<label class="form-check-label" for="form2Example3">
+						I agree all statements in <a href="#!">Terms of service</a>
+					</label>
+				</div>
+
+
+				<button type="submit" class="btn btn-primary btn-lg">Register</button>
+				<p class="login__link"><span class="accent">Already have an account?<br></span><br>Procced to <a class="login__link">Login Page</a> </p>
+			</form>
+
+		</div>
+		<div class="img__container">
+
+			<img src="https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-registration/draw1.webp" class="img-fluid" alt="Sample image">
+
+		</div>
+	</div>`;
+  modalWindow.innerHTML = '';
+  modalWindow.insertAdjacentHTML('afterbegin', signUpMarkUp);
+  modalWindow.addEventListener('click', onCloseModalBtn);
+  loginLinkRef.addEventListener('click', onLoginLinkClick);
 }
+// ===============================================================

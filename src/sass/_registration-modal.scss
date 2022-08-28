@@ -44,6 +44,7 @@ a {
   top: 10px;
   right: 10px;
   transition: color 250ms ease;
+  cursor: pointer;
 
   &:hover {
     color: var(--accent-color);
@@ -141,6 +142,7 @@ a {
 }
 .form-check-input {
   accent-color: var(--accent-color);
+  cursor: pointer;
 }
 
 .form-check-label {
@@ -148,6 +150,7 @@ a {
 }
 
 .btn {
+  cursor: pointer;
   padding: 10px 20px;
   border-radius: 5px;
   border: 1px var(--tertiary-color) solid;
@@ -181,14 +184,32 @@ a {
 // ================================================
 @media (max-width: 768px) {
   .row {
-    width: 400px;
+    width: 550px;
+  }
+  .form-outline {
+    width: 60%;
   }
 }
-@media (max-width: 400px) {
+@media (max-width: 580px) {
   .row {
-    width: 300px;
+    width: 90%;
   }
   .img__container {
     display: none;
+  }
+  .form-label {
+    font-size: 11px;
+    transform: translate(0%, 65%);
+  }
+  .row {
+    background-image: url('https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-registration/draw1.webp');
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+  }
+  .form-check {
+    background-color: #ffffff;
+    padding: 5px;
+    border-radius: 10px;
   }
 }
