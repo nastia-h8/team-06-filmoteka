@@ -1,4 +1,6 @@
 // import {onWatchedClick, onQueueClick } from './localStorage'
+import { addBtn } from './loader-scroll'
+import { closeOpenbtn } from './loader-scroll'
 
 const closeFilmModalBtn = document.querySelector(".close-modal-btn")
 const filmBackdrop = document.querySelector('[data-modal]')
@@ -30,7 +32,9 @@ export function onEscDown(e) {
 export function closeFilmModal() {
   const addToWatchedBtn = document.querySelector(".film-btn-wached")
   const addToQueuedBtn = document.querySelector(".film-btn-queue")
-
+  if (closeOpenbtn()) {
+    addBtn();
+  }
   filmBackdrop.classList.add('is-hidden')
   document.body.style.overflow = 'auto'
   closeFilmModalBtn.removeEventListener('click', closeFilmModal)

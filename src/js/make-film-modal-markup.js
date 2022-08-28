@@ -1,7 +1,6 @@
 import { addModalListeners } from './close-film-modal'
-
+import { delBtn } from './loader-scroll'
 const filmBackdrop = document.querySelector('[data-modal]')
-
 
 
 export async function makeFilmModalMarkup(markupInfo) {
@@ -57,6 +56,7 @@ function modalScrollForbiddance() {
   if (!filmBackdrop.classList.contains('is-hidden')) {
     document.body.style.overflow = 'hidden'
     filmBackdrop.style.overflow = 'auto'
+    delBtn()
   }
 }
 
