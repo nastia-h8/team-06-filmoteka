@@ -24,8 +24,7 @@ const firebaseConfig = initializeApp({
 // ===============================================================
 const auth = getAuth(firebaseConfig);
 // ===============================================================
-const user = auth.currentUser;
-let isUserOnline;
+
 // ===============================================================
 const logInButtonRef = document.querySelector('.auth-btn');
 const logOutButtonRef = document.querySelector('.logout__btn');
@@ -46,6 +45,7 @@ let libraryLinkRef = document.querySelector('.library-link');
 // ===============================================================
 libraryLinkRef.addEventListener('click', onLibraryLinkClick);
 formButtonSignUpRef.disabled = true;
+logOutButtonRef.disabled = true;
 // ===============================================================
 function enableLibraryLink() {
   libraryLinkRef = document.querySelector('.library-link');
@@ -179,8 +179,7 @@ async function isUserAlreadyLogedIn() {
       logOutButtonRef.disabled = false;
       console.log(user);
     } else {
-      Notiflix.Notify.failure('Does not work');
-      console.log(user);
+      console.log(error);
     }
   });
 }
