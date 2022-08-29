@@ -45,7 +45,6 @@ let libraryLinkRef = document.querySelector('.library-link');
 // ===============================================================
 libraryLinkRef.addEventListener('click', onLibraryLinkClick);
 formButtonSignUpRef.disabled = true;
-logOutButtonRef.disabled = true;
 // ===============================================================
 function enableLibraryLink() {
   libraryLinkRef = document.querySelector('.library-link');
