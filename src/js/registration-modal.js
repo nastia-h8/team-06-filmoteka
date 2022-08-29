@@ -11,7 +11,6 @@ import {
   browserSessionPersistence,
   inMemoryPersistence,
 } from 'firebase/auth';
-
 // ==================firebaseConfig===============================
 const firebaseConfig = initializeApp({
   apiKey: 'AIzaSyBwIHbipBLGGO3rbF9X_3hWkD1LKg_9nto',
@@ -23,8 +22,6 @@ const firebaseConfig = initializeApp({
 });
 // ===============================================================
 const auth = getAuth(firebaseConfig);
-// ===============================================================
-
 // ===============================================================
 const logInButtonRef = document.querySelector('.auth-btn');
 const logOutButtonRef = document.querySelector('.logout__btn');
@@ -50,7 +47,6 @@ function enableLibraryLink() {
   libraryLinkRef = document.querySelector('.library-link');
   libraryLinkRef.removeEventListener('click', onLibraryLinkClick);
 }
-// ===============================================================
 // ===============================================================
 logInButtonRef.addEventListener('click', onLoginBtnClick);
 checkBoxRef.addEventListener('change', onToggle);
@@ -121,9 +117,6 @@ async function createAccount(auth, email, password) {
     );
   }
 }
-
-// ===============================================================
-
 // ===============================================================
 function onLoginPageSubmit(e) {
   e.preventDefault();
@@ -133,7 +126,6 @@ function onLoginPageSubmit(e) {
   formRef.reset();
   modalWindow.classList.add('invis');
 }
-
 // ===============================================================
 async function loginIntoAccount(auth, email, password) {
   try {
@@ -149,8 +141,6 @@ async function loginIntoAccount(auth, email, password) {
     );
   }
 }
-
-// ===============================================================
 // ===============================================================
 function logOutHandler() {
   signOut(auth)
@@ -193,6 +183,10 @@ function ifUserLoged() {
     } else {
       libraryLinkRef.addEventListener('click', onLibraryLinkClick);
       logOutButtonRef.disabled = true;
+
+      if (window.location.pathname.search('/library.html') != -1) {
+        window.location.pathname = '/index.html';
+      }
     }
   });
 }
