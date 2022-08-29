@@ -42,14 +42,12 @@ const libraryLinkRef = document.querySelector('.library-link');
 libraryLinkRef.addEventListener('click', onLibraryLinkClick);
 formButtonSignUpRef.disabled = true;
 // ===============================================================
-function checkLocalStorage() {
-  if (localStorage.getItem('userData')) {
-    const restoredUserData = JSON.parse(localStorage.getItem('userData'));
-    const { userEmail, userPassword } = restoredUserData;
-    loginIntoAccount(auth, userEmail, userPassword);
+function checkLogedUser() {
+  if (isUserAlreadyLogedIn()) {
+    libraryLinkRef.removeEventListener('click', onLibraryLinkClick);
   }
 }
-checkLocalStorage();
+checkLogedUser();
 // ===============================================================
 // ===============================================================
 logInButtonRef.addEventListener('click', onLoginBtnClick);
@@ -131,10 +129,10 @@ function onLoginPageSubmit(e) {
   const userEmail = userEmailInputRef.value;
   const userPassword = firstPassInputRef.value;
 
-  const user = localStorage.setItem(
-    'userData',
-    JSON.stringify({ userEmail, userPassword })
-  );
+  // const user = localStorage.setItem(
+  //   'userData',
+  //   JSON.stringify({ userEmail, userPassword })
+  // );
   loginIntoAccount(auth, userEmail, userPassword);
   formRef.reset();
   modalWindow.classList.add('invis');
@@ -148,7 +146,7 @@ async function loginIntoAccount(auth, email, password) {
       email,
       password
     );
-    Notiflix.Notify.success('You are In');
+    isUserAlreadyLogedIn();
     libraryLinkRef.removeEventListener('click', onLibraryLinkClick);
   } catch (error) {
     console.log(error);
@@ -161,7 +159,20 @@ async function loginIntoAccount(auth, email, password) {
 // ===============================================================
 // ===============================================================
 function logOutHandler() {
-  if (localStorage.getItem('userData')) {
+  // if (localStorage.getItem('userData')) {
+  //   signOut(auth)
+  //     .then(() => {
+  //       Notiflix.Notify.success('Sign-out successful.');
+  //       libraryLinkRef.addEventListener('click', onLibraryLinkClick);
+  //       localStorage.removeItem('userData');
+  //     })
+  //     .catch(error => {
+  //       Notiflix.Notify.warning('Sign-out unsuccessful.');
+  //     });
+  // } else {
+  //   Notiflix.Notify.info('You are not loged in yet');
+  // }
+  if (isUserAlreadyLogedIn()) {
     signOut(auth)
       .then(() => {
         Notiflix.Notify.success('Sign-out successful.');
@@ -171,11 +182,31 @@ function logOutHandler() {
       .catch(error => {
         Notiflix.Notify.warning('Sign-out unsuccessful.');
       });
+  } else {
+    Notiflix.Notify.info('You are not loged in yet');
   }
 }
 // ===============================================================
 function onLibraryLinkClick(e) {
   e.preventDefault();
-  Notiflix.Notify.warning('To use "Mi Library" page. First You need to login');
+  Notiflix.Notify.info('To use "Mi Library" page. First You need to login');
 }
 // ===============================================================
+function isUserAlreadyLogedIn() {
+  const auth = getAuth(firebaseConfig);
+
+  const user = auth.currentUser;
+  console.log('user: ', user);
+
+  if (user) {
+    // User is signed in, see docs for a list of available properties
+    // https://firebase.google.com/docs/reference/js/firebase.User
+    // ...
+    Notiflix.Notify.success('works');
+    return true;
+  } else {
+    // No user is signed in.
+    Notiflix.Notify.failure('Does not work');
+    return false;
+  }
+}
