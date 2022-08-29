@@ -155,12 +155,13 @@ async function loginIntoAccount(auth, email, password) {
 function logOutHandler() {
   signOut(auth)
     .then(() => {
-      Notiflix.Notify.success('Sign-out successful.');
+      Notiflix.Notify.success('Log-out successful.');
       libraryLinkRef.addEventListener('click', onLibraryLinkClick);
       logOutButtonRef.disabled = true;
+      window.location.pathname = '/index.html';
     })
     .catch(error => {
-      Notiflix.Notify.warning('Sign-out unsuccessful.');
+      Notiflix.Notify.warning('Log-out unsuccessful.');
     });
 }
 // ===============================================================
