@@ -45,6 +45,92 @@
                     }
                 }
 }
+.preloader-dev {
+    /*фиксированное позиционирование*/
+    position: fixed;
+    /* координаты положения */
+    left: 0;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    /* фоновый цвет элемента */
+    background-color: #e0e0e0;
+    background: #585858;
+    /* размещаем блок над всеми элементами на странице (это значение должно быть больше, чем у любого другого позиционированного элемента на странице) */
+    z-index: 1001;
+}
+
+.preloader-dev__row {
+    position: relative;
+    top: 50%;
+    left: 50%;
+    width: 70px;
+    height: 70px;
+    margin-top: -35px;
+    margin-left: -35px;
+    text-align: center;
+    animation: preloader-rotate 2000ms infinite linear;
+}
+
+.preloader-dev__item {
+    position: absolute;
+    display: inline-block;
+    top: 0;
+    background-color: #337ab7;
+    background-color: #e0e0e0;
+    border-radius: 100%;
+    width: 35px;
+    height: 35px;
+    animation: preloader-bounce 2000ms infinite ease-in-out;
+}
+
+.preloader-dev__item:last-child {
+    top: auto;
+    bottom: 0;
+    animation-delay: -1000ms;
+}
+
+@keyframes preloader-rotate {
+    100% {
+        transform: rotate(360deg);
+    }
+}
+
+@keyframes preloader-bounce {
+
+    0%,
+    100% {
+        transform: scale(0);
+    }
+
+    50% {
+        transform: scale(1);
+    }
+}
+
+.loaded-hiding .preloader-dev {
+    transition: 300ms opacity;
+    opacity: 0;
+}
+
+.loaded-vis .preloader-dev {
+    display: none;
+}
+
+
+.none{
+    opacity: 0;
+    pointer-events: none;
+    // transition: opacity 250ms linear;
+
+}
+
+.block {
+    opacity: 1;
+    pointer-events: all;
+    // transition: opacity 250ms linear;
+}
+
 .preloader {
     /*фиксированное позиционирование*/
     position: fixed;
@@ -54,7 +140,7 @@
     right: 0;
     bottom: 0;
     /* фоновый цвет элемента */
-    background: #e0e0e0;
+    background-color: #e0e0e0;
     background: #585858;
     /* размещаем блок над всеми элементами на странице (это значение должно быть больше, чем у любого другого позиционированного элемента на странице) */
     z-index: 1001;
@@ -117,94 +203,3 @@
     display: none;
 }
 
-
-.none{
-    opacity: 0;
-    pointer-events: none;
-    // transition: opacity 250ms linear;
-
-}
-
-.block {
-    opacity: 1;
-    pointer-events: all;
-    // transition: opacity 250ms linear;
-}
-
-
-
-
-// @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@200;300;400;500;600;700&display=swap');
-
-// * {
-//     margin: 0;
-//     padding: 0;
-//     box-sizing: border-box;
-//     font-family: 'Poppins', sans-serif;
-// }
-
-// body {
-//     display: flex;
-//     align-items: center;
-//     justify-content: center;
-//     background: #20B2AA;
-//     min-height: 100vh;
-//     padding: 10px;
-// }
-
-// .pagination ul {
-//     width: 100%;
-//     display: flex;
-//     flex-wrap: wrap;
-//     background: #fff;
-//     padding: 8px;
-//     border-radius: 50px;
-//     box-shadow: 0px 10px 15px rgba(0, 0, 0, 0.1);
-// }
-
-// .pagination ul li {
-//     color: #20B2AA;
-//     list-style: none;
-//     line-height: 45px;
-//     text-align: center;
-//     font-size: 18px;
-//     font-weight: 500;
-//     cursor: pointer;
-//     user-select: none;
-//     transition: all 0.3s ease;
-// }
-
-// .pagination ul li.numb {
-//     list-style: none;
-//     height: 45px;
-//     width: 45px;
-//     margin: 0 3px;
-//     line-height: 45px;
-//     border-radius: 50%;
-// }
-
-// .pagination ul li.numb.first {
-//     margin: 0px 3px 0 -5px;
-// }
-
-// .pagination ul li.numb.last {
-//     margin: 0px -5px 0 3px;
-// }
-
-// .pagination ul li.dots {
-//     font-size: 22px;
-//     cursor: default;
-// }
-
-// .pagination ul li.btn {
-//     padding: 0 20px;
-//     border-radius: 50px;
-// }
-
-// .pagination li.active,
-// .pagination ul li.numb:hover,
-// .pagination ul li:first-child:hover,
-// .pagination ul li:last-child:hover {
-//     color: #fff;
-//     background: #20B2AA;
-// }
