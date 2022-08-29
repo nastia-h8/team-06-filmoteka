@@ -6,6 +6,10 @@ import {
   signInWithEmailAndPassword,
   onAuthStateChanged,
   signOut,
+  setPersistence,
+  browserLocalPersistence,
+  browserSessionPersistence,
+  inMemoryPersistence,
 } from 'firebase/auth';
 
 // ==================firebaseConfig===============================
@@ -37,15 +41,14 @@ const repeatPassInputRef = document.querySelector('#repeatedPass');
 const userNameInputRef = document.querySelector('#userName');
 let userEmailInputRef = document.querySelector('#userEmail');
 const loginLinkRef = document.querySelector('.login__link');
-const libraryLinkRef = document.querySelector('.library-link');
+let libraryLinkRef = document.querySelector('.library-link');
 // ===============================================================
 libraryLinkRef.addEventListener('click', onLibraryLinkClick);
 formButtonSignUpRef.disabled = true;
 // ===============================================================
 function checkLogedUser() {
-  if (isUserAlreadyLogedIn()) {
-    libraryLinkRef.removeEventListener('click', onLibraryLinkClick);
-  }
+  libraryLinkRef = document.querySelector('.library-link');
+  libraryLinkRef.removeEventListener('click', onLibraryLinkClick);
 }
 checkLogedUser();
 // ===============================================================
@@ -141,11 +144,10 @@ function onLoginPageSubmit(e) {
 // ===============================================================
 async function loginIntoAccount(auth, email, password) {
   try {
-    const userCredentials = await signInWithEmailAndPassword(
-      auth,
-      email,
-      password
-    );
+    // const userCredentials = await setPersistence(auth, browserLocalPersistence);
+    auth = getAuth(firebaseConfig);
+    await setPersistence(auth, browserLocalPersistence);
+    await signInWithEmailAndPassword(auth, email, password);
     isUserAlreadyLogedIn();
     libraryLinkRef.removeEventListener('click', onLibraryLinkClick);
   } catch (error) {
@@ -155,36 +157,29 @@ async function loginIntoAccount(auth, email, password) {
     );
   }
 }
+// loginIntoAccount(auth, browserSessionPersistence)
+//   .then(() => {
+//     const userEmail = userEmailInputRef.value;
+//     const userPassword = firstPassInputRef.value;
+//     return signInWithEmailAndPassword(auth, userEmail, userPassword);
+//   })
+//   .catch(error => {
+//     const errorCode = error.code;
+//     const errorMessage = error.message;
+//   });
 
 // ===============================================================
 // ===============================================================
 function logOutHandler() {
-  // if (localStorage.getItem('userData')) {
-  //   signOut(auth)
-  //     .then(() => {
-  //       Notiflix.Notify.success('Sign-out successful.');
-  //       libraryLinkRef.addEventListener('click', onLibraryLinkClick);
-  //       localStorage.removeItem('userData');
-  //     })
-  //     .catch(error => {
-  //       Notiflix.Notify.warning('Sign-out unsuccessful.');
-  //     });
-  // } else {
-  //   Notiflix.Notify.info('You are not loged in yet');
-  // }
-  if (isUserAlreadyLogedIn()) {
-    signOut(auth)
-      .then(() => {
-        Notiflix.Notify.success('Sign-out successful.');
-        libraryLinkRef.addEventListener('click', onLibraryLinkClick);
-        localStorage.removeItem('userData');
-      })
-      .catch(error => {
-        Notiflix.Notify.warning('Sign-out unsuccessful.');
-      });
-  } else {
-    Notiflix.Notify.info('You are not loged in yet');
-  }
+  signOut(auth)
+    .then(() => {
+      Notiflix.Notify.success('Sign-out successful.');
+      libraryLinkRef.addEventListener('click', onLibraryLinkClick);
+      localStorage.removeItem('userData');
+    })
+    .catch(error => {
+      Notiflix.Notify.warning('Sign-out unsuccessful.');
+    });
 }
 // ===============================================================
 function onLibraryLinkClick(e) {
@@ -192,21 +187,18 @@ function onLibraryLinkClick(e) {
   Notiflix.Notify.info('To use "Mi Library" page. First You need to login');
 }
 // ===============================================================
-function isUserAlreadyLogedIn() {
+async function isUserAlreadyLogedIn() {
   const auth = getAuth(firebaseConfig);
-
-  const user = auth.currentUser;
-  console.log('user: ', user);
-
-  if (user) {
-    // User is signed in, see docs for a list of available properties
-    // https://firebase.google.com/docs/reference/js/firebase.User
-    // ...
-    Notiflix.Notify.success('works');
-    return true;
-  } else {
-    // No user is signed in.
-    Notiflix.Notify.failure('Does not work');
-    return false;
-  }
+  onAuthStateChanged(auth, user => {
+    if (user) {
+      const uid = user.uid;
+      console.log('uid: ', uid);
+      Notiflix.Notify.success('You are loged in');
+      return true;
+    } else {
+      Notiflix.Notify.failure('Does not work');
+      return false;
+    }
+  });
 }
+// ===============================================================
