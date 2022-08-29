@@ -183,3 +183,11 @@
         height: 20px;
     }
 }
+
+
+// Стилі для пагінації
+.tui-pagination .tui-is-selected,
+.tui-pagination strong {
+    background-color: var(--accent-color) !important; 
+    border-color: var(--accent-color)!important;
+}

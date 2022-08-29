@@ -28,7 +28,7 @@ export async function getCardGenreNames(movieData) {
         const movieGenreNamsArr = getNamesData(ids)
         genreNames.push(movieGenreNamsArr)
     })
-    console.log(await genreNames)
+    // console.log(await genreNames)
     return genreNames
 }
 
