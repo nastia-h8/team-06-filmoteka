@@ -40,10 +40,8 @@ export async function onOpenFilmModal(markupInfo) {
         window.removeEventListener('keydown', onEscDown)
         addToWatchedBtn.removeEventListener('click', onWatchedClick)
         addToQueuedBtn.removeEventListener('click', onQueueClick)
-        addToWatchedBtn.removeAttribute('disabled')
-        addToWatchedBtn.innerHTML = 'add to Watched'
-        addToQueuedBtn.removeAttribute('disabled')
-        addToQueuedBtn.innerHTML = 'add to queue'
+        enableAddToWatchedBtn()
+        enableAddToQueuedBtn()
     }
 
 
@@ -61,13 +59,11 @@ export async function onOpenFilmModal(markupInfo) {
     const isAlredyOnQueue = queueFilmsArr?.find(film => film.id === markupInfo.id)
 
     if (isAlredyOnWached) {
-        addToWatchedBtn.setAttribute('disabled', true)
-        addToWatchedBtn.innerHTML = 'film alredy on wached'
+       disableAddToWatchedBtn()
     }
 
     if (isAlredyOnQueue) {
-        addToQueuedBtn.setAttribute('disabled', true)
-        addToQueuedBtn.innerHTML = 'film alredy on queue'
+        disableAddToQueuedBtn()
     }
 
 
@@ -78,14 +74,12 @@ export async function onOpenFilmModal(markupInfo) {
         
         if (!inWachedLocalStorage) {
             localStorage.setItem(KEY_WACHED, JSON.stringify([markupInfo]))
-            addToWatchedBtn.setAttribute('disabled', true)
-            addToWatchedBtn.innerHTML = 'film alredy on wached'
+            disableAddToWatchedBtn()
             removeFilmFromQueue()
         } else {
             wachedFilmsArr.push(markupInfo)
             localStorage.setItem(KEY_WACHED, JSON.stringify(wachedFilmsArr))
-            addToWatchedBtn.setAttribute('disabled', true)
-            addToWatchedBtn.innerHTML = 'film alredy on wached'
+            disableAddToWatchedBtn()
             removeFilmFromQueue()
         }
         
@@ -97,14 +91,12 @@ export async function onOpenFilmModal(markupInfo) {
 
         if (!inQueueLocalStorage) {
             localStorage.setItem(KEY_QUEUE, JSON.stringify([markupInfo]))
-            addToQueuedBtn.setAttribute('disabled', true)
-            addToQueuedBtn.innerHTML = 'film alredy on queue'
+            disableAddToQueuedBtn()
             removeFilmFromWached()
         } else {
             queueFilmsArr.push(markupInfo)
             localStorage.setItem(KEY_QUEUE, JSON.stringify(queueFilmsArr))
-            addToQueuedBtn.setAttribute('disabled', true)
-            addToQueuedBtn.innerHTML = 'film alredy on queue'
+            disableAddToQueuedBtn()
             removeFilmFromWached()
         }
     }
@@ -115,15 +107,15 @@ export async function onOpenFilmModal(markupInfo) {
         const isAlredyOnWached = wachedFilmsArr?.find(film => film.id === markupInfo.id)
 
         if (isAlredyOnWached) {
-
             const newWachedFilmsArr = wachedFilmsArr.filter(film => film.id !== markupInfo.id)
+
             if (newWachedFilmsArr.length > 0) {
                 localStorage.setItem(KEY_WACHED, JSON.stringify(newWachedFilmsArr))
             } else {
                 localStorage.removeItem(KEY_WACHED)
             }  
-            addToWatchedBtn.removeAttribute('disabled')
-            addToWatchedBtn.innerHTML = 'add to Watched'            
+
+            enableAddToWatchedBtn()            
         }        
     }
 
@@ -133,26 +125,45 @@ export async function onOpenFilmModal(markupInfo) {
         const isAlredyOnQueue = queueFilmsArr?.find(film => film.id === markupInfo.id)
 
         if (isAlredyOnQueue) {
-
             const newQueueFilmsArr = queueFilmsArr.filter(film => film.id !== markupInfo.id)
+
             if (newQueueFilmsArr.length > 0) {
                 localStorage.setItem(KEY_QUEUE, JSON.stringify(newQueueFilmsArr))
             } else {
                 localStorage.removeItem(KEY_QUEUE)
             }  
-            addToQueuedBtn.removeAttribute('disabled')
-            addToQueuedBtn.innerHTML = 'add to queue'            
-        }        
 
+            enableAddToQueuedBtn()           
+        }     
     }
 }
+
+function disableAddToWatchedBtn() {
+    addToWatchedBtn.setAttribute('disabled', true)
+    addToWatchedBtn.innerHTML = 'movie alredy in wached'
+}
+
+function enableAddToWatchedBtn() {
+    addToWatchedBtn.removeAttribute('disabled')
+    addToWatchedBtn.innerHTML = 'add to watched'
+}
+
+function disableAddToQueuedBtn() {
+    addToQueuedBtn.setAttribute('disabled', true)
+    addToQueuedBtn.innerHTML = 'movie alredy in queue'
+}
+
+function enableAddToQueuedBtn() {
+    addToQueuedBtn.removeAttribute('disabled')
+    addToQueuedBtn.innerHTML = 'add to queue'
+}
+
 
 function modalScrollForbiddance() {
   if (!filmBackdrop.classList.contains('is-hidden')) {
     document.body.style.overflow = 'hidden'
     filmBackdrop.style.overflow = 'auto'
     }
-
 }
 
 
