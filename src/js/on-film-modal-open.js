@@ -39,7 +39,11 @@ export async function onOpenFilmModal(markupInfo) {
         filmBackdrop.removeEventListener('click', onBackdropClick)
         window.removeEventListener('keydown', onEscDown)
         addToWatchedBtn.removeEventListener('click', onWatchedClick)
-        addToQueuedBtn.removeEventListener('click', onQueueClick)  
+        addToQueuedBtn.removeEventListener('click', onQueueClick)
+        addToWatchedBtn.removeAttribute('disabled')
+        addToWatchedBtn.innerHTML = 'add to Watched'
+        addToQueuedBtn.removeAttribute('disabled')
+        addToQueuedBtn.innerHTML = 'add to queue'
     }
 
 
@@ -48,35 +52,98 @@ export async function onOpenFilmModal(markupInfo) {
     const KEY_WACHED = 'watched'
     const KEY_QUEUE = 'queue'
 
-    function onWatchedClick() {
-        const inLocalStorage = localStorage.getItem(KEY_WACHED)
+    const inWachedLocalStorage = localStorage.getItem(KEY_WACHED)
+    const wachedFilmsArr = JSON.parse(inWachedLocalStorage)
+    const isAlredyOnWached = wachedFilmsArr?.find(film => film.id === markupInfo.id)
+    
+    const inQueueLocalStorage = localStorage.getItem(KEY_QUEUE)
+    const queueFilmsArr = JSON.parse(inQueueLocalStorage)
+    const isAlredyOnQueue = queueFilmsArr?.find(film => film.id === markupInfo.id)
 
-        if (!inLocalStorage) {
-        localStorage.setItem(KEY_WACHED, JSON.stringify([markupInfo]))
-        addToWatchedBtn.removeEventListener('click', onWatchedClick)
+    if (isAlredyOnWached) {
+        addToWatchedBtn.setAttribute('disabled', true)
+        addToWatchedBtn.innerHTML = 'film alredy on wached'
+    }
+
+    if (isAlredyOnQueue) {
+        addToQueuedBtn.setAttribute('disabled', true)
+        addToQueuedBtn.innerHTML = 'film alredy on queue'
+    }
+
+
+    function onWatchedClick() { 
+        const inWachedLocalStorage = localStorage.getItem(KEY_WACHED)
+        const wachedFilmsArr = JSON.parse(inWachedLocalStorage)
+           
+        
+        if (!inWachedLocalStorage) {
+            localStorage.setItem(KEY_WACHED, JSON.stringify([markupInfo]))
+            addToWatchedBtn.setAttribute('disabled', true)
+            addToWatchedBtn.innerHTML = 'film alredy on wached'
+            removeFilmFromQueue()
         } else {
-            const filmDataArr = JSON.parse(inLocalStorage)
-            console.log(filmDataArr)
-            filmDataArr.push(markupInfo)
-            localStorage.setItem(KEY_WACHED, JSON.stringify(filmDataArr))
-            addToWatchedBtn.removeEventListener('click', onWatchedClick)
+            wachedFilmsArr.push(markupInfo)
+            localStorage.setItem(KEY_WACHED, JSON.stringify(wachedFilmsArr))
+            addToWatchedBtn.setAttribute('disabled', true)
+            addToWatchedBtn.innerHTML = 'film alredy on wached'
+            removeFilmFromQueue()
         }
         
     }
 
-    function onQueueClick() {
-        const inLocalStorage = localStorage.getItem(KEY_QUEUE)
+    function onQueueClick() {          
+        const inQueueLocalStorage = localStorage.getItem(KEY_QUEUE)
+        const queueFilmsArr = JSON.parse(inQueueLocalStorage)
 
-        if (!inLocalStorage) {
-        localStorage.setItem(KEY_QUEUE, JSON.stringify([markupInfo]))
-        addToWatchedBtn.removeEventListener('click', onQueueClick)
+        if (!inQueueLocalStorage) {
+            localStorage.setItem(KEY_QUEUE, JSON.stringify([markupInfo]))
+            addToQueuedBtn.setAttribute('disabled', true)
+            addToQueuedBtn.innerHTML = 'film alredy on queue'
+            removeFilmFromWached()
         } else {
-            const filmDataArr = JSON.parse(inLocalStorage)
-            console.log(filmDataArr)
-            filmDataArr.push(markupInfo)
-            localStorage.setItem(KEY_QUEUE, JSON.stringify(filmDataArr))
-            addToWatchedBtn.removeEventListener('click', onQueueClick)
-            }
+            queueFilmsArr.push(markupInfo)
+            localStorage.setItem(KEY_QUEUE, JSON.stringify(queueFilmsArr))
+            addToQueuedBtn.setAttribute('disabled', true)
+            addToQueuedBtn.innerHTML = 'film alredy on queue'
+            removeFilmFromWached()
+        }
+    }
+
+    function removeFilmFromWached() {
+        const inWachedLocalStorage = localStorage.getItem(KEY_WACHED)
+        const wachedFilmsArr = JSON.parse(inWachedLocalStorage)
+        const isAlredyOnWached = wachedFilmsArr?.find(film => film.id === markupInfo.id)
+
+        if (isAlredyOnWached) {
+
+            const newWachedFilmsArr = wachedFilmsArr.filter(film => film.id !== markupInfo.id)
+            if (newWachedFilmsArr.length > 0) {
+                localStorage.setItem(KEY_WACHED, JSON.stringify(newWachedFilmsArr))
+            } else {
+                localStorage.removeItem(KEY_WACHED)
+            }  
+            addToWatchedBtn.removeAttribute('disabled')
+            addToWatchedBtn.innerHTML = 'add to Watched'            
+        }        
+    }
+
+    function removeFilmFromQueue() {
+        const inQueueLocalStorage = localStorage.getItem(KEY_QUEUE)
+        const queueFilmsArr = JSON.parse(inQueueLocalStorage)
+        const isAlredyOnQueue = queueFilmsArr?.find(film => film.id === markupInfo.id)
+
+        if (isAlredyOnQueue) {
+
+            const newQueueFilmsArr = queueFilmsArr.filter(film => film.id !== markupInfo.id)
+            if (newQueueFilmsArr.length > 0) {
+                localStorage.setItem(KEY_QUEUE, JSON.stringify(newQueueFilmsArr))
+            } else {
+                localStorage.removeItem(KEY_QUEUE)
+            }  
+            addToQueuedBtn.removeAttribute('disabled')
+            addToQueuedBtn.innerHTML = 'add to queue'            
+        }        
+
     }
 }
 
@@ -84,7 +151,8 @@ function modalScrollForbiddance() {
   if (!filmBackdrop.classList.contains('is-hidden')) {
     document.body.style.overflow = 'hidden'
     filmBackdrop.style.overflow = 'auto'
-  }
+    }
+
 }
 
 
