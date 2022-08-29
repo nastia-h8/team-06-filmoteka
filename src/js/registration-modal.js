@@ -25,6 +25,7 @@ const firebaseConfig = initializeApp({
 const auth = getAuth(firebaseConfig);
 // ===============================================================
 const user = auth.currentUser;
+let isUserOnline;
 // ===============================================================
 const logInButtonRef = document.querySelector('.auth-btn');
 const logOutButtonRef = document.querySelector('.logout__btn');
@@ -46,7 +47,7 @@ let libraryLinkRef = document.querySelector('.library-link');
 libraryLinkRef.addEventListener('click', onLibraryLinkClick);
 formButtonSignUpRef.disabled = true;
 // ===============================================================
-function checkLogedUser() {
+function enableLibraryLink() {
   libraryLinkRef = document.querySelector('.library-link');
   libraryLinkRef.removeEventListener('click', onLibraryLinkClick);
 }
@@ -113,6 +114,7 @@ async function createAccount(auth, email, password) {
       password
     );
     Notiflix.Notify.success('User created');
+    logOutButtonRef.disabled = false;
   } catch (error) {
     console.log(error);
     Notiflix.Notify.warning(
@@ -156,6 +158,7 @@ function logOutHandler() {
     .then(() => {
       Notiflix.Notify.success('Sign-out successful.');
       libraryLinkRef.addEventListener('click', onLibraryLinkClick);
+      logOutButtonRef.disabled = true;
     })
     .catch(error => {
       Notiflix.Notify.warning('Sign-out unsuccessful.');
@@ -169,25 +172,28 @@ function onLibraryLinkClick(e) {
 // ===============================================================
 async function isUserAlreadyLogedIn() {
   const auth = getAuth(firebaseConfig);
+
   onAuthStateChanged(auth, user => {
     if (user) {
       Notiflix.Notify.success('You are loged in');
-      return true;
+      logOutButtonRef.disabled = false;
+      console.log(user);
     } else {
       Notiflix.Notify.failure('Does not work');
-      return false;
+      console.log(user);
     }
   });
 }
 // ===============================================================
 function ifUserLoged() {
   const auth = getAuth(firebaseConfig);
-  const user = auth.currentUser;
-  console.log('user: ', user);
-  if (user) {
-  }
-}
 
-if (isUserAlreadyLogedIn) {
-  checkLogedUser();
+  onAuthStateChanged(auth, user => {
+    if (user) {
+      libraryLinkRef.removeEventListener('click', onLibraryLinkClick);
+    } else {
+      libraryLinkRef.addEventListener('click', onLibraryLinkClick);
+    }
+  });
 }
+ifUserLoged();
