@@ -45,13 +45,13 @@ let libraryLinkRef = document.querySelector('.library-link');
 // ===============================================================
 libraryLinkRef.addEventListener('click', onLibraryLinkClick);
 formButtonSignUpRef.disabled = true;
+logOutButtonRef.disabled = true;
 // ===============================================================
 function enableLibraryLink() {
   libraryLinkRef = document.querySelector('.library-link');
   libraryLinkRef.removeEventListener('click', onLibraryLinkClick);
 }
 // ===============================================================
-logOutButtonRef.disabled = true;
 // ===============================================================
 logInButtonRef.addEventListener('click', onLoginBtnClick);
 checkBoxRef.addEventListener('change', onToggle);
