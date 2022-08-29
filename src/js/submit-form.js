@@ -1,8 +1,8 @@
 import { fetchFilmsBySearch } from './fetch-films-by-search';
 import { createCards } from './renderCardsFilms';
 import { fechFilm } from './modal'
-import Notiflix from 'notiflix';
-
+import Notiflix from 'notiflix'
+import { preLoaderDel } from './loader-scroll'
 Notiflix.Notify.init({
     width: '280px',
     position:'center-top',
@@ -60,6 +60,7 @@ async function createFilmsCollection() {
     }
     gallery.addEventListener('click', takeFilm);
     page += 1;
+preLoaderDel()
 }
 
 
