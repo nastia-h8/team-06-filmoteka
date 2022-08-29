@@ -3,6 +3,7 @@ import Pagination from 'tui-pagination';
 import 'tui-pagination/dist/tui-pagination.css';
 import { fetchPopularFilms } from './fetch-trending-films';
 import { createCards } from './renderCardsFilms';
+import { preLoader } from './loader-scroll';
 import { preLoaderDel } from './loader-scroll';
 
 const gallery = document.querySelector('.gallery-films');
@@ -21,6 +22,7 @@ export function pagePagination(totalResults) {
     pagination.on('beforeMove', async evt => {
         currentPage = evt.page;
         gallery.innerHTML = '';
+        preLoader()
         const newData = await fetchPopularFilms(currentPage);
         const totalPages = newData.total_pages;
         const newList = await createCards(newData.results);
