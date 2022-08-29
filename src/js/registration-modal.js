@@ -50,7 +50,6 @@ function checkLogedUser() {
   libraryLinkRef = document.querySelector('.library-link');
   libraryLinkRef.removeEventListener('click', onLibraryLinkClick);
 }
-checkLogedUser();
 // ===============================================================
 // ===============================================================
 logInButtonRef.addEventListener('click', onLoginBtnClick);
@@ -114,8 +113,6 @@ async function createAccount(auth, email, password) {
       password
     );
     Notiflix.Notify.success('User created');
-
-    console.log(userCredentials.user);
   } catch (error) {
     console.log(error);
     Notiflix.Notify.warning(
@@ -131,11 +128,6 @@ function onLoginPageSubmit(e) {
   e.preventDefault();
   const userEmail = userEmailInputRef.value;
   const userPassword = firstPassInputRef.value;
-
-  // const user = localStorage.setItem(
-  //   'userData',
-  //   JSON.stringify({ userEmail, userPassword })
-  // );
   loginIntoAccount(auth, userEmail, userPassword);
   formRef.reset();
   modalWindow.classList.add('invis');
@@ -144,7 +136,6 @@ function onLoginPageSubmit(e) {
 // ===============================================================
 async function loginIntoAccount(auth, email, password) {
   try {
-    // const userCredentials = await setPersistence(auth, browserLocalPersistence);
     auth = getAuth(firebaseConfig);
     await setPersistence(auth, browserLocalPersistence);
     await signInWithEmailAndPassword(auth, email, password);
@@ -157,16 +148,6 @@ async function loginIntoAccount(auth, email, password) {
     );
   }
 }
-// loginIntoAccount(auth, browserSessionPersistence)
-//   .then(() => {
-//     const userEmail = userEmailInputRef.value;
-//     const userPassword = firstPassInputRef.value;
-//     return signInWithEmailAndPassword(auth, userEmail, userPassword);
-//   })
-//   .catch(error => {
-//     const errorCode = error.code;
-//     const errorMessage = error.message;
-//   });
 
 // ===============================================================
 // ===============================================================
@@ -175,7 +156,6 @@ function logOutHandler() {
     .then(() => {
       Notiflix.Notify.success('Sign-out successful.');
       libraryLinkRef.addEventListener('click', onLibraryLinkClick);
-      localStorage.removeItem('userData');
     })
     .catch(error => {
       Notiflix.Notify.warning('Sign-out unsuccessful.');
@@ -191,8 +171,6 @@ async function isUserAlreadyLogedIn() {
   const auth = getAuth(firebaseConfig);
   onAuthStateChanged(auth, user => {
     if (user) {
-      const uid = user.uid;
-      console.log('uid: ', uid);
       Notiflix.Notify.success('You are loged in');
       return true;
     } else {
@@ -202,3 +180,14 @@ async function isUserAlreadyLogedIn() {
   });
 }
 // ===============================================================
+function ifUserLoged() {
+  const auth = getAuth(firebaseConfig);
+  const user = auth.currentUser;
+  console.log('user: ', user);
+  if (user) {
+  }
+}
+
+if (isUserAlreadyLogedIn) {
+  checkLogedUser();
+}
