@@ -22,7 +22,9 @@ export function pagePagination(totalResults) {
         currentPage = evt.page;
         gallery.innerHTML = '';
         const newData = await fetchPopularFilms(currentPage);
+        const totalPages = newData.total_pages;
         const newList = await createCards(newData.results);
+
         gallery.insertAdjacentHTML('beforeend', newList);
         preLoaderDel();
         console.log('newData', newData)
