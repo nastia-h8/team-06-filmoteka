@@ -1,10 +1,57 @@
 import { addModalListeners } from './close-film-modal'
-import { delBtn } from './loader-scroll'
+
 const filmBackdrop = document.querySelector('[data-modal]')
 
+export async function onOpenFilmModal(markupInfo) {
+  await makeFilmModalMarkup(markupInfo)
+  addModalListeners()
+  modalScrollForbiddance()
+
+
+  // Робота з локал стореджем
+  
+  const LOCAL_STORAGE_WACHED = 'watched'
+  const LOCAL_STORAGE_QUEUE = 'queue'
+  const addToWatchedBtn = document.querySelector(".film-btn-wached")
+  const addToQueuedBtn = document.querySelector(".film-btn-queue")
+  addToWatchedBtn.addEventListener('click', onWatchedClick)
+  addToQueuedBtn.addEventListener('click', onQueueClick) 
+
+  function onWatchedClick() {
+    inLocalStorage = localStorage.getItem(LOCAL_STORAGE_WACHED)
+
+    if (!inLocalStorage) {
+      localStorage.setItem(LOCAL_STORAGE_WACHED, JSON.stringify([markupInfo]))
+      addToWatchedBtn.removeEventListener('click', onWatchedClick)
+    } else {
+      const filmDataArr = JSON.parse(inLocalStorage)
+      console.log(filmDataArr)
+      filmDataArr.push(markupInfo)
+      localStorage.setItem(LOCAL_STORAGE_WACHED, JSON.stringify(filmDataArr))
+      addToWatchedBtn.removeEventListener('click', onWatchedClick)
+    }
+    
+  }
+
+  function onQueueClick() {
+    inLocalStorage = localStorage.getItem(LOCAL_STORAGE_QUEUE)
+
+    if (!inLocalStorage) {
+      localStorage.setItem(LOCAL_STORAGE_QUEUE, JSON.stringify([markupInfo]))
+      addToWatchedBtn.removeEventListener('click', onQueueClick)
+    } else {
+      const filmDataArr = JSON.parse(inLocalStorage)
+      console.log(filmDataArr)
+      filmDataArr.push(markupInfo)
+      localStorage.setItem(LOCAL_STORAGE_QUEUE, JSON.stringify(filmDataArr))
+      addToWatchedBtn.removeEventListener('click', onQueueClick)
+    }
+  }
+  
+}
 
 export async function makeFilmModalMarkup(markupInfo) {
-  const { poster, title, vote, votes, popularity, originalTitle, genre, about } = markupInfo
+  const { poster, title, vote, votes, popularity, originalTitle, genre, about, year } = markupInfo
     
   const filmInfo = document.querySelector('.film-info-container')
   const filmBackdrop = document.querySelector('[data-modal]')
@@ -47,8 +94,9 @@ export async function makeFilmModalMarkup(markupInfo) {
   filmBackdrop.classList.remove('is-hidden')
   filmInfo.innerHTML = markup
   
-  addModalListeners()
-  modalScrollForbiddance()
+  // addModalListeners()
+  // modalScrollForbiddance()
+  // getFilmDataForStorage(markupInfo)
 
 }
 
@@ -56,7 +104,6 @@ function modalScrollForbiddance() {
   if (!filmBackdrop.classList.contains('is-hidden')) {
     document.body.style.overflow = 'hidden'
     filmBackdrop.style.overflow = 'auto'
-    delBtn()
   }
 }
 

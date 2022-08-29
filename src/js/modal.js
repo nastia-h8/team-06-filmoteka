@@ -1,5 +1,5 @@
 import axios from "axios"
-import {makeFilmModalMarkup} from "./make-film-modal-markup"
+import {onOpenFilmModal} from "./make-film-modal-markup"
 
 
 export async function fechFilm(id) {
@@ -15,13 +15,14 @@ export async function fechFilm(id) {
     }
     const filmDetails = await response.data
 
+    console.log(filmDetails)
+
     let genresArr = []
     filmDetails.genres.map(genre => genresArr.push(genre.name))
     const genres = genresArr.join(", ")
 
     const posterUrl = filmDetails.poster_path ? `https://image.tmdb.org/t/p/original${filmDetails.poster_path}` : '../images/no-poster.jpg'
     
-    // const posterUrl = "./images/no-poster.jpg"
 
     const markupInfo = {
       poster: posterUrl,
@@ -31,10 +32,13 @@ export async function fechFilm(id) {
       popularity: filmDetails.popularity,
       originalTitle: filmDetails.original_title,
       genre: genres,
-      about: filmDetails.overview
+      about: filmDetails.overview,
+      year: Number.parseInt(filmDetails.release_date),
+      id: filmDetails.id
     }
-    
-    makeFilmModalMarkup(markupInfo)
+
+  
+    onOpenFilmModal(markupInfo)
   }
 
    catch (error) {
@@ -42,5 +46,4 @@ export async function fechFilm(id) {
   }    
 }
 
-// fechFilm(762505)
-
+// fechFilm(762504)
