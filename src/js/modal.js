@@ -1,5 +1,5 @@
 import axios from "axios"
-import {onOpenFilmModal} from "./make-film-modal-markup"
+import {onOpenFilmModal} from "./on-film-modal-open"
 
 
 export async function fechFilm(id) {
