@@ -34,7 +34,7 @@ export async function onOpenFilmModal(markupInfo) {
   }
 
   function onQueueClick() {
-    inLocalStorage = localStorage.getItem(LOCAL_STORAGE_QUEUE)
+    const inLocalStorage = localStorage.getItem(LOCAL_STORAGE_QUEUE)
 
     if (!inLocalStorage) {
       localStorage.setItem(LOCAL_STORAGE_QUEUE, JSON.stringify([markupInfo]))
