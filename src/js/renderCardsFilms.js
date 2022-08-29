@@ -3,7 +3,8 @@ import { getCardGenreNames } from './get-genre-names-arr'
 // import { createCardsLibrary } from './createCardsLibrary'
 import { fechFilm } from './modal'
 
-const gallery = document.querySelector('.gallery-films');
+const gallery = document.querySelector('.home-main');
+console.log(gallery)
 
 
 
@@ -36,7 +37,7 @@ export async function createCards(cardsFilms) {
             firstGenres = genresArr.slice(0, 3)
             firstGenres[2] = 'other';
             firstGenres = firstGenres.join(", ");
-        }    
+        }
         
         const posterUrl = item.poster_path ? `https://image.tmdb.org/t/p/original${item.poster_path}` : 'https://screench.com/upload/no-poster.jpeg'
         return acc + `<li class="gallery-films__item">
