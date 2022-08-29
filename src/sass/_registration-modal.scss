@@ -163,6 +163,9 @@ a {
     color: #ffffff;
     border: 1px solid white;
   }
+  &:not(:last-child) {
+    margin-right: 10px;
+  }
 }
 
 .img__container {
@@ -206,6 +209,7 @@ a {
     background-size: contain;
     background-repeat: no-repeat;
     background-position: center;
+    justify-content: center;
   }
   .form-check {
     background-color: #ffffff;
