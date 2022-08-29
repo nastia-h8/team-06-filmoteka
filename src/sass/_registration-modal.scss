@@ -90,7 +90,7 @@ a {
   position: relative;
 
   width: 100%;
-  &:focus .form-label {
+  &:focus-within .form-label {
     padding: 0px 5px;
 
     font-size: 12px;
@@ -98,7 +98,7 @@ a {
     background-color: #ffffff;
     color: var(--accent-color);
   }
-  &:focus {
+  &:focus-within {
     border: var(--accent-color);
   }
 }
