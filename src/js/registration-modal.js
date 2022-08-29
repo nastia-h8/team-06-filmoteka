@@ -191,6 +191,7 @@ function ifUserLoged() {
       libraryLinkRef.removeEventListener('click', onLibraryLinkClick);
     } else {
       libraryLinkRef.addEventListener('click', onLibraryLinkClick);
+      logOutButtonRef.disabled = true;
     }
   });
 }
