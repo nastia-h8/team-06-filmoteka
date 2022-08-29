@@ -18,7 +18,7 @@ export async function onOpenFilmModal(markupInfo) {
   addToQueuedBtn.addEventListener('click', onQueueClick) 
 
   function onWatchedClick() {
-    inLocalStorage = localStorage.getItem(LOCAL_STORAGE_WACHED)
+    const inLocalStorage = localStorage.getItem(LOCAL_STORAGE_WACHED)
 
     if (!inLocalStorage) {
       localStorage.setItem(LOCAL_STORAGE_WACHED, JSON.stringify([markupInfo]))
