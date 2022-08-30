@@ -1,4 +1,5 @@
 import { makeFilmModalMarkup } from './make-film-modal-markup'
+import { delBtn } from './loader-scroll'
 
 const filmBackdrop = document.querySelector('[data-modal]')
 const closeFilmModalBtn = document.querySelector(".close-modal-btn")
@@ -28,6 +29,7 @@ export async function onOpenFilmModal(markupInfo) {
 
     function onEscDown(e) {
         if (e.code === 'Escape') {
+            delBtn()
             closeFilmModal()    
         }
     }
