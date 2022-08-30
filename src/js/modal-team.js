@@ -1,5 +1,6 @@
 
-
+import { closeOpenbtn } from './loader-scroll'
+import { delBtn } from './loader-scroll'
 
 const openModalBtn = document.querySelector('[data-action="open-modal"]');
 const closeModalBtn = document.querySelector('[data-action="close-modal"]');
@@ -20,6 +21,7 @@ function addArrowBtn() {
 };
 
 function openModalOpen() {
+    delBtn();
     window.addEventListener('keydown', onEscPress)
     document.body.classList.add('show-modal')
 
@@ -28,7 +30,11 @@ function openModalOpen() {
 }
 
 function closeModalClose() {
+
     // addArrowBtn();
+
+    closeOpenbtn();
+
     window.removeEventListener('keydown', onEscPress)
     document.body.classList.remove('show-modal')
 }

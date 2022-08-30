@@ -3,6 +3,8 @@ import { createCards } from './renderCardsFilms';
 import { fechFilm } from './modal'
 import Notiflix from 'notiflix'
 import { preLoaderDel } from './loader-scroll'
+import { preLoaderDel } from './loader-scroll'
+import { pagePagination } from './pagination-general';
 
 Notiflix.Notify.init({
     width: '280px',
@@ -17,10 +19,10 @@ Notiflix.Notify.init({
 const gallery = document.querySelector('.gallery-films');
 const searchForm = document.querySelector('#movie-search');
 
-import Pagination from 'tui-pagination';
-import 'tui-pagination/dist/tui-pagination.css';
+// import Pagination from 'tui-pagination';
+// import 'tui-pagination/dist/tui-pagination.css';
 
-let query = '';
+export let query = '';
 let page = 1;
 
 if (searchForm){
@@ -48,7 +50,7 @@ async function onSearchMovieForm(e) {
 
 // Створення колекції
 async function createFilmsCollection() {
-    const filmObj = await fetchFilmsBySearch(query, page);
+    const filmObj = await fetchFilmsBySearch(page, query);
     const list = await createCards(filmObj.results);
     const totalResults = filmObj.total_results;
     let currentPage = filmObj.page;
@@ -58,6 +60,7 @@ async function createFilmsCollection() {
 
     if (filmObj.results.length === 0) {
         alertNoFilmsFound();
+        preLoaderDel();
         return;
     }
     gallery.innerHTML = '';
@@ -73,28 +76,29 @@ async function createFilmsCollection() {
     
 
 // ------------------------------------------- код для пагінації 
-    const options = {
-        totalItems: 0,
-        itemsPerPage: 20,
-        visiblePages: 5,
-        page: 1,
-        centerAlign: true,
-    };
+    pagePagination(totalResults, fetchFilmsBySearch);
+    // const options = {
+    //     totalItems: 0,
+    //     itemsPerPage: 20,
+    //     visiblePages: 5,
+    //     page: 1,
+    //     centerAlign: true,
+    // };
 
-    const pagination = new Pagination('#pagination', options);
+    // const pagination = new Pagination('#pagination', options);
 
-    pagination.on('beforeMove', async evt => {
-        currentPage = evt.page; 
-        const newData = await fetchFilmsBySearch(currentQuery, currentPage);
-            gallery.innerHTML = '';
-            const newList = await createCards(newData.results);
-        gallery.insertAdjacentHTML('beforeend', newList);
-        preLoaderDel();
-        console.log('newData', newData)
-    });
+    // pagination.on('beforeMove', async evt => {
+    //     currentPage = evt.page; 
+    //     const newData = await fetchFilmsBySearch(currentQuery, currentPage);
+    //         gallery.innerHTML = '';
+    //         const newList = await createCards(newData.results);
+    //     gallery.insertAdjacentHTML('beforeend', newList);
+    //     preLoaderDel();
+    //     console.log('newData', newData)
+    // });
 
-    pagination.setTotalItems(totalResults);
-    pagination.reset();
+    // pagination.setTotalItems(totalResults);
+    // pagination.reset();
     // ------------------------------------------- код для пагінації 
 }
 

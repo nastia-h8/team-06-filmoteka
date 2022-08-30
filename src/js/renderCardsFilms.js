@@ -1,18 +1,22 @@
-import { fetchPopularFilms } from './fetch-trending-films'
-import { getCardGenreNames } from './get-genre-names-arr'
+import { fetchPopularFilms } from './fetch-trending-films';
+import { getCardGenreNames } from './get-genre-names-arr';
 // import { createCardsLibrary } from './createCardsLibrary'
 import { fechFilm } from './modal'
+import { pagePagination } from './pagination-general';
+// import { pagePagination } from './pagination-for-home'
 
-const gallery = document.querySelector('.gallery-films');
+const gallery = document.querySelector('.home-main');
+let currentPage = 1;
 
 
 
-export async function renderCardsFilms(page) {
-    const cardsFilms = await fetchPopularFilms(page);
-
+export async function renderCardsFilms(currentPage) {
+    const cardsFilms = await fetchPopularFilms(currentPage);
+    const totalResults = cardsFilms.total_results;
     const list = await createCards(cardsFilms.results);
     // const list = await createCardsLibrary(cardsFilms.results);
-    
+
+    await pagePagination(totalResults, fetchPopularFilms);
     
     gallery.insertAdjacentHTML('beforeend', list);
 
@@ -58,7 +62,7 @@ export async function createCards(cardsFilms) {
 if (gallery === null) {
     return
 }
-renderCardsFilms(1);
+
 
 
 
@@ -66,9 +70,17 @@ async function takeFilm(e) {
     e.preventDefault(e);
     if (e.target.localName === "li") {
         fechFilm(e.target.parentNode.parentElement.attributes[1].value);
+    } else if (e.target.localName === "a") {
+        fechFilm(e.target.attributes[1].value)
+    } else if (e.target.localName === "ul") {
+        if (e.target.parentNode.localName === "div") {
+            console.log(e.target.parentNode.localName)
+            return
+        }
+        fechFilm(e.target.parentNode.attributes[1].value)
     } else {
         fechFilm(e.target.parentElement.attributes[1].value)
     }
 }
 
-    
+renderCardsFilms(currentPage);
