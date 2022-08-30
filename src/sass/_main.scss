@@ -4,6 +4,10 @@
     padding-bottom: 40px;
 }
 
+.gallery-films__link:hover {
+    text-decoration: none;
+}
+
 .gallery-films__card {
     object-fit: cover;
     width: 100%;
@@ -21,6 +25,10 @@
     color: #000000;
 }
 
+.library-film {
+    display: flex;
+    align-items: center;
+}
 .post-film {
     display: flex;
     align-items: center;
@@ -111,12 +119,13 @@
 
     .gallery-films {
         margin: -8px;
+        margin-bottom: -24px;
     }
     .gallery-films__item {
         width: calc((100% - 3 * 16px) / 3);
         margin: 8px;
     }
-    .gallery-films__item:not(:nth-last-child(-n+3)) {
+    .gallery-films__item {
         margin-bottom: 24px;
     }
 
@@ -127,10 +136,6 @@
 
 
 /////////////////////////////////style library////////////////////////////////////
-.library-film {
-    display: flex;
-    align-items: center;
-}
 
 .library-film__item {
     font-weight: 500;
@@ -165,6 +170,9 @@
     color: #FFFFFF;
 }
 
+@media screen and (min-width: 768px) {
+    
+}
 @media screen and (min-width: 1280px) {
     .library-film__item {
         font-size: 20px;
@@ -175,11 +183,28 @@
         border-right: 2px solid var(--accent-color);
     }
 
-    .library-film__description {
+    // .library-film__description {
         
-    }
+    // }
     .library-film__rating {
         width: 40px;
         height: 20px;
     }
+}
+
+
+// Стилі для пагінації
+.tui-pagination .tui-is-selected,
+.tui-pagination strong {
+
+    border-radius: 5px;
+    background-color: var(--accent-color) !important; 
+    border-color: transparent !important;
+} 
+.tui-page-btn{
+    border-color: transparent !important;
+}
+.tui-first, .tui-prev, .tui-last,
+.tui-next{
+    background-color: #F7F7F7
 }

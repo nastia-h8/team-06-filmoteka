@@ -1,19 +1,16 @@
 import Notiflix from 'notiflix';
 import { initializeApp } from 'firebase/app';
-// import {
-//   getAuth,
-//   onAuthStateChanged,
-//   signInWithEmailAndPassword,
-//   createUserWithEmailAndPassword,
-// } from 'firebase/auth';
 import {
   getAuth,
   createUserWithEmailAndPassword,
   signInWithEmailAndPassword,
   onAuthStateChanged,
   signOut,
+  setPersistence,
+  browserLocalPersistence,
+  browserSessionPersistence,
+  inMemoryPersistence,
 } from 'firebase/auth';
-
 // ==================firebaseConfig===============================
 const firebaseConfig = initializeApp({
   apiKey: 'AIzaSyBwIHbipBLGGO3rbF9X_3hWkD1LKg_9nto',
@@ -26,48 +23,51 @@ const firebaseConfig = initializeApp({
 // ===============================================================
 const auth = getAuth(firebaseConfig);
 // ===============================================================
-const user = auth.currentUser;
-// ===============================================================
-
 const logInButtonRef = document.querySelector('.auth-btn');
+const logOutButtonRef = document.querySelector('.logout__btn');
 const modalWindow = document.querySelector('.container__form');
 const rowRef = document.querySelector('.row');
 const backDropRef = document.querySelector('.backdrop');
 const closeModalBtnRef = document.querySelector('.fa-solid');
 const checkBoxRef = document.querySelector('.form-check-input');
-const formButtonRef = document.querySelector('.btn-primary');
+const formButtonSignUpRef = document.querySelector('.btn__signup');
+const formButtonLogInRef = document.querySelector('.btn__login');
 const formRef = document.querySelector('.form');
 let firstPassInputRef = document.querySelector('#firstPass');
 const repeatPassInputRef = document.querySelector('#repeatedPass');
 const userNameInputRef = document.querySelector('#userName');
 let userEmailInputRef = document.querySelector('#userEmail');
 const loginLinkRef = document.querySelector('.login__link');
-const libraryLinkRef = document.querySelector('.library-link');
+let libraryLinkRef = document.querySelector('.library-link');
 // ===============================================================
-libraryLinkRef.addEventListener('click', onLibraryLinkClick);
-formButtonRef.disabled = true;
+// libraryLinkRef.addEventListener('click', onLibraryLinkClick);
+formButtonSignUpRef.disabled = true;
 // ===============================================================
-let logOutButtonRef;
+function enableLibraryLink() {
+  libraryLinkRef = document.querySelector('.library-link');
+  libraryLinkRef.removeEventListener('click', onLibraryLinkClick);
+}
 // ===============================================================
 logInButtonRef.addEventListener('click', onLoginBtnClick);
 checkBoxRef.addEventListener('change', onToggle);
+logOutButtonRef.addEventListener('click', logOutHandler);
 // ===============================================================
 function onLoginBtnClick() {
   modalWindow.classList.remove('invis');
   window.addEventListener('keydown', modalCloseOnEscPress);
   modalWindow.addEventListener('click', onCloseModalBtn);
-  loginLinkRef.addEventListener('click', onLoginLinkClick);
+  formButtonLogInRef.addEventListener('click', onLoginPageSubmit);
   formRef.addEventListener('submit', onFormSubmit);
+  onToggle();
 }
 // ===============================================================
 function onFormSubmit(e) {
   e.preventDefault();
-  if (firstPassInputRef.value !== repeatPassInputRef.value) {
-    Notiflix.Notify.failure('Passwords do not match each others');
-  } else if (firstPassInputRef.value.length < 6) {
+  if (firstPassInputRef.value.length < 6) {
     Notiflix.Notify.failure('Password should be at least 6 characters');
+  } else if (userEmailInputRef.value.length === 0) {
+    Notiflix.Notify.failure('Please enter Your email address');
   } else {
-    const userName = userNameInputRef.value;
     const userEmail = userEmailInputRef.value;
     const userPassword = firstPassInputRef.value;
     createAccount(auth, userEmail, userPassword);
@@ -92,12 +92,13 @@ function modalCloseOnEscPress(event) {
   modalWindow.classList.add('invis');
 }
 // ===============================================================
-function onToggle(event) {
-  if (this.checked) {
-    formButtonRef.disabled = false;
-    formButtonRef.style.border = '1px black solid';
+function onToggle() {
+  if (checkBoxRef.checked) {
+    formButtonSignUpRef.disabled = false;
+    formButtonSignUpRef.style.border = '1px black solid';
   } else {
-    formButtonRef.disabled = true;
+    formButtonSignUpRef.disabled = true;
+    formButtonSignUpRef.style.border = '1px grey solid';
   }
 }
 // ===============================================================
@@ -109,8 +110,7 @@ async function createAccount(auth, email, password) {
       password
     );
     Notiflix.Notify.success('User created');
-
-    console.log(userCredentials.user);
+    logOutButtonRef.disabled = false;
   } catch (error) {
     console.log(error);
     Notiflix.Notify.warning(
@@ -118,82 +118,22 @@ async function createAccount(auth, email, password) {
     );
   }
 }
-
-// ===============================================================
-function onLoginLinkClick(e) {
-  e.preventDefault();
-  const loginMarkUp = `	<div class="row">
-		<div class="col-md-10 col-lg-6 col-xl-5 order-2 order-lg-1">
-
-			<p class="text-center">Log In</p>
-			<div class="close__icon">
-				<i class="fa-solid fa-circle-xmark"></i>
-			</div>
-			<form class="mx-1 mx-md-4 form form__login">
-
-				<div class="form__input">
-					<i class="fas fa-envelope fa-lg me-3 fa-fw"></i>
-					<div class="form-outline flex-fill mb-0">
-					<input type="email" id="userEmail" class="form-control" placeholder=" " />
-						<label class="form-label" for="userEmail">Your Email</label>
-						</div>
-						</div>
-						
-						<div class="form__input">
-						<i class="fas fa-lock fa-lg me-3 fa-fw"></i>
-						<div class="form-outline flex-fill mb-0">
-						<input type="password" id="firstPass" class="form-control" placeholder=" " />
-						<label class="form-label" for="firstPass">Password</label>
-						</div>
-						</div>
-						<button type="submit" class="btn btn-primary btn-lg">Log In</button>
-						</form>
-						
-						</div>
-						<div class="img__container">
-						
-						<img src="https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-registration/draw1.webp" class="img-fluid" alt="Sample image">
-						
-		</div>
-	</div>`;
-  modalWindow.innerHTML = '';
-  modalWindow.insertAdjacentHTML('afterbegin', loginMarkUp);
-  userEmailInputRef = document.querySelector('#userEmail');
-  firstPassInputRef = document.querySelector('#firstPass');
-  const formLoginRef = document.querySelector('.form__login');
-  formRef.removeEventListener('submit', onFormSubmit);
-  formLoginRef.addEventListener('submit', onLoginPageSubmit);
-}
-
 // ===============================================================
 function onLoginPageSubmit(e) {
   e.preventDefault();
   const userEmail = userEmailInputRef.value;
-
   const userPassword = firstPassInputRef.value;
-
   loginIntoAccount(auth, userEmail, userPassword);
   formRef.reset();
   modalWindow.classList.add('invis');
 }
-
 // ===============================================================
 async function loginIntoAccount(auth, email, password) {
-  console.log(email);
   try {
-    const userCredentials = await signInWithEmailAndPassword(
-      auth,
-      email,
-      password
-    );
-    Notiflix.Notify.success('User loged In');
-    const headerNavContainer = document.querySelector('.nav');
-    headerNavContainer.insertAdjacentHTML(
-      'afterbegin',
-      `<button class="auth-btn logout__button" type="button">Log out</button>`
-    );
-    logOutButtonRef = document.querySelector('.logout__button');
-    logOutButtonRef.addEventListener('click', logOutHandler);
+    auth = getAuth(firebaseConfig);
+    await setPersistence(auth, browserLocalPersistence);
+    await signInWithEmailAndPassword(auth, email, password);
+    isUserAlreadyLogedIn();
     libraryLinkRef.removeEventListener('click', onLibraryLinkClick);
   } catch (error) {
     console.log(error);
@@ -202,43 +142,48 @@ async function loginIntoAccount(auth, email, password) {
     );
   }
 }
-
-// ===============================================================
-
-// onAuthStateChanged((auth, user) => {
-//   console.log(user);
-//   if (user) {
-//     const headerNavContainer = document.querySelector('.nav');
-//     headerNavContainer.insertAdjacentHTML(
-//       'afterbegin',
-//       `<button class="auth-btn louout__button" type="button">Log out</button>`
-//     );
-//   } else {
-//   }
-// });
-
 // ===============================================================
 function logOutHandler() {
   signOut(auth)
     .then(() => {
-      Notiflix.Notify.success('Sign-out successful.');
-      logOutButtonRef.outerHTML = '';
+      Notiflix.Notify.success('Log-out successful.');
+      libraryLinkRef.addEventListener('click', onLibraryLinkClick);
+      logOutButtonRef.disabled = true;
     })
     .catch(error => {
-      Notiflix.Notify.warning('Sign-out unsuccessful.');
+      Notiflix.Notify.warning('Log-out unsuccessful.');
     });
 }
 // ===============================================================
 function onLibraryLinkClick(e) {
   e.preventDefault();
-  Notiflix.Notify.warning('To use "Mi Library" page. First You need to login');
+  Notiflix.Notify.info('To use "Mi Library" page. First You need to login');
 }
 // ===============================================================
-if (user) {
-  // User is signed in, see docs for a list of available properties
-  // https://firebase.google.com/docs/reference/js/firebase.User
-  // ...
-  Notiflix.Notify.success('You are in');
-} else {
-  // No user is signed in.
+async function isUserAlreadyLogedIn() {
+  const auth = getAuth(firebaseConfig);
+
+  onAuthStateChanged(auth, user => {
+    if (user) {
+      Notiflix.Notify.success('You are loged in');
+      logOutButtonRef.disabled = false;
+      console.log(user);
+    } else {
+      console.log(error);
+    }
+  });
 }
+// ===============================================================
+function ifUserLoged() {
+  const auth = getAuth(firebaseConfig);
+
+  onAuthStateChanged(auth, user => {
+    if (user) {
+      libraryLinkRef.removeEventListener('click', onLibraryLinkClick);
+    } else {
+      libraryLinkRef.addEventListener('click', onLibraryLinkClick);
+      logOutButtonRef.disabled = true;
+    }
+  });
+}
+ifUserLoged();

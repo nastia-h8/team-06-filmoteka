@@ -1,3 +1,6 @@
+import { Loading } from 'notiflix/build/notiflix-loading-aio';
+
+
 const backToTopButton = document.querySelector(".arrow-btn");
 
             export function goToTop(e) {
@@ -9,7 +12,6 @@ const backToTopButton = document.querySelector(".arrow-btn");
 
             backToTopButton.addEventListener("click", goToTop);
 
-// backToTopButton.classList.add('none');
 delBtn();
 
 
@@ -22,7 +24,7 @@ window.addEventListener('scroll', () => {
                 addBtn();
                 return;
             }
-        // console.log(Math.floor(window.scrollY));
+
 });
 window.addEventListener('scroll', closeOpenbtn)
 
@@ -35,7 +37,7 @@ window.addEventListener('scroll', closeOpenbtn)
                 return;
                 };
         };
-        // console.log(Math.floor(window.scrollY));
+
 
 export function delBtn() {
     backToTopButton.classList.add('none');
@@ -45,11 +47,28 @@ export function addBtn() {
     backToTopButton.classList.add('block');
     backToTopButton.classList.remove('none');
 };
-        
+
 window.onload = function () {
     document.body.classList.add('loaded_hiding');
     window.setTimeout(function () {
-        document.body.classList.add('loaded');
-        document.body.classList.remove('loaded_hiding');
+      document.body.classList.add('loaded');
+      document.body.classList.remove('loaded_hiding');
     }, 500);
-};
+  }
+
+export function preLoader() {
+
+    Loading.custom({
+    customSvgCode: `<div class="preloader-dev">
+        <div class="preloader-dev__row">
+            <div class="preloader-dev__item"></div>
+            <div class="preloader-dev__item"></div>
+        </div>
+    </div>`,
+})
+}
+
+
+export function preLoaderDel() { 
+    Loading.remove();
+}
