@@ -74,7 +74,6 @@ async function takeFilm(e) {
         fechFilm(e.target.attributes[1].value)
     } else if (e.target.localName === "ul") {
         if (e.target.parentNode.localName === "div") {
-            console.log(e.target.parentNode.localName)
             return
         }
         fechFilm(e.target.parentNode.attributes[1].value)
