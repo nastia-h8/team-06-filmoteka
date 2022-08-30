@@ -148,7 +148,6 @@ function logOutHandler() {
       Notiflix.Notify.success('Log-out successful.');
       libraryLinkRef.addEventListener('click', onLibraryLinkClick);
       logOutButtonRef.disabled = true;
-      window.location.pathname = '/index.html';
     })
     .catch(error => {
       Notiflix.Notify.warning('Log-out unsuccessful.');
