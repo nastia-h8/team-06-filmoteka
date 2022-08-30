@@ -1,7 +1,4 @@
 
-    
-    // gallery.insertAdjacentHTML('beforeend', list);
-
 export async function createCardsLibrary(cardsFilms) {
     let accFilms = cardsFilms.reduce((acc, item) => {
         const genresArr = item.genre.split(", ");
@@ -14,7 +11,6 @@ export async function createCardsLibrary(cardsFilms) {
             firstGenres[2] = 'other';
             firstGenres = firstGenres.join(", ");
         }
-        console.log(item.poster_path)
         const posterUrl = item.poster ? `https://image.tmdb.org/t/p/original${item.poster}` : 'https://screench.com/upload/no-poster.jpeg'
         return acc + `<li class="gallery-films__item">
                 <a class="gallery-films__link" bata-film="${item.id}" href="">

@@ -1,5 +1,5 @@
-import { fetchPopularFilms } from './fetch-trending-films'
-import { getCardGenreNames } from './get-genre-names-arr'
+import { fetchPopularFilms } from './fetch-trending-films';
+import { getCardGenreNames } from './get-genre-names-arr';
 // import { createCardsLibrary } from './createCardsLibrary'
 import { fechFilm } from './modal'
 import { pagePagination } from './pagination-general';
@@ -68,7 +68,6 @@ if (gallery === null) {
 
 async function takeFilm(e) {
     e.preventDefault(e);
-    console.log(e.target)
     if (e.target.localName === "li") {
         fechFilm(e.target.parentNode.parentElement.attributes[1].value);
     } else if (e.target.localName === "a") {

@@ -44,7 +44,6 @@ function findId(e) {
 
 function openFilm(id) {
     const idFilm = arrayFilms?.find(film => film.id === Number(id));
-    console.log(idFilm)
     onOpenFilmModal(idFilm)
 }
 // arrayFilms.forEach(function (element, index, array) {
