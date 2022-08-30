@@ -115,12 +115,13 @@
 
     .gallery-films {
         margin: -8px;
+        margin-bottom: -24px;
     }
     .gallery-films__item {
         width: calc((100% - 3 * 16px) / 3);
         margin: 8px;
     }
-    .gallery-films__item:not(:nth-last-child(-n+3)) {
+    .gallery-films__item {
         margin-bottom: 24px;
     }
 
