@@ -19,4 +19,4 @@ import './js/fetch-films-by-search';
 import './js/submit-form';
 import './js/renderCardsFilms';
 import './js/pagination-test';
-import './js/footer-modal-team';
+import './js/modal-team';
