@@ -6,8 +6,11 @@ import {
   signInWithEmailAndPassword,
   onAuthStateChanged,
   signOut,
+  setPersistence,
+  browserLocalPersistence,
+  browserSessionPersistence,
+  inMemoryPersistence,
 } from 'firebase/auth';
-
 // ==================firebaseConfig===============================
 const firebaseConfig = initializeApp({
   apiKey: 'AIzaSyBwIHbipBLGGO3rbF9X_3hWkD1LKg_9nto',
@@ -19,8 +22,6 @@ const firebaseConfig = initializeApp({
 });
 // ===============================================================
 const auth = getAuth(firebaseConfig);
-// ===============================================================
-const user = auth.currentUser;
 // ===============================================================
 const logInButtonRef = document.querySelector('.auth-btn');
 const logOutButtonRef = document.querySelector('.logout__btn');
@@ -37,20 +38,15 @@ const repeatPassInputRef = document.querySelector('#repeatedPass');
 const userNameInputRef = document.querySelector('#userName');
 let userEmailInputRef = document.querySelector('#userEmail');
 const loginLinkRef = document.querySelector('.login__link');
-const libraryLinkRef = document.querySelector('.library-link');
+let libraryLinkRef = document.querySelector('.library-link');
 // ===============================================================
 // libraryLinkRef.addEventListener('click', onLibraryLinkClick);
 formButtonSignUpRef.disabled = true;
 // ===============================================================
-function checkLocalStorage() {
-  if (localStorage.getItem('userData')) {
-    const restoredUserData = JSON.parse(localStorage.getItem('userData'));
-    const { userEmail, userPassword } = restoredUserData;
-    loginIntoAccount(auth, userEmail, userPassword);
-  }
+function enableLibraryLink() {
+  libraryLinkRef = document.querySelector('.library-link');
+  libraryLinkRef.removeEventListener('click', onLibraryLinkClick);
 }
-checkLocalStorage();
-// ===============================================================
 // ===============================================================
 logInButtonRef.addEventListener('click', onLoginBtnClick);
 checkBoxRef.addEventListener('change', onToggle);
@@ -113,8 +109,7 @@ async function createAccount(auth, email, password) {
       password
     );
     Notiflix.Notify.success('User created');
-
-    console.log(userCredentials.user);
+    logOutButtonRef.disabled = false;
   } catch (error) {
     console.log(error);
     Notiflix.Notify.warning(
@@ -122,33 +117,22 @@ async function createAccount(auth, email, password) {
     );
   }
 }
-
-// ===============================================================
-
 // ===============================================================
 function onLoginPageSubmit(e) {
   e.preventDefault();
   const userEmail = userEmailInputRef.value;
   const userPassword = firstPassInputRef.value;
-
-  const user = localStorage.setItem(
-    'userData',
-    JSON.stringify({ userEmail, userPassword })
-  );
   loginIntoAccount(auth, userEmail, userPassword);
   formRef.reset();
   modalWindow.classList.add('invis');
 }
-
 // ===============================================================
 async function loginIntoAccount(auth, email, password) {
   try {
-    const userCredentials = await signInWithEmailAndPassword(
-      auth,
-      email,
-      password
-    );
-    Notiflix.Notify.success('You are In');
+    auth = getAuth(firebaseConfig);
+    await setPersistence(auth, browserLocalPersistence);
+    await signInWithEmailAndPassword(auth, email, password);
+    isUserAlreadyLogedIn();
     libraryLinkRef.removeEventListener('click', onLibraryLinkClick);
   } catch (error) {
     console.log(error);
@@ -157,25 +141,53 @@ async function loginIntoAccount(auth, email, password) {
     );
   }
 }
-
-// ===============================================================
 // ===============================================================
 function logOutHandler() {
-  if (localStorage.getItem('userData')) {
-    signOut(auth)
-      .then(() => {
-        Notiflix.Notify.success('Sign-out successful.');
-        libraryLinkRef.addEventListener('click', onLibraryLinkClick);
-        localStorage.removeItem('userData');
-      })
-      .catch(error => {
-        Notiflix.Notify.warning('Sign-out unsuccessful.');
-      });
-  }
+  signOut(auth)
+    .then(() => {
+      Notiflix.Notify.success('Log-out successful.');
+      libraryLinkRef.addEventListener('click', onLibraryLinkClick);
+      logOutButtonRef.disabled = true;
+      window.location.pathname = '/index.html';
+    })
+    .catch(error => {
+      Notiflix.Notify.warning('Log-out unsuccessful.');
+    });
 }
 // ===============================================================
 function onLibraryLinkClick(e) {
   e.preventDefault();
-  Notiflix.Notify.warning('To use "Mi Library" page. First You need to login');
+  Notiflix.Notify.info('To use "Mi Library" page. First You need to login');
 }
 // ===============================================================
+async function isUserAlreadyLogedIn() {
+  const auth = getAuth(firebaseConfig);
+
+  onAuthStateChanged(auth, user => {
+    if (user) {
+      Notiflix.Notify.success('You are loged in');
+      logOutButtonRef.disabled = false;
+      console.log(user);
+    } else {
+      console.log(error);
+    }
+  });
+}
+// ===============================================================
+function ifUserLoged() {
+  const auth = getAuth(firebaseConfig);
+
+  onAuthStateChanged(auth, user => {
+    if (user) {
+      libraryLinkRef.removeEventListener('click', onLibraryLinkClick);
+    } else {
+      libraryLinkRef.addEventListener('click', onLibraryLinkClick);
+      logOutButtonRef.disabled = true;
+
+      if (window.location.pathname.search('/library.html') != -1) {
+        window.location.pathname = '/index.html';
+      }
+    }
+  });
+}
+ifUserLoged();

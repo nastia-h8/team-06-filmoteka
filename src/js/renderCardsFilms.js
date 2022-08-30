@@ -2,18 +2,19 @@ import { fetchPopularFilms } from './fetch-trending-films'
 import { getCardGenreNames } from './get-genre-names-arr'
 // import { createCardsLibrary } from './createCardsLibrary'
 import { fechFilm } from './modal'
+import { pagePagination } from './pagination-for-home'
 
-const gallery = document.querySelector('.home-main');
-console.log(gallery)
+const gallery = document.querySelector('.gallery-films');
+let currentPage = 1;
 
 
 
-export async function renderCardsFilms(page) {
-    const cardsFilms = await fetchPopularFilms(page);
-
+export async function renderCardsFilms(currentPage) {
+    const cardsFilms = await fetchPopularFilms(currentPage);
+    const totalResults = cardsFilms.total_results;
     const list = await createCards(cardsFilms.results);
     // const list = await createCardsLibrary(cardsFilms.results);
-    
+    pagePagination(totalResults);
     
     gallery.insertAdjacentHTML('beforeend', list);
 
@@ -37,7 +38,7 @@ export async function createCards(cardsFilms) {
             firstGenres = genresArr.slice(0, 3)
             firstGenres[2] = 'other';
             firstGenres = firstGenres.join(", ");
-        }
+        }    
         
         const posterUrl = item.poster_path ? `https://image.tmdb.org/t/p/original${item.poster_path}` : 'https://screench.com/upload/no-poster.jpeg'
         return acc + `<li class="gallery-films__item">
@@ -59,7 +60,7 @@ export async function createCards(cardsFilms) {
 if (gallery === null) {
     return
 }
-renderCardsFilms(1);
+
 
 
 
@@ -72,4 +73,4 @@ async function takeFilm(e) {
     }
 }
 
-    
+renderCardsFilms(currentPage);
