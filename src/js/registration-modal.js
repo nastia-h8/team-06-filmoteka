@@ -183,10 +183,6 @@ function ifUserLoged() {
     } else {
       libraryLinkRef.addEventListener('click', onLibraryLinkClick);
       logOutButtonRef.disabled = true;
-
-      if (window.location.pathname.search('/library.html') != -1) {
-        window.location.pathname = '/index.html';
-      }
     }
   });
 }
