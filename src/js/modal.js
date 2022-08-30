@@ -15,7 +15,7 @@ export async function fechFilm(id) {
     }
     const filmDetails = await response.data
 
-    console.log(filmDetails)
+    // console.log(filmDetails)
 
     let genresArr = []
     filmDetails.genres.map(genre => genresArr.push(genre.name))
