@@ -15,6 +15,7 @@ export async function renderCardsFilms(currentPage) {
     const totalResults = cardsFilms.total_results;
     const list = await createCards(cardsFilms.results);
     // const list = await createCardsLibrary(cardsFilms.results);
+    
     await pagePagination(totalResults, fetchPopularFilms);
     
     gallery.insertAdjacentHTML('beforeend', list);

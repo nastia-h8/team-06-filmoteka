@@ -22,7 +22,7 @@ const searchForm = document.querySelector('#movie-search');
 // import Pagination from 'tui-pagination';
 // import 'tui-pagination/dist/tui-pagination.css';
 
-let query = '';
+export let query = '';
 let page = 1;
 
 if (searchForm){
