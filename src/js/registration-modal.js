@@ -40,7 +40,7 @@ let userEmailInputRef = document.querySelector('#userEmail');
 const loginLinkRef = document.querySelector('.login__link');
 let libraryLinkRef = document.querySelector('.library-link');
 // ===============================================================
-libraryLinkRef.addEventListener('click', onLibraryLinkClick);
+// libraryLinkRef.addEventListener('click', onLibraryLinkClick);
 formButtonSignUpRef.disabled = true;
 // ===============================================================
 function enableLibraryLink() {
