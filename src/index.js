@@ -18,3 +18,5 @@ import './js/fetch-trending-films';
 import './js/fetch-films-by-search';
 import './js/submit-form';
 import './js/renderCardsFilms';
+
+import './js/theme-change';
