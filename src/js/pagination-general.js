@@ -1,14 +1,17 @@
-
 import Pagination from 'tui-pagination';
 import 'tui-pagination/dist/tui-pagination.css';
-import { fetchPopularFilms } from './fetch-trending-films';
 import { createCards } from './renderCardsFilms';
 import { preLoader } from './loader-scroll';
 import { preLoaderDel } from './loader-scroll';
+import { query } from './submit-form';
+
+let currentPage =1;
+
+
 
 const gallery = document.querySelector('.gallery-films');
 
-export function pagePagination(totalResults) {
+export async function pagePagination(totalResults, fetchFunction) {
     const options = {
         totalItems: 0,
         itemsPerPage: 20,
@@ -23,8 +26,8 @@ export function pagePagination(totalResults) {
         currentPage = evt.page;
         gallery.innerHTML = '';
         preLoader()
-        const newData = await fetchPopularFilms(currentPage);
-        const totalPages = newData.total_pages;
+        const newData = await fetchFunction(currentPage, query);
+        // const totalResults = newData.total_results;
         const newList = await createCards(newData.results);
 
         gallery.insertAdjacentHTML('beforeend', newList);
@@ -32,6 +35,6 @@ export function pagePagination(totalResults) {
         console.log('newData', newData)
     });
 
-    pagination.setTotalItems(totalResults);
+    pagination.setTotalItems(await totalResults);
     pagination.reset();
 }
