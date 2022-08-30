@@ -21,7 +21,7 @@ export async function fechFilm(id) {
     filmDetails.genres.map(genre => genresArr.push(genre.name))
     const genres = genresArr.join(", ")
 
-    const posterUrl = filmDetails.poster_path ? `https://image.tmdb.org/t/p/original${filmDetails.poster_path}` : '../images/no-poster.jpg'
+    const posterUrl = filmDetails.poster_path ? `https://image.tmdb.org/t/p/original${filmDetails.poster_path}` : 'https://screench.com/upload/no-poster.jpeg'
     
 
     const markupInfo = {
