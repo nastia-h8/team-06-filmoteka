@@ -37,7 +37,6 @@ function findId(e) {
         openFilm(e.target.attributes[1].value)
     } else if (e.target.localName === "ul") {
         if (e.target.parentNode.localName === "div") {
-            console.log(e.target.parentNode.localName)
             return
         }
         openFilm(e.target.parentNode.attributes[1].value)
