@@ -5,7 +5,7 @@ import { fechFilm } from './modal'
 import { pagePagination } from './pagination-general';
 // import { pagePagination } from './pagination-for-home'
 
-const gallery = document.querySelector('.gallery-films');
+const gallery = document.querySelector('.home-main');
 let currentPage = 1;
 
 
@@ -68,8 +68,11 @@ if (gallery === null) {
 
 async function takeFilm(e) {
     e.preventDefault(e);
+    console.log(e.target)
     if (e.target.localName === "li") {
         fechFilm(e.target.parentNode.parentElement.attributes[1].value);
+    } else if (e.target.localName === "a") {
+        fechFilm(e.target.attributes[1].value)
     } else {
         fechFilm(e.target.parentElement.attributes[1].value)
     }

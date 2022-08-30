@@ -4,6 +4,10 @@
     padding-bottom: 40px;
 }
 
+.gallery-films__link:hover {
+    text-decoration: none;
+}
+
 .gallery-films__card {
     object-fit: cover;
     width: 100%;

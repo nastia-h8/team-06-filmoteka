@@ -3,8 +3,8 @@ import { createCardsLibrary } from "./createCardsLibrary";
 import { onOpenFilmModal } from "./on-film-modal-open"
 
 const gallery = document.querySelector('.library-film');
-const queueBtn = document.querySelector('#queue-btn')
-console.log(queueBtn)
+const queueBtn = document.querySelector('#queue-btn');
+const watchedBtn = document.querySelector('#watched-btn');
 
 let arrayFilms = [];
 
@@ -17,7 +17,6 @@ async function renderCardsFilms(key) {
     if (arrayFilms === null) {
         return
     }
-    console.log(arrayFilms);
 
     const list = await createCardsLibrary(arrayFilms);
     gallery.insertAdjacentHTML('beforeend', list);
@@ -44,7 +43,6 @@ function findId(e) {
 }
 
 function openFilm(id) {
-    console.log(id)
     const idFilm = arrayFilms?.find(film => film.id === Number(id));
     console.log(idFilm)
     onOpenFilmModal(idFilm)
@@ -62,4 +60,9 @@ renderCardsFilms('watched')
 queueBtn.addEventListener('click', () => {
     gallery.innerHTML = "";
     renderCardsFilms('queue')
+});
+
+watchedBtn.addEventListener('click', () => {
+    gallery.innerHTML = "";
+    renderCardsFilms('watched')
 });
