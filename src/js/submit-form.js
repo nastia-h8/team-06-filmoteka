@@ -3,6 +3,7 @@ import { createCards } from './renderCardsFilms';
 import { fechFilm } from './modal'
 import Notiflix from 'notiflix'
 import { preLoaderDel } from './loader-scroll'
+import { preLoaderDel } from './loader-scroll'
 
 Notiflix.Notify.init({
     width: '280px',
@@ -58,6 +59,7 @@ async function createFilmsCollection() {
 
     if (filmObj.results.length === 0) {
         alertNoFilmsFound();
+        preLoaderDel();
         return;
     }
     gallery.innerHTML = '';
