@@ -4,7 +4,7 @@ import { fechFilm } from './modal'
 import Notiflix from 'notiflix'
 import { preLoaderDel } from './loader-scroll'
 import { preLoaderDel } from './loader-scroll'
-import { pagePagination } from './pagination-test';
+import { pagePagination } from './pagination-general';
 
 Notiflix.Notify.init({
     width: '280px',
