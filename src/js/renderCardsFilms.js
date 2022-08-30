@@ -72,6 +72,12 @@ async function takeFilm(e) {
         fechFilm(e.target.parentNode.parentElement.attributes[1].value);
     } else if (e.target.localName === "a") {
         fechFilm(e.target.attributes[1].value)
+    } else if (e.target.localName === "ul") {
+        if (e.target.parentNode.localName === "div") {
+            console.log(e.target.parentNode.localName)
+            return
+        }
+        fechFilm(e.target.parentNode.attributes[1].value)
     } else {
         fechFilm(e.target.parentElement.attributes[1].value)
     }

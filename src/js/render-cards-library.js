@@ -36,7 +36,13 @@ function findId(e) {
     } else if (e.target.localName === "a") {
         openFilm(e.target.attributes[1].value)
     } else if (e.target.localName === "ul") {
+        if (e.target.parentNode.localName === "div") {
+            console.log(e.target.parentNode.localName)
+            return
+        }
         openFilm(e.target.parentNode.attributes[1].value)
+    } else if (e.target.localName === "div") {
+        return
     } else { 
         openFilm(e.target.parentElement.attributes[1].value)
     }
