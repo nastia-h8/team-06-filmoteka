@@ -2,7 +2,7 @@ import { async } from "@firebase/util";
 import { createCardsLibrary } from "./createCardsLibrary";
 import { onOpenFilmModal } from "./on-film-modal-open"
 
-const gallery = document.querySelector('.library-film');
+const gallery = document.querySelector('.library-main');
 const queueBtn = document.querySelector('#queue-btn');
 const watchedBtn = document.querySelector('#watched-btn');
 

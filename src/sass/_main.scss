@@ -25,6 +25,10 @@
     color: #000000;
 }
 
+.library-film {
+    display: flex;
+    align-items: center;
+}
 .post-film {
     display: flex;
     align-items: center;
@@ -132,10 +136,6 @@
 
 
 /////////////////////////////////style library////////////////////////////////////
-.library-film {
-    display: flex;
-    align-items: center;
-}
 
 .library-film__item {
     font-weight: 500;
@@ -170,6 +170,9 @@
     color: #FFFFFF;
 }
 
+@media screen and (min-width: 768px) {
+    
+}
 @media screen and (min-width: 1280px) {
     .library-film__item {
         font-size: 20px;
