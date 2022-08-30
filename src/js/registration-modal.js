@@ -98,6 +98,7 @@ function onToggle() {
     formButtonSignUpRef.style.border = '1px black solid';
   } else {
     formButtonSignUpRef.disabled = true;
+    formButtonSignUpRef.style.border = '1px grey solid';
   }
 }
 // ===============================================================

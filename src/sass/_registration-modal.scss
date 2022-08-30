@@ -153,7 +153,8 @@ a {
   cursor: pointer;
   padding: 10px 20px;
   border-radius: 5px;
-  border: 1px var(--tertiary-color) solid;
+  border: 1px black solid;
+  color: black;
   background-color: #fff;
   transition: color 250ms, background-color 250ms ease;
   margin-bottom: 10px;
