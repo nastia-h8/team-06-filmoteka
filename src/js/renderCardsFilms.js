@@ -2,7 +2,8 @@ import { fetchPopularFilms } from './fetch-trending-films'
 import { getCardGenreNames } from './get-genre-names-arr'
 // import { createCardsLibrary } from './createCardsLibrary'
 import { fechFilm } from './modal'
-import { pagePagination } from './pagination-for-home'
+import { pagePagination } from './pagination-test';
+// import { pagePagination } from './pagination-for-home'
 
 const gallery = document.querySelector('.gallery-films');
 let currentPage = 1;
@@ -14,7 +15,7 @@ export async function renderCardsFilms(currentPage) {
     const totalResults = cardsFilms.total_results;
     const list = await createCards(cardsFilms.results);
     // const list = await createCardsLibrary(cardsFilms.results);
-    pagePagination(totalResults);
+    await pagePagination(totalResults, fetchPopularFilms);
     
     gallery.insertAdjacentHTML('beforeend', list);
 
