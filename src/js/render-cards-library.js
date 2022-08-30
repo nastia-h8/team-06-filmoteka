@@ -2,7 +2,7 @@ import { async } from "@firebase/util";
 import { createCardsLibrary } from "./createCardsLibrary";
 import { onOpenFilmModal } from "./on-film-modal-open"
 
-const gallery = document.querySelector('.library-film');
+const gallery = document.querySelector('.library-main');
 const queueBtn = document.querySelector('#queue-btn');
 const watchedBtn = document.querySelector('#watched-btn');
 
@@ -36,7 +36,13 @@ function findId(e) {
     } else if (e.target.localName === "a") {
         openFilm(e.target.attributes[1].value)
     } else if (e.target.localName === "ul") {
+        if (e.target.parentNode.localName === "div") {
+            console.log(e.target.parentNode.localName)
+            return
+        }
         openFilm(e.target.parentNode.attributes[1].value)
+    } else if (e.target.localName === "div") {
+        return
     } else { 
         openFilm(e.target.parentElement.attributes[1].value)
     }
