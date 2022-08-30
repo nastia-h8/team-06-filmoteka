@@ -73,7 +73,6 @@ export async function onOpenFilmModal(markupInfo) {
     function onWatchedClick() { 
         const inWachedLocalStorage = localStorage.getItem(KEY_WACHED)
         const wachedFilmsArr = JSON.parse(inWachedLocalStorage)
-           
         
         if (!inWachedLocalStorage) {
             localStorage.setItem(KEY_WACHED, JSON.stringify([markupInfo]))

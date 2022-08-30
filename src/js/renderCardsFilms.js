@@ -66,7 +66,7 @@ if (gallery === null) {
 
 
 
-async function takeFilm(e) {
+export async function takeFilm(e) {
     e.preventDefault(e);
     if (e.target.localName === "li") {
         fechFilm(e.target.parentNode.parentElement.attributes[1].value);

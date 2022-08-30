@@ -5,6 +5,8 @@ import Notiflix from 'notiflix'
 import { preLoaderDel } from './loader-scroll'
 import { preLoaderDel } from './loader-scroll'
 import { pagePagination } from './pagination-general';
+import {takeFilm} from './renderCardsFilms'
+
 
 Notiflix.Notify.init({
     width: '280px',
@@ -50,6 +52,9 @@ async function onSearchMovieForm(e) {
 
 // Створення колекції
 async function createFilmsCollection() {
+
+    gallery.removeEventListener('click', takeFilm)
+
     const filmObj = await fetchFilmsBySearch(page, query);
     const list = await createCards(filmObj.results);
     const totalResults = filmObj.total_results;
@@ -67,16 +72,18 @@ async function createFilmsCollection() {
     gallery.insertAdjacentHTML('beforeend', list);
     preLoaderDel();
 
-    async function takeFilm(e) {
+    async function takeFilmAfterSearch(e) {
         e.preventDefault(e);
         const id = Number(e.target.parentElement.attributes[1].value);
+        console.log(e.target.parentElement.attributes[1].value)
         fechFilm(id);
     }
-    gallery.addEventListener('click', takeFilm);
+    gallery.addEventListener('click', takeFilmAfterSearch);
     
 
 // ------------------------------------------- код для пагінації 
     pagePagination(totalResults, fetchFilmsBySearch);
+
     // const options = {
     //     totalItems: 0,
     //     itemsPerPage: 20,
