@@ -71,72 +71,88 @@ export async function onOpenFilmModal(markupInfo) {
 
 
     function onWatchedClick() { 
-        const inWachedLocalStorage = localStorage.getItem(KEY_WACHED)
-        const wachedFilmsArr = JSON.parse(inWachedLocalStorage)
-        
-        if (!inWachedLocalStorage) {
-            localStorage.setItem(KEY_WACHED, JSON.stringify([markupInfo]))
-            disableAddToWatchedBtn()
-            removeFilmFromQueue()
-        } else {
-            wachedFilmsArr.push(markupInfo)
-            localStorage.setItem(KEY_WACHED, JSON.stringify(wachedFilmsArr))
-            disableAddToWatchedBtn()
-            removeFilmFromQueue()
+        try {
+            const inWachedLocalStorage = localStorage.getItem(KEY_WACHED)
+            const wachedFilmsArr = JSON.parse(inWachedLocalStorage)
+            
+            if (!inWachedLocalStorage) {
+                localStorage.setItem(KEY_WACHED, JSON.stringify([markupInfo]))
+                disableAddToWatchedBtn()
+                removeFilmFromQueue()
+            } else {
+                wachedFilmsArr.push(markupInfo)
+                localStorage.setItem(KEY_WACHED, JSON.stringify(wachedFilmsArr))
+                disableAddToWatchedBtn()
+                removeFilmFromQueue()
+            }
+        } catch (error) {
+            console.log(error)
         }
         
     }
 
     function onQueueClick() {          
-        const inQueueLocalStorage = localStorage.getItem(KEY_QUEUE)
-        const queueFilmsArr = JSON.parse(inQueueLocalStorage)
+        try {
+            const inQueueLocalStorage = localStorage.getItem(KEY_QUEUE)
+            const queueFilmsArr = JSON.parse(inQueueLocalStorage)
 
-        if (!inQueueLocalStorage) {
-            localStorage.setItem(KEY_QUEUE, JSON.stringify([markupInfo]))
-            disableAddToQueuedBtn()
-            removeFilmFromWached()
-        } else {
-            queueFilmsArr.push(markupInfo)
-            localStorage.setItem(KEY_QUEUE, JSON.stringify(queueFilmsArr))
-            disableAddToQueuedBtn()
-            removeFilmFromWached()
+            if (!inQueueLocalStorage) {
+                localStorage.setItem(KEY_QUEUE, JSON.stringify([markupInfo]))
+                disableAddToQueuedBtn()
+                removeFilmFromWached()
+            } else {
+                queueFilmsArr.push(markupInfo)
+                localStorage.setItem(KEY_QUEUE, JSON.stringify(queueFilmsArr))
+                disableAddToQueuedBtn()
+                removeFilmFromWached()
+            }
+        } catch (error) {
+            console.log(error)
         }
     }
 
     function removeFilmFromWached() {
-        const inWachedLocalStorage = localStorage.getItem(KEY_WACHED)
-        const wachedFilmsArr = JSON.parse(inWachedLocalStorage)
-        const isAlredyOnWached = wachedFilmsArr?.find(film => film.id === markupInfo.id)
+        try {
+            const inWachedLocalStorage = localStorage.getItem(KEY_WACHED)
+            const wachedFilmsArr = JSON.parse(inWachedLocalStorage)
+            const isAlredyOnWached = wachedFilmsArr?.find(film => film.id === markupInfo.id)
 
-        if (isAlredyOnWached) {
-            const newWachedFilmsArr = wachedFilmsArr.filter(film => film.id !== markupInfo.id)
+            if (isAlredyOnWached) {
+                const newWachedFilmsArr = wachedFilmsArr.filter(film => film.id !== markupInfo.id)
 
-            if (newWachedFilmsArr.length > 0) {
-                localStorage.setItem(KEY_WACHED, JSON.stringify(newWachedFilmsArr))
-            } else {
-                localStorage.removeItem(KEY_WACHED)
-            }  
+                if (newWachedFilmsArr.length > 0) {
+                    localStorage.setItem(KEY_WACHED, JSON.stringify(newWachedFilmsArr))
+                } else {
+                    localStorage.removeItem(KEY_WACHED)
+                }  
 
-            enableAddToWatchedBtn()            
-        }        
+                enableAddToWatchedBtn()            
+            }        
+        } catch (error) {
+            console.log(error)
+        }
     }
 
     function removeFilmFromQueue() {
-        const inQueueLocalStorage = localStorage.getItem(KEY_QUEUE)
-        const queueFilmsArr = JSON.parse(inQueueLocalStorage)
-        const isAlredyOnQueue = queueFilmsArr?.find(film => film.id === markupInfo.id)
+        try {
+            const inQueueLocalStorage = localStorage.getItem(KEY_QUEUE)
+            const queueFilmsArr = JSON.parse(inQueueLocalStorage)
+            const isAlredyOnQueue = queueFilmsArr?.find(film => film.id === markupInfo.id)
 
-        if (isAlredyOnQueue) {
-            const newQueueFilmsArr = queueFilmsArr.filter(film => film.id !== markupInfo.id)
+            if (isAlredyOnQueue) {
+                const newQueueFilmsArr = queueFilmsArr.filter(film => film.id !== markupInfo.id)
 
-            if (newQueueFilmsArr.length > 0) {
-                localStorage.setItem(KEY_QUEUE, JSON.stringify(newQueueFilmsArr))
-            } else {
-                localStorage.removeItem(KEY_QUEUE)
-            }  
+                if (newQueueFilmsArr.length > 0) {
+                    localStorage.setItem(KEY_QUEUE, JSON.stringify(newQueueFilmsArr))
+                } else {
+                    localStorage.removeItem(KEY_QUEUE)
+                }  
 
-            enableAddToQueuedBtn()           
-        }     
+                enableAddToQueuedBtn()           
+            }     
+        } catch (error) {
+            console.log(error)
+        }
     }
 }
 
