@@ -1,4 +1,5 @@
 import { makeFilmModalMarkup } from './make-film-modal-markup'
+import { closeOpenbtn } from './loader-scroll'
 import { delBtn } from './loader-scroll'
 
 const filmBackdrop = document.querySelector('[data-modal]')
@@ -29,12 +30,12 @@ export async function onOpenFilmModal(markupInfo) {
 
     function onEscDown(e) {
         if (e.code === 'Escape') {
-            delBtn()
-            closeFilmModal()    
+            closeFilmModal()  
         }
     }
 
     function closeFilmModal() {
+        closeOpenbtn();
         filmBackdrop.classList.add('is-hidden')
         document.body.style.overflow = 'auto'
         closeFilmModalBtn.removeEventListener('click', closeFilmModal)
@@ -162,7 +163,8 @@ function enableAddToQueuedBtn() {
 
 
 function modalScrollForbiddance() {
-  if (!filmBackdrop.classList.contains('is-hidden')) {
+    if (!filmBackdrop.classList.contains('is-hidden')) {
+        delBtn();
     document.body.style.overflow = 'hidden'
     filmBackdrop.style.overflow = 'auto'
     }
