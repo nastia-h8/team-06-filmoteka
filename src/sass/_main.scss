@@ -175,9 +175,9 @@
         border-right: 2px solid var(--accent-color);
     }
 
-    .library-film__description {
+    // .library-film__description {
         
-    }
+    // }
     .library-film__rating {
         width: 40px;
         height: 20px;
@@ -188,6 +188,15 @@
 // Стилі для пагінації
 .tui-pagination .tui-is-selected,
 .tui-pagination strong {
+
+    border-radius: 5px;
     background-color: var(--accent-color) !important; 
-    border-color: var(--accent-color)!important;
+    border-color: transparent !important;
+} 
+.tui-page-btn{
+    border-color: transparent !important;
+}
+.tui-first, .tui-prev, .tui-last,
+.tui-next{
+    background-color: #F7F7F7
 }
