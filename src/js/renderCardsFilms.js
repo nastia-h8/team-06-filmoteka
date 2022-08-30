@@ -2,11 +2,11 @@ import { fetchPopularFilms } from './fetch-trending-films';
 import { getCardGenreNames } from './get-genre-names-arr';
 // import { createCardsLibrary } from './createCardsLibrary'
 import { fechFilm } from './modal'
-import { pagePagination } from './pagination-general';
+import { pagePagination, currentPage } from './pagination-general';
 // import { pagePagination } from './pagination-for-home'
-
 const gallery = document.querySelector('.home-main');
-let currentPage = 1;
+// let currentPage = 1;
+let cardsFilmsGenres = ''
 
 
 
@@ -26,7 +26,10 @@ export async function renderCardsFilms(currentPage) {
 }
 
 export async function createCards(cardsFilms) {
-    const cardsFilmsGenres = await getCardGenreNames(cardsFilms);
+    console.log(currentPage)
+    if (!cardsFilmsGenres) {
+        cardsFilmsGenres = await getCardGenreNames(cardsFilms)
+    }
     
     let accFilms = cardsFilms.reduce((acc, item, index) => {
         let firstGenres = '';

@@ -5,7 +5,7 @@ import { preLoader } from './loader-scroll';
 import { preLoaderDel } from './loader-scroll';
 import { query } from './submit-form';
 
-let currentPage =1;
+export let currentPage = 1;
 
 
 
