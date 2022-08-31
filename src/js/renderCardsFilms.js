@@ -26,7 +26,6 @@ export async function renderCardsFilms(currentPage) {
 }
 
 export async function createCards(cardsFilms) {
-    console.log(currentPage)
     if (!cardsFilmsGenres) {
         cardsFilmsGenres = await getCardGenreNames(cardsFilms)
     }
