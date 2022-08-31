@@ -21,3 +21,5 @@ import './js/renderCardsFilms';
 import './js/pagination-general';
 import './js/modal-team';
 import './js/render-cards-library'
+
+import './js/theme-change';

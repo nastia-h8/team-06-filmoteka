@@ -1,0 +1,127 @@
+#toggle-theme-btn {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: absolute;
+
+    top: -60px;
+    right: 32px;
+
+    background-color: transparent;
+    border: none;
+    width: 30px;
+    border-radius:  50%;
+    transition:background-color 250ms cubic-bezier(0.4, 0, 0.2, 1);
+    &:hover {
+        background-color: rgba(255, 255, 255, 0.377);
+        transform: scale(1.2);
+        .theme-change__icons {color: var(--accent-color);
+            stroke: var(--secondary-color);};
+    }
+    cursor: pointer;
+}
+.theme-change {
+    position: relative;
+}
+.theme-change__icons {
+    color: var(--secondary-color);
+    stroke: var(--accent-color);
+    transition:color 250ms cubic-bezier(0.4, 0, 0.2, 1);
+    transition:stroke 250ms cubic-bezier(0.4, 0, 0.2, 1);
+}
+//=======body theme dark
+body.dark {
+    transition:background-color 500ms cubic-bezier(0.4, 0, 0.2, 1);
+    background: #0e0404b0;
+//=======modal registration
+.row {
+    background-color: #8B8080;
+    color: var(--secondary-color);
+}
+.img__container{
+    margin-left: 10px;
+}
+
+//=======gallery
+.gallery-films__hero{
+    color: var(--secondary-color);
+}
+//=======modal film
+.team-modal-open {
+    color: var(--secondary-color);
+    background-color: transparent;
+}
+
+.modal-window {
+    background-color: #8b8080;
+    .close-modal-btn {
+        border-radius: 50%;
+        border: 1px solid ;
+        transition:background-color 500ms cubic-bezier(0.4, 0, 0.2, 1);
+        &:hover {
+        background-color: rgba(255, 255, 255, 0.377);
+        }
+    }
+    .film-indicator {
+        color: aliceblue;
+    }
+    .film-btn-queue{
+        background-color: transparent;
+        transition:background-color 500ms cubic-bezier(0.4, 0, 0.2, 1);
+        &:hover {
+        background-color: rgba(255, 255, 255, 0.377);
+        }
+    }
+}
+//=======pagination
+.tui-page-btn{
+    color:var(--secondary-color);
+    border-radius: 4px ;
+    transition:background-color 250ms cubic-bezier(0.4, 0, 0.2, 1);
+    transition:border-radius 250ms cubic-bezier(0.4, 0, 0.2, 1);
+    transition:transform 250ms cubic-bezier(0.4, 0, 0.2, 1);
+        &:hover {
+        background-color: rgba(255, 255, 255, 0.377);
+        border-radius: 4px ;
+        transform: scale(1.1);
+    }
+}
+.tui-first,
+.tui-prev,
+.tui-next,
+.tui-last {
+    background-color: #8B8080;
+    transition:background-color 250ms cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.tui-ico-ellip {
+    color: var(--secondary-color);
+}
+//=======modal team
+.modal-team {
+    background-color: #8b8080;
+    .modal-team-title {
+        color: var(--secondary-color);
+    }
+    .close-modal-team-button {
+        background-color: var(--secondary-color);
+        transition:background-color 500ms cubic-bezier(0.4, 0, 0.2, 1);
+        &:hover {
+            fill: var(--accent-color);
+            background-color: rgba(255, 255, 255, 0.377);
+        }
+    }
+    .team-list-item {
+        background-color: var(--secondary-color);
+    }
+}
+//=======footer
+.footer {
+    color: var(--secondary-color);
+    background: rgba(26, 14, 14, 0.74);
+}
+
+.arrow-btn {
+    background-color:  #8b8080;;
+}
+}
