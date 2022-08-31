@@ -21,7 +21,7 @@ export async function createCardsLibrary(cardsFilms) {
                         <li class="library-film__item">${item.year}</li>
                         <li class="post-film__item">
                             <div class="post-film__rating">
-                                <p class="post-film__rating-description">${item.year}</p>
+                                <p class="post-film__rating-description">${item.vote}</p>
                             </div>
                         </li>
                     </ul>
