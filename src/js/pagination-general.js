@@ -5,7 +5,7 @@ import { preLoader } from './loader-scroll';
 import { preLoaderDel } from './loader-scroll';
 import { query } from './submit-form';
 
-let currentPage =1;
+export let currentPage = 1;
 
 
 
@@ -32,7 +32,7 @@ export async function pagePagination(totalResults, fetchFunction) {
 
         gallery.insertAdjacentHTML('beforeend', newList);
         preLoaderDel();
-        console.log('newData', newData)
+        // console.log('newData', newData)
     });
 
     pagination.setTotalItems(await totalResults);
