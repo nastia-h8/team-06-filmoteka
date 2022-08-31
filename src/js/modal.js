@@ -27,7 +27,7 @@ export async function fechFilm(id) {
     const markupInfo = {
       poster: posterUrl,
       title: filmDetails.title,
-      vote: filmDetails.vote_average,
+      vote: filmDetails.vote_average.toFixed(1),
       votes: filmDetails.vote_count,
       popularity: filmDetails.popularity,
       originalTitle: filmDetails.original_title,
