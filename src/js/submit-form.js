@@ -60,7 +60,7 @@ async function createFilmsCollection() {
     let currentPage = filmObj.page;
     let currentQuery = query;
 
-    console.log('data', filmObj)
+    // console.log('data', filmObj)
 
     if (filmObj.results.length === 0) {
         alertNoFilmsFound();

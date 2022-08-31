@@ -32,7 +32,7 @@ export async function pagePagination(totalResults, fetchFunction) {
 
         gallery.insertAdjacentHTML('beforeend', newList);
         preLoaderDel();
-        console.log('newData', newData)
+        // console.log('newData', newData)
     });
 
     pagination.setTotalItems(await totalResults);
