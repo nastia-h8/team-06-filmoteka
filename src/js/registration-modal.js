@@ -167,7 +167,6 @@ async function isUserAlreadyLogedIn() {
     if (user) {
       Notiflix.Notify.success('You are loged in');
       logOutButtonRef.disabled = false;
-      console.log(user);
     } else {
       console.log(error);
     }
