@@ -77,6 +77,13 @@ body.dark {
         transform: scale(1.1);
     }
 }
+.tui-first,
+.tui-prev,
+.tui-next,
+.tui-last {
+    background-color: #8B8080;
+    transition:background-color 250ms cubic-bezier(0.4, 0, 0.2, 1);
+}
 
 .tui-ico-ellip {
     color: var(--secondary-color);
@@ -89,6 +96,11 @@ body.dark {
     }
     .close-modal-team-button {
         background-color: var(--secondary-color);
+        transition:background-color 500ms cubic-bezier(0.4, 0, 0.2, 1);
+        &:hover {
+            fill: var(--accent-color);
+            background-color: rgba(255, 255, 255, 0.377);
+        }
     }
     .team-list-item {
         background-color: var(--secondary-color);
