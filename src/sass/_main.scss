@@ -170,6 +170,19 @@
     color: #FFFFFF;
 }
 
+.no-movies-text {
+    margin-left: auto;
+    margin-right: auto;
+    text-align: center;
+
+    img {
+        margin-left: auto;
+        margin-right: auto;
+        margin-top: 20px;
+        width: 100px;
+    }
+}
+
 @media screen and (min-width: 768px) {
     
 }
@@ -190,7 +203,14 @@
         width: 40px;
         height: 20px;
     }
+
+    .no-movies-text img {
+        width: 230px;
+    }
+
 }
+
+
 
 
 // Стилі для пагінації
