@@ -14,19 +14,7 @@ const backToTopButton = document.querySelector(".arrow-btn");
 
 delBtn();
 
-
-window.addEventListener('scroll', () => {
-
-            if(window.scrollY < 100){
-                delBtn();
-                return;
-            } else if (window.scrollY >= 100) {
-                addBtn();
-                return;
-            }
-
-});
-window.addEventListener('scroll', closeOpenbtn)
+window.document.addEventListener('scroll', closeOpenbtn)
 
         export function closeOpenbtn() {
             if(window.scrollY < 100){
@@ -50,9 +38,10 @@ export function addBtn() {
 
 window.onload = function () {
     document.body.classList.add('loaded_hiding');
-    
+
       document.body.classList.add('loaded');
       document.body.classList.remove('loaded_hiding');
+
   }
 
 export function preLoader() {
