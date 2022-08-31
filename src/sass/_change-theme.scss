@@ -33,11 +33,20 @@
 body.dark {
     transition:background-color 500ms cubic-bezier(0.4, 0, 0.2, 1);
     background: #0e0404b0;
-//=======modal film
+//=======modal registration
+.row {
+    background-color: #8B8080;
+    color: var(--secondary-color);
+}
+.img__container{
+    margin-left: 10px;
+}
+
+//=======gallery
 .gallery-films__hero{
     color: var(--secondary-color);
 }
-
+//=======modal film
 .team-modal-open {
     color: var(--secondary-color);
     background-color: transparent;
