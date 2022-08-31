@@ -22,7 +22,6 @@ backdropTeam.addEventListener('click', clickBackdropClick);
 // };
 
 function openModalOpen() {
-    delBtn();
     window.addEventListener('keydown', onEscPress)
     document.body.classList.add('show-modal')
 
@@ -37,6 +36,7 @@ function closeModalClose() {
     // closeOpenbtn();
 
     window.removeEventListener('keydown', onEscPress)
+    closeOpenbtn();
     document.body.classList.remove('show-modal')
 document.body.style.overflow = 'auto'
 }
@@ -57,7 +57,7 @@ function onEscPress(e) {
 
 function modalScrollStop() {
     if (body.classList.contains('show-modal')) {
-        // delArrowBtn();
+        delBtn();
         document.body.style.overflow = 'hidden'
         backdropTeam.style.overflow = 'auto'
     }
