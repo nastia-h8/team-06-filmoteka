@@ -91,7 +91,13 @@
     .gallery-films__item {
         width: calc((100% - 2 * 32px) / 2);
         margin: 16px;
+        transform: scale(1.0);
+        transition: transform 250ms linear;
+        &:hover {
+            transform: scale(1.05);
+        }
     }
+
 }
 
 @media screen and (min-width: 1280px) {
@@ -124,11 +130,7 @@
     .gallery-films__item {
         width: calc((100% - 3 * 16px) / 3);
         margin: 8px;
-        transform: scale(1.0);
-        transition: transform 250ms linear;
-        &:hover {
-            transform: scale(1.05);
-        }
+       
     }
     .gallery-films__item {
         margin-bottom: 24px;
