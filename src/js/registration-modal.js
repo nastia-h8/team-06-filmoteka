@@ -11,10 +11,18 @@ import {
   browserSessionPersistence,
   inMemoryPersistence,
 } from 'firebase/auth';
+import {
+  WriteUsersData,
+  updateMoviesQueue,
+  updateWatchedList,
+  readUsersData,
+} from './_lifetime_database';
 // ==================firebaseConfig===============================
 const firebaseConfig = initializeApp({
   apiKey: 'AIzaSyBwIHbipBLGGO3rbF9X_3hWkD1LKg_9nto',
   authDomain: 'filmoteka-auth-d1821.firebaseapp.com',
+  databaseURL:
+    'https://filmoteka-auth-d1821-default-rtdb.europe-west1.firebasedatabase.app',
   projectId: 'filmoteka-auth-d1821',
   storageBucket: 'filmoteka-auth-d1821.appspot.com',
   messagingSenderId: '528877394896',
@@ -39,6 +47,14 @@ const userNameInputRef = document.querySelector('#userName');
 let userEmailInputRef = document.querySelector('#userEmail');
 const loginLinkRef = document.querySelector('.login__link');
 let libraryLinkRef = document.querySelector('.library-link');
+// ===============================================================
+let watchedMoviesList;
+let queueMoviesList;
+if (localStorage.getItem(localStorage.getItem('watched'))) {
+  watchedMoviesList = JSON.parse(localStorage.getItem('watched'));
+} else if (localStorage.getItem('queue')) {
+  queueMoviesList = JSON.parse(localStorage.getItem('queue'));
+}
 // ===============================================================
 // libraryLinkRef.addEventListener('click', onLibraryLinkClick);
 formButtonSignUpRef.disabled = true;
@@ -109,6 +125,8 @@ async function createAccount(auth, email, password) {
       email,
       password
     );
+    createdUserId = userCredentials.user.uid;
+    WriteUsersData(userCredentials.user.uid, email);
     Notiflix.Notify.success('User created');
     logOutButtonRef.disabled = false;
   } catch (error) {
@@ -132,7 +150,9 @@ async function loginIntoAccount(auth, email, password) {
   try {
     auth = getAuth(firebaseConfig);
     await setPersistence(auth, browserLocalPersistence);
-    await signInWithEmailAndPassword(auth, email, password);
+    const USERS_UID = await signInWithEmailAndPassword(auth, email, password);
+    // console.log('USERS_UID: ', USERS_UID.user.uid);
+
     isUserAlreadyLogedIn();
     libraryLinkRef.removeEventListener('click', onLibraryLinkClick);
   } catch (error) {
@@ -178,6 +198,9 @@ function ifUserLoged() {
 
   onAuthStateChanged(auth, user => {
     if (user) {
+      const USERS_UID = user.uid;
+
+      updateUsersLibrary(USERS_UID, watchedMoviesList, queueMoviesList);
       libraryLinkRef.removeEventListener('click', onLibraryLinkClick);
     } else {
       libraryLinkRef.addEventListener('click', onLibraryLinkClick);
@@ -186,3 +209,10 @@ function ifUserLoged() {
   });
 }
 ifUserLoged();
+
+// ===============================================================
+async function updateUsersLibrary(usersUid, watchedList, queueList) {
+  readUsersData(usersUid);
+  await updateMoviesQueue(usersUid, queueList);
+  await updateWatchedList(usersUid, watchedList);
+}
