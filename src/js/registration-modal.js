@@ -50,9 +50,10 @@ let libraryLinkRef = document.querySelector('.library-link');
 // ===============================================================
 let watchedMoviesList;
 let queueMoviesList;
-if (localStorage.getItem(localStorage.getItem('watched'))) {
+if (localStorage.getItem('watched')) {
   watchedMoviesList = JSON.parse(localStorage.getItem('watched'));
-} else if (localStorage.getItem('queue')) {
+}
+if (localStorage.getItem('queue')) {
   queueMoviesList = JSON.parse(localStorage.getItem('queue'));
 }
 // ===============================================================
@@ -151,8 +152,7 @@ async function loginIntoAccount(auth, email, password) {
     auth = getAuth(firebaseConfig);
     await setPersistence(auth, browserLocalPersistence);
     const USERS_UID = await signInWithEmailAndPassword(auth, email, password);
-    // console.log('USERS_UID: ', USERS_UID.user.uid);
-
+    clearLocalStorage();
     isUserAlreadyLogedIn();
     libraryLinkRef.removeEventListener('click', onLibraryLinkClick);
   } catch (error) {
@@ -169,6 +169,7 @@ function logOutHandler() {
       Notiflix.Notify.success('Log-out successful.');
       libraryLinkRef.addEventListener('click', onLibraryLinkClick);
       logOutButtonRef.disabled = true;
+      clearLocalStorage();
     })
     .catch(error => {
       Notiflix.Notify.warning('Log-out unsuccessful.');
@@ -199,7 +200,6 @@ function ifUserLoged() {
   onAuthStateChanged(auth, user => {
     if (user) {
       const USERS_UID = user.uid;
-
       updateUsersLibrary(USERS_UID, watchedMoviesList, queueMoviesList);
       libraryLinkRef.removeEventListener('click', onLibraryLinkClick);
     } else {
@@ -213,6 +213,16 @@ ifUserLoged();
 // ===============================================================
 async function updateUsersLibrary(usersUid, watchedList, queueList) {
   readUsersData(usersUid);
-  await updateMoviesQueue(usersUid, queueList);
-  await updateWatchedList(usersUid, watchedList);
+  console.log('test');
+  const timeOut = setTimeout(() => {
+    console.log('message');
+    updateMoviesQueue(usersUid, queueList);
+    updateWatchedList(usersUid, watchedList);
+  }, 5000);
+}
+
+// ===============================================================
+function clearLocalStorage() {
+  localStorage.removeItem('queue');
+  localStorage.removeItem('watched');
 }

@@ -46,15 +46,16 @@ WriteUsersData('userTest', 'sk@gmail.com', 'obj1', 'obj2');
 // ===============================================================
 
 // ===============================================================
-export function readUsersData(userId) {
+export async function readUsersData(userId) {
   const usersRef = ref(db, 'users/' + userId);
   onValue(usersRef, snapshot => {
     const data = snapshot.val();
     const stringifiedWatchedList = JSON.stringify(data.moviesInWatchedList);
     const stringifiedQueueList = JSON.stringify(data.moviesInWatchingQueue);
-    if (data.moviesInWatchingQueue) {
+    console.log('test2');
+    if (typeof data.moviesInWatchedList !== 'undefined') {
       localStorage.setItem('watched', stringifiedWatchedList);
-    } else if (data.moviesInWatchedList) {
+    } else if (typeof data.moviesInWatchingQueue !== 'undefined') {
       localStorage.setItem('queue', stringifiedQueueList);
     } else {
       console.log('error: no data');
@@ -99,8 +100,7 @@ export function readUsersData(userId) {
 
 // ===============================================================
 export function updateWatchedList(userId, updateData) {
-  console.log('updateData: ', updateData);
-  if (!updateData) {
+  if (typeof updateData === 'undefined') {
     return;
   } else {
     const updates = {};
@@ -113,8 +113,7 @@ export function updateWatchedList(userId, updateData) {
 
 // ===============================================================
 export function updateMoviesQueue(userId, updateData) {
-  console.log('updateData: ', updateData);
-  if (!updateData) {
+  if (typeof updateData === 'undefined') {
     return;
   } else {
     const updateQueueList = {};
