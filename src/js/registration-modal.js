@@ -194,12 +194,14 @@ async function isUserAlreadyLogedIn() {
   });
 }
 // ===============================================================
+export let USERS_UID;
+// ===============================================================
 function ifUserLoged() {
   const auth = getAuth(firebaseConfig);
 
   onAuthStateChanged(auth, user => {
     if (user) {
-      const USERS_UID = user.uid;
+      USERS_UID = user.uid;
       updateUsersLibrary(USERS_UID, watchedMoviesList, queueMoviesList);
       libraryLinkRef.removeEventListener('click', onLibraryLinkClick);
     } else {
@@ -213,9 +215,7 @@ ifUserLoged();
 // ===============================================================
 async function updateUsersLibrary(usersUid, watchedList, queueList) {
   readUsersData(usersUid);
-  console.log('test');
   const timeOut = setTimeout(() => {
-    console.log('message');
     updateMoviesQueue(usersUid, queueList);
     updateWatchedList(usersUid, watchedList);
   }, 5000);

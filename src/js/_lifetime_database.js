@@ -19,6 +19,7 @@ const firebaseConfig = initializeApp({
   messagingSenderId: '528877394896',
   appId: '1:528877394896:web:a8dabe5ad1904b525c77d5',
 });
+// import { userIdRecord } from './registration-modal';
 // ===============================================================
 
 const db = getDatabase();
@@ -27,7 +28,6 @@ const db = getDatabase();
 // let watchedMoviesList = JSON.parse(localStorage.getItem('watched'));
 // let queueMoviesList = JSON.parse(localStorage.getItem('queue'));
 // ===============================================================
-
 // ===============================================================
 export function WriteUsersData(
   userId,
@@ -47,15 +47,25 @@ WriteUsersData('userTest', 'sk@gmail.com', 'obj1', 'obj2');
 
 // ===============================================================
 export async function readUsersData(userId) {
+  let userIdRecord = userId;
+
+  const intervalId = setInterval(
+    userIdRecord => {
+      console.log(userIdRecord);
+    },
+    5000,
+    userIdRecord
+  );
+
   const usersRef = ref(db, 'users/' + userId);
   onValue(usersRef, snapshot => {
     const data = snapshot.val();
     const stringifiedWatchedList = JSON.stringify(data.moviesInWatchedList);
     const stringifiedQueueList = JSON.stringify(data.moviesInWatchingQueue);
-    console.log('test2');
     if (typeof data.moviesInWatchedList !== 'undefined') {
       localStorage.setItem('watched', stringifiedWatchedList);
-    } else if (typeof data.moviesInWatchingQueue !== 'undefined') {
+    }
+    if (typeof data.moviesInWatchingQueue !== 'undefined') {
       localStorage.setItem('queue', stringifiedQueueList);
     } else {
       console.log('error: no data');
